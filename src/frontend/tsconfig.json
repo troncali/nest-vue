@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"outDir": "../../public",
+		"jsx": "preserve",
+		"importHelpers": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+	},
+	"include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"]
+}
