@@ -1,5 +1,12 @@
 .DS_Store
 
+# Development certificates
+src/nginx/dev-certs/*.crt
+src/nginx/dev-certs/*.csr
+src/nginx/dev-certs/*.key
+src/nginx/dev-certs/*.pem
+src/nginx/dev-certs/*.srl
+
 # Logs
 logs
 *.log
