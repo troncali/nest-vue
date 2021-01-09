@@ -1,10 +1,12 @@
 # nest-vue
 
-Typescript project template for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, and [Jest](https://jestjs.io) testing, managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp).
+Fullstack typescript monorepo for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
+
+Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp), and powered by [Docker](https://www.docker.com) with [NGINX](https://www.nginx.com) + [Node.js](https://nodejs.dev) under the hood, [certbot](https://certbot.eff.org) SSL, and [Jenkins](https://www.jenkins.io) CI/CD.
 
 #### Get Started
 
-```bash
+```shell
 git clone https://github.com/troncali/nest-vue project
 cd project
 yarn install
@@ -14,9 +16,29 @@ yarn install
 
 Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support).
 
+## The Stack (VxNN)
+
+Here's what this boilerplate template is meant to help you easily deploy, so you can jump straight to substance:
+
+-   **Vue 3**
+-   **x (Database)** - [PostgreSQL](https://www.postgresql.org) and [MongoDB](https://www.mongodb.com) setups included, but configure and use any database you want.
+    -   **TypeORM**
+    -   **GraphQL/Apollo**
+-   **NestJS**
+-   **NGINX**
+
+These core services are supported by the following:
+
+-   **Yarn** - slim dependency management using [Plug'N'Play](https://yarnpkg.com/features/pnp) for smaller repositories.
+    -   This repository is roughly 216 mb with 288 items.
+    -   Using `npm install`, the repository is roughly 770 mb with 75,856 items (March 6, 2021).
+-   **Docker** - spin up your database, backend, and frontend with consistent environments both locally and on remote hosts.
+-   **certbot** - SSL certificate generation for both local development and remote hosts.
+-   **Jenkins** - base pipeline for CI/CD that can be built out to fit your needs.
+
 ## Scripts
 
-Scripts run from the root directory and must be called with `yarn` for proper module resolution.
+Scripts run from the project root and must be called with `yarn` to resolve dependencies.
 
 -   `yarn b-build`: outputs compiled backend (Nest) to `./build`
 -   `yarn f-build`: outputs compiled frontend (Vue) to `./public`
@@ -25,3 +47,16 @@ Scripts run from the root directory and must be called with `yarn` for proper mo
 -   `yarn test`: run all tests for backend and frontend
 -   `yarn b-test`: run backend unit and e2e tests
 -   `yarn f-test`: run frontend unit and e2e tests
+-   `yarn docs`: outputs backend (Nest) documentation to `./docs`
+-   `yarn jenkins`: spin up Jenkins
+
+## Documentation
+
+In progress.
+
+Learn how to get started with this respository, how services are set up, and how you can customize them to your needs.
+
+-   [Docker](README-Docker.md)
+-   [Jenkins](README-Jenkins.md)
+-   [Resources](README-Resources.md)
+-   [Roadmap](README-Roadmap.md)
