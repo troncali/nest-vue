@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.12.9"],
             ["@nestjs/cli", "npm:7.5.3"],
             ["@nestjs/common", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
+            ["@nestjs/config", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:0.6.1"],
             ["@nestjs/core", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/platform-fastify", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/schematics", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.2.2"],
@@ -2439,6 +2440,35 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["uuid", "npm:8.3.1"]
           ],
           "packagePeers": [
+            "@types/reflect-metadata",
+            "@types/rxjs",
+            "reflect-metadata",
+            "rxjs"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@nestjs/config", [
+        ["virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:0.6.1", {
+          "packageLocation": "./.yarn/$$virtual/@nestjs-config-virtual-0b405cba61/0/cache/@nestjs-config-npm-0.6.1-5d4771d565-2c1d89a4c7.zip/node_modules/@nestjs/config/",
+          "packageDependencies": [
+            ["@nestjs/config", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:0.6.1"],
+            ["@nestjs/common", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
+            ["@types/nestjs__common", null],
+            ["@types/reflect-metadata", null],
+            ["@types/rxjs", null],
+            ["dotenv", "npm:8.2.0"],
+            ["dotenv-expand", "npm:5.1.0"],
+            ["lodash.get", "npm:4.4.2"],
+            ["lodash.has", "npm:4.5.2"],
+            ["lodash.set", "npm:4.3.2"],
+            ["reflect-metadata", "npm:0.1.13"],
+            ["rxjs", "npm:6.6.3"],
+            ["uuid", "npm:8.3.1"]
+          ],
+          "packagePeers": [
+            "@nestjs/common",
+            "@types/nestjs__common",
             "@types/reflect-metadata",
             "@types/rxjs",
             "reflect-metadata",
@@ -12545,6 +12575,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["lodash.get", [
+        ["npm:4.4.2", {
+          "packageLocation": "./.yarn/cache/lodash.get-npm-4.4.2-7bda64ed87-447e575e3c.zip/node_modules/lodash.get/",
+          "packageDependencies": [
+            ["lodash.get", "npm:4.4.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["lodash.has", [
+        ["npm:4.5.2", {
+          "packageLocation": "./.yarn/cache/lodash.has-npm-4.5.2-0a10673e08-ed2cbed6f3.zip/node_modules/lodash.has/",
+          "packageDependencies": [
+            ["lodash.has", "npm:4.5.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["lodash.kebabcase", [
         ["npm:4.1.1", {
           "packageLocation": "./.yarn/cache/lodash.kebabcase-npm-4.1.1-89ffca7e1f-cee7b365bf.zip/node_modules/lodash.kebabcase/",
@@ -12568,6 +12616,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash.memoize-npm-4.1.2-0e6250041f-080c1095b7.zip/node_modules/lodash.memoize/",
           "packageDependencies": [
             ["lodash.memoize", "npm:4.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["lodash.set", [
+        ["npm:4.3.2", {
+          "packageLocation": "./.yarn/cache/lodash.set-npm-4.3.2-7586c942c2-4dfedacae1.zip/node_modules/lodash.set/",
+          "packageDependencies": [
+            ["lodash.set", "npm:4.3.2"]
           ],
           "linkType": "HARD",
         }]
@@ -13282,6 +13339,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.12.9"],
             ["@nestjs/cli", "npm:7.5.3"],
             ["@nestjs/common", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
+            ["@nestjs/config", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:0.6.1"],
             ["@nestjs/core", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/platform-fastify", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/schematics", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.2.2"],

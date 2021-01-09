@@ -1798,6 +1798,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/config@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@nestjs/config@npm:0.6.1"
+  dependencies:
+    dotenv: 8.2.0
+    dotenv-expand: 5.1.0
+    lodash.get: 4.4.2
+    lodash.has: 4.5.2
+    lodash.set: 4.3.2
+    uuid: 8.3.1
+  peerDependencies:
+    "@nestjs/common": ^6.10.0 || ^7.0.0
+    reflect-metadata: ^0.1.12
+    rxjs: ^6.0.0
+  checksum: 2c1d89a4c72984f14cb05e0536e8e9640b5d2321534b2762ddb5fa5a83e6abd91db567cf3f540fc95b2f4b44917dcd1c7856bc2c338f892995769adf14ec2890
+  languageName: node
+  linkType: hard
+
 "@nestjs/core@npm:^7.5.5":
   version: 7.5.5
   resolution: "@nestjs/core@npm:7.5.5"
@@ -6242,14 +6260,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-expand@npm:^5.1.0":
+"dotenv-expand@npm:5.1.0, dotenv-expand@npm:^5.1.0":
   version: 5.1.0
   resolution: "dotenv-expand@npm:5.1.0"
   checksum: b895c6220d345db8f58dca439d3bc65c2ee538659df570ed3fa8c99487df854afd6d1ddadf1e43a4091c9ed6166956e7db7bc5a05cf48fa812c0772e1f5cf860
   languageName: node
   linkType: hard
 
-"dotenv@npm:^8.2.0":
+"dotenv@npm:8.2.0, dotenv@npm:^8.2.0":
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
@@ -10718,6 +10736,20 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"lodash.get@npm:4.4.2":
+  version: 4.4.2
+  resolution: "lodash.get@npm:4.4.2"
+  checksum: 447e575e3caa5131ef44e5a0c135b1614f3c937d86b3be0568f9da7b0fd015010af3b6b4e41edf6e2698c9ce2dcc061ca71b31f274f799c991dceb018be16e4f
+  languageName: node
+  linkType: hard
+
+"lodash.has@npm:4.5.2":
+  version: 4.5.2
+  resolution: "lodash.has@npm:4.5.2"
+  checksum: ed2cbed6f3f06fe2ae0a604464208a758197624810e58c4928de3ab9a00d2ac736ade10f49b6ea77f96c702f9d104189a57a7af0bfa1725e8554524aa9466f41
+  languageName: node
+  linkType: hard
+
 "lodash.kebabcase@npm:^4.1.1":
   version: 4.1.1
   resolution: "lodash.kebabcase@npm:4.1.1"
@@ -10736,6 +10768,13 @@ fsevents@^1.2.7:
   version: 4.1.2
   resolution: "lodash.memoize@npm:4.1.2"
   checksum: 080c1095b7795b293a06078737550dc0c8138192cadbafb4e4b1303357d367ac589a1a570fad8de154175b008ca7b2b48d6a7f1755a143e13b764e20a7104080
+  languageName: node
+  linkType: hard
+
+"lodash.set@npm:4.3.2":
+  version: 4.3.2
+  resolution: "lodash.set@npm:4.3.2"
+  checksum: 4dfedacae1c1cf86385a2b6e30ba538f06c90d703a0abd83a11432d80ec24b4016fe27359cdc0554a02a31a468789cbb282801dd755e54581cf0295477e2341d
   languageName: node
   linkType: hard
 
@@ -11385,6 +11424,7 @@ fsevents@^1.2.7:
     "@babel/core": ^7.12.9
     "@nestjs/cli": ^7.5.3
     "@nestjs/common": ^7.5.5
+    "@nestjs/config": ^0.6.1
     "@nestjs/core": ^7.5.5
     "@nestjs/platform-fastify": ^7.5.5
     "@nestjs/schematics": ^7.2.2
