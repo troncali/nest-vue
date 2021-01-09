@@ -1,0 +1,99 @@
+version: "3"
+services:
+    db:
+        build:
+            context: .
+            dockerfile: ./src/docker/db-postgres.Dockerfile
+            # dockerfile: ./src/docker/db-mongo.Dockerfile
+        container_name: db
+        restart: unless-stopped
+        volumes:
+            - db-data:/var/lib/postgresql/data
+            #- db-data:mongo-data-path
+        environment:
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        networks:
+            - app_network
+        ### Use `app_nework` so database is privately exposed only to these
+        ### Docker services. Use ports instead of networks if public exposure
+        ### is needed for external services.
+        # ports:
+        #     - "${DB_PORT}:${DB_PORT}"
+
+    backend:
+        build:
+            context: .
+            dockerfile: ./src/docker/backend.Dockerfile
+        container_name: backend
+        restart: unless-stopped
+        depends_on:
+            - db
+        environment:
+            - NODE_ENV=production
+            - BACKEND_PORT=${BACKEND_PORT}
+        networks:
+            - app_network
+        ### Use `app_nework` so service is not publicly exposed to ensure
+        ### routing through nginx. Use ports instead of networks if public
+        ### exposure is needed for external services.
+        # ports:
+        #     - "${BACKEND_PORT}:${BACKEND_PORT}"
+
+    nginx:
+        build:
+            context: .
+            dockerfile: ./src/docker/nginx.Dockerfile
+            args:
+                - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
+        container_name: nginx
+        restart: unless-stopped
+        volumes:
+            - certbot-html:/etc/nginx/html/certbot
+            - certbot-etc:/etc/letsencrypt
+            - certbot-var:/var/lib/letsencrypt
+            - dhparam:/etc/ssl/certs
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - app_network
+        depends_on:
+            - backend
+            - db
+        environment:
+            - APP_DOMAIN=${APP_DOMAIN}
+            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
+            - BACKEND_BASE_PATH=${BACKEND_BASE_PATH}
+            - BACKEND_PORT=${BACKEND_PORT}
+            - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in `nginx.conf`
+            # Important: `nginx.conf` location after template interpolation
+            - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+
+    certbot:
+        build:
+            context: .
+            dockerfile: ./src/docker/certbot.Dockerfile
+        container_name: certbot
+        volumes:
+            - ./src/nginx/dev-certs:/opt/certbot/dev-certs
+            - certbot-etc:/etc/letsencrypt
+            - certbot-var:/var/lib/letsencrypt
+            - certbot-html:/var/www/html
+        depends_on:
+            - nginx
+        environment:
+            - APP_DOMAIN=${APP_DOMAIN}
+            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
+            - CERT_ENV=${CERT_ENV}
+            - CERTBOT_EMAIL=${CERTBOT_EMAIL}
+
+volumes:
+    certbot-etc:
+    certbot-html:
+    certbot-var:
+    db-data:
+    dhparam:
+
+networks:
+    app_network:
+        driver: bridge
