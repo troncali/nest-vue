@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+    db:
+        ports:
+            - ${DB_PORT}:${DB_PORT}
+
+    nginx:
+        volumes:
+            - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            - APP_DOMAIN=localhost

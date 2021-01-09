@@ -1,5 +1,11 @@
 .DS_Store
 
+# protected files
+.env
+.htpasswd
+src/docker/secrets/*
+!src/docker/secrets/EXAMPLE_SECRET
+
 # Development certificates
 src/nginx/dev-certs/*.crt
 src/nginx/dev-certs/*.csr
@@ -83,9 +89,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
