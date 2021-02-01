@@ -12,8 +12,11 @@ services:
         volumes:
             - db-data:/var/lib/postgresql/data
             #- db-data:mongo-data-path
+        secrets:
+            - db-password
         environment:
-            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+            - POSTGRES_DB=${DB_NAME}
         networks:
             - app_network
         ### Use `app_nework` so database is privately exposed only to these
@@ -108,3 +111,7 @@ volumes:
 networks:
     app_network:
         driver: bridge
+
+secrets:
+    db-password:
+        file: ./src/docker/secrets/DB_PASSWORD
