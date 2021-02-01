@@ -6,6 +6,8 @@ services:
             dockerfile: ./src/docker/db-postgres.Dockerfile
             # dockerfile: ./src/docker/db-mongo.Dockerfile
         container_name: db
+        deploy:
+            mode: global
         restart: unless-stopped
         volumes:
             - db-data:/var/lib/postgresql/data
@@ -25,6 +27,9 @@ services:
             context: .
             dockerfile: ./src/docker/backend.Dockerfile
         container_name: backend
+        deploy:
+            mode: replicated
+            replicas: 1
         restart: unless-stopped
         depends_on:
             - db
@@ -45,7 +50,11 @@ services:
             dockerfile: ./src/docker/nginx.Dockerfile
             args:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
+                - NGINX_GID=${NGINX_GID}
+                - NGINX_UID=${NGINX_UID}
         container_name: nginx
+        deploy:
+            mode: global
         restart: unless-stopped
         volumes:
             - certbot-html:/etc/nginx/html/certbot
@@ -86,6 +95,8 @@ services:
             - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
             - CERT_ENV=${CERT_ENV}
             - CERTBOT_EMAIL=${CERTBOT_EMAIL}
+            - NGINX_GID=${NGINX_GID}
+            - NGINX_UID=${NGINX_UID}
 
 volumes:
     certbot-etc:
