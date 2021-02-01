@@ -28,6 +28,8 @@ else
     # TODO: refactor so this can be implemented with `command` in docker-compose.yml
     certbot certonly --webroot --webroot-path=/var/www/html \
         --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email \
-        --staging -d ${APP_DOMAIN} -d ${APP_DOMAIN_WITH_WWW}
-        # TODO: if error in prod, https://github.com/certbot/certbot/issues/3231#issuecomment-305087561
+        -d ${APP_DOMAIN} -d ${APP_DOMAIN_WITH_WWW}
+    # Apply permissions for nginx to read certificates
+    chown -R ${NGINX_UID}:${NGINX_GID} /etc/letsencrypt/live/${APP_DOMAIN}
+    chown -R ${NGINX_UID}:${NGINX_GID} /etc/letsencrypt/archive/${APP_DOMAIN}
 fi

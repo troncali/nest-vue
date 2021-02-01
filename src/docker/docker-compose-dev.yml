@@ -4,5 +4,8 @@ services:
     nginx:
         volumes:
             - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost
+        ports:
+            - "80:80"
+            - "443:443"
         environment:
             - APP_DOMAIN=localhost
