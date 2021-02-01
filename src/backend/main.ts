@@ -10,6 +10,7 @@ import {
 
 import { AppModule } from "./app.module";
 import { AppConfigService } from "./config/app/config.service";
+import { HandleDockerSignals } from "./lib/docker";
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
@@ -22,5 +23,7 @@ async function bootstrap() {
 
 	// Docker requires 0.0.0.0 for host instead of default 'localhost'
 	await app.listen(appConfig.port, "0.0.0.0");
+
+	HandleDockerSignals(app);
 }
 bootstrap();
