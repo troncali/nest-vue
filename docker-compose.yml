@@ -79,7 +79,7 @@ services:
             - db
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
+            - BACKEND_SERVICE_NAME=backend
             - BACKEND_BASE_PATH=${BACKEND_BASE_PATH}
             - BACKEND_PORT=${BACKEND_PORT}
             - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in `nginx.conf`
@@ -91,6 +91,17 @@ services:
             context: .
             dockerfile: ./src/docker/certbot.Dockerfile
         container_name: certbot
+        command:
+            [
+                "certonly",
+                "--webroot",
+                "--webroot-path=/var/www/html",
+                "--agree-tos",
+                "--no-eff-email",
+                "--email=${CERTBOT_EMAIL}",
+                "-d=${APP_DOMAIN}",
+                "-d=www.${APP_DOMAIN}"
+            ]
         volumes:
             - ./src/nginx/dev-certs:/opt/certbot/dev-certs
             - certbot-etc:/etc/letsencrypt
@@ -100,7 +111,6 @@ services:
             - nginx
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
             - CERT_ENV=${CERT_ENV}
             - CERTBOT_EMAIL=${CERTBOT_EMAIL}
             - NGINX_GID=${NGINX_GID}
