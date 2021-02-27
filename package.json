@@ -22,6 +22,7 @@
 		"f-start": "yarn vue-cli-service serve ./src/frontend/main.ts",
 		"f-build": "yarn vue-cli-service build --dest=\"./public\" ./src/frontend/main.ts",
 		"f-test": "yarn jest --selectProjects frontend",
+		"f-watch": "yarn vue-cli-service build --watch --no-clean --dest=\"./public\" ./src/frontend/main.ts",
 		"jenkins": "yarn exec jenkins --httpPort=9999 --httpListenAddress=127.0.0.1",
 		"test": "yarn jest"
 	},
