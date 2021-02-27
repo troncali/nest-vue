@@ -74,6 +74,7 @@ services:
             - db
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
+            - BACKEND_SERVICE_NAME=backend
             - BACKEND_BASE_PATH=${BACKEND_BASE_PATH}
             - BACKEND_PORT=${BACKEND_PORT}
             - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in `nginx.conf`

@@ -4,8 +4,7 @@ services:
     nginx:
         volumes:
             - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost
-        ports:
-            - "80:80"
-            - "443:443"
+            - ./public:/etc/nginx/html
         environment:
             - APP_DOMAIN=localhost
+            - BACKEND_SERVICE_NAME=host.docker.internal # localhost on host matchine

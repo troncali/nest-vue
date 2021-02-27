@@ -12,10 +12,10 @@ USER node
 COPY --chown=node:node ./build ./build
 
 # Leverage Yarn's Zero-Install feature for dependencies
-COPY --chown=node:node [".pnp.js", ".yarnrc.yml", "package.json", "yarn.lock", "./"]
+COPY --chown=node:node [".pnp.cjs", ".yarnrc.yml", "package.json", "yarn.lock", "./"]
 COPY --chown=node:node ./.yarn ./.yarn
 
 EXPOSE ${BACKEND_PORT}
 
 # Equivalent to `CMD ["yarn", "b-start:prod"]`, but calling safely for Yarn PnP
-CMD ["node", "-r", "./.pnp.js", "build/main.js"]
+CMD ["node", "-r", "./.pnp.cjs", "build/main.js"]
