@@ -11,12 +11,16 @@ services:
         restart: unless-stopped
         volumes:
             - db-data:/var/lib/postgresql/data
-            #- db-data:mongo-data-path
+            #- db-data:/data/db
         secrets:
+            - db-admin
             - db-password
         environment:
+            - POSTGRES_USER_FILE=/run/secrets/db-admin
             - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
             - POSTGRES_DB=${DB_NAME}
+            # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/db-admin
+            # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/db-password
         networks:
             - app_network
         ### Use `app_nework` so database is privately exposed only to these
@@ -123,5 +127,7 @@ networks:
         driver: bridge
 
 secrets:
+    db-admin:
+        file: ./src/docker/secrets/DB_ADMIN
     db-password:
         file: ./src/docker/secrets/DB_PASSWORD
