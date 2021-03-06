@@ -1,6 +1,10 @@
 version: "3"
 
 services:
+    db:
+        ports:
+            - ${DB_PORT}:${DB_PORT}
+
     nginx:
         volumes:
             - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost

@@ -13,14 +13,14 @@ services:
             - db-data:/var/lib/postgresql/data
             #- db-data:/data/db
         secrets:
-            - db-admin
-            - db-password
+            - DB_USERNAME
+            - DB_PASSWORD
         environment:
-            - POSTGRES_USER_FILE=/run/secrets/db-admin
-            - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-            - POSTGRES_DB=${DB_NAME}
-            # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/db-admin
-            # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/db-password
+            - POSTGRES_USER_FILE=/run/secrets/DB_USERNAME
+            - POSTGRES_PASSWORD_FILE=/run/secrets/DB_PASSWORD
+            - POSTGRES_DB=${DB_DATABASE_NAME}
+            # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/DB_USERNAME
+            # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
             - app_network
         ### Use `app_nework` so database is privately exposed only to these
@@ -42,6 +42,7 @@ services:
             - db
         environment:
             - NODE_ENV=production
+            - DOCKER_ENV=true
             - BACKEND_PORT=${BACKEND_PORT}
         networks:
             - app_network
@@ -127,7 +128,7 @@ networks:
         driver: bridge
 
 secrets:
-    db-admin:
-        file: ./src/docker/secrets/DB_ADMIN
-    db-password:
+    DB_USERNAME:
+        file: ./src/docker/secrets/DB_USERNAME
+    DB_PASSWORD:
         file: ./src/docker/secrets/DB_PASSWORD
