@@ -18,4 +18,4 @@ COPY --chown=node:node ./.yarn ./.yarn
 EXPOSE ${BACKEND_PORT}
 
 # Equivalent to `CMD ["yarn", "b-start:prod"]`, but calling safely for Yarn PnP
-CMD ["node", "-r", "./.pnp.cjs", "build/main.js"]
+CMD ["node", "-r", "./.pnp.cjs", "build/src/backend/main.js"]
