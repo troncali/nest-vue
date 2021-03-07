@@ -6,5 +6,5 @@
 		"outDir": "../../build",
 		"incremental": true
 	},
-	"include": ["**/*"]
+	"include": ["**/*", "../lib/docker-handler/index.ts"]
 }

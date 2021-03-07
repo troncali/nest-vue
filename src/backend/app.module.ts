@@ -1,11 +1,29 @@
 import { Module } from "@nestjs/common";
+// import { GraphQLModule } from "@nestjs/graphql";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { AppConfigModule } from "./config/app/config.module";
-
+import { DbConfigModule } from "./config/db/config.module";
+import { DefaultDbConfigService } from "./config/db/default-postgres/config.service";
 @Module({
-	imports: [AppConfigModule],
+	imports: [
+		AppConfigModule,
+		DbConfigModule,
+		// GraphQLModule.forRootAsync({
+		// 	imports: [],
+		// 	useFactory: (gqlConfig: GqlConfigService) =>
+		// 		gqlConfig.get("options"),
+		// 	inject: []
+		// }),
+		TypeOrmModule.forRootAsync({
+			imports: [DbConfigModule],
+			useFactory: (DefaultDbConfig: DefaultDbConfigService) =>
+				DefaultDbConfig.options,
+			inject: [DefaultDbConfigService]
+		})
+	],
 	controllers: [AppController],
 	providers: [AppService]
 })

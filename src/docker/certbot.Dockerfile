@@ -4,4 +4,4 @@ COPY ["./src/nginx/certbot-entrypoint.sh", "./src/nginx/dev-certs/dev-domains.ex
 
 RUN chmod +x certbot-entrypoint.sh
 
-ENTRYPOINT ./certbot-entrypoint.sh
+ENTRYPOINT ["./certbot-entrypoint.sh"]
