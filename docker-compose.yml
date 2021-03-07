@@ -40,10 +40,18 @@ services:
         restart: unless-stopped
         depends_on:
             - db
+        secrets:
+            - DB_USERNAME
+            - DB_PASSWORD
         environment:
             - NODE_ENV=production
             - DOCKER_ENV=true
             - BACKEND_PORT=${BACKEND_PORT}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE_NAME=${DB_DATABASE_NAME}
+            - DB_SCHEMA=${DB_SCHEMA}
+            - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
         networks:
             - app_network
         ### Use `app_nework` so service is not publicly exposed to ensure
