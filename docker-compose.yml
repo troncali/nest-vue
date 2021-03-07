@@ -6,12 +6,21 @@ services:
             dockerfile: ./src/docker/db-postgres.Dockerfile
             # dockerfile: ./src/docker/db-mongo.Dockerfile
         container_name: db
+        deploy:
+            mode: global
         restart: unless-stopped
         volumes:
             - db-data:/var/lib/postgresql/data
-            #- db-data:mongo-data-path
+            #- db-data:/data/db
+        secrets:
+            - DB_USERNAME
+            - DB_PASSWORD
         environment:
-            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_USER_FILE=/run/secrets/DB_USERNAME
+            - POSTGRES_PASSWORD_FILE=/run/secrets/DB_PASSWORD
+            - POSTGRES_DB=${DB_DATABASE_NAME}
+            # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/DB_USERNAME
+            # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
             - app_network
         ### Use `app_nework` so database is privately exposed only to these
@@ -25,12 +34,24 @@ services:
             context: .
             dockerfile: ./src/docker/backend.Dockerfile
         container_name: backend
+        deploy:
+            mode: replicated
+            replicas: 1
         restart: unless-stopped
         depends_on:
             - db
+        secrets:
+            - DB_USERNAME
+            - DB_PASSWORD
         environment:
             - NODE_ENV=production
+            - DOCKER_ENV=true
             - BACKEND_PORT=${BACKEND_PORT}
+            - DB_HOST=${DB_HOST}
+            - DB_PORT=${DB_PORT}
+            - DB_DATABASE_NAME=${DB_DATABASE_NAME}
+            - DB_SCHEMA=${DB_SCHEMA}
+            - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
         networks:
             - app_network
         ### Use `app_nework` so service is not publicly exposed to ensure
@@ -45,7 +66,11 @@ services:
             dockerfile: ./src/docker/nginx.Dockerfile
             args:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
+                - NGINX_GID=${NGINX_GID}
+                - NGINX_UID=${NGINX_UID}
         container_name: nginx
+        deploy:
+            mode: global
         restart: unless-stopped
         volumes:
             - certbot-html:/etc/nginx/html/certbot
@@ -62,7 +87,7 @@ services:
             - db
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
+            - BACKEND_SERVICE_NAME=backend
             - BACKEND_BASE_PATH=${BACKEND_BASE_PATH}
             - BACKEND_PORT=${BACKEND_PORT}
             - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in `nginx.conf`
@@ -74,6 +99,17 @@ services:
             context: .
             dockerfile: ./src/docker/certbot.Dockerfile
         container_name: certbot
+        command:
+            [
+                "certonly",
+                "--webroot",
+                "--webroot-path=/var/www/html",
+                "--agree-tos",
+                "--no-eff-email",
+                "--email=${CERTBOT_EMAIL}",
+                "-d=${APP_DOMAIN}",
+                "-d=www.${APP_DOMAIN}"
+            ]
         volumes:
             - ./src/nginx/dev-certs:/opt/certbot/dev-certs
             - certbot-etc:/etc/letsencrypt
@@ -83,9 +119,10 @@ services:
             - nginx
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - APP_DOMAIN_WITH_WWW=www.${APP_DOMAIN}
             - CERT_ENV=${CERT_ENV}
             - CERTBOT_EMAIL=${CERTBOT_EMAIL}
+            - NGINX_GID=${NGINX_GID}
+            - NGINX_UID=${NGINX_UID}
 
 volumes:
     certbot-etc:
@@ -97,3 +134,9 @@ volumes:
 networks:
     app_network:
         driver: bridge
+
+secrets:
+    DB_USERNAME:
+        file: ./src/docker/secrets/DB_USERNAME
+    DB_PASSWORD:
+        file: ./src/docker/secrets/DB_PASSWORD
