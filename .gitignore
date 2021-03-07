@@ -101,6 +101,7 @@ typings/
 dist
 build
 public
+docs
 
 # Gatsby files
 .cache/

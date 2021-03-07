@@ -1,6 +1,7 @@
 /**
  * TODO: build out folder structure - see NestJS Resource 1
  * TODO: build out model module - see NestJS Resource 2
+ * TODO: adjust tsconfig so that ./build/src/backend becomes ./build/backend
  */
 
 import { NestFactory } from "@nestjs/core";
