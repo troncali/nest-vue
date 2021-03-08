@@ -3653,7 +3653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/long@npm:^4.0.0":
+"@types/long@npm:^4.0.0, @types/long@npm:^4.0.1":
   version: 4.0.1
   resolution: "@types/long@npm:4.0.1"
   checksum: ff9653c33f5000d0f131fd98a950a0343e2e33107dd067a97ac4a3b9678e1a2e39ea44772ad920f54ef6e8f107f76bc92c2584ba905a0dc4253282a4101166d0
@@ -3897,7 +3897,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ws@npm:^7.0.0":
+"@types/ws@npm:^7.0.0, @types/ws@npm:^7.4.0":
   version: 7.4.0
   resolution: "@types/ws@npm:7.4.0"
   dependencies:
@@ -14182,10 +14182,12 @@ fsevents@~2.3.1:
     "@nestjs/testing": ^7.5.5
     "@nestjs/typeorm": ^7.1.5
     "@types/jest": ^26.0.15
+    "@types/long": ^4.0.1
     "@types/node": ^14.14.10
     "@types/supertest": ^2.0.10
     "@types/webpack": ^4.41.25
     "@types/webpack-env": ^1.16.0
+    "@types/ws": ^7.4.0
     "@typescript-eslint/eslint-plugin": ^4.8.2
     "@typescript-eslint/parser": ^4.8.2
     "@vue/cli-plugin-babel": ~4.5.0

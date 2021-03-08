@@ -1,6 +1,6 @@
 # nest-vue
 
-Fullstack typescript monorepo for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) testing, and agnostic data options through [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
+Fullstack typescript monorepo for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
 
 Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp), and powered by [Docker](https://www.docker.com) with [NGINX](https://www.nginx.com) + [Node.js](https://nodejs.dev) under the hood, [certbot](https://certbot.eff.org) SSL, and [Jenkins](https://www.jenkins.io) CI/CD.
 
@@ -16,7 +16,7 @@ yarn install
 
 Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support).
 
-## VxNN: a snappy, scalable stack
+## The Stack (VxNN)
 
 Here's what this boilerplate template is meant to help you easily deploy, so you can jump straight to substance:
 
