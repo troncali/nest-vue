@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
-import configuration from "./configuration";
 import { GqlConfigService } from "./config.service";
+import configuration from "./configuration";
+import validationSchema from "./config.validation";
 
 /**
  * Import and provide GraphQL-related configuration classes.
@@ -13,7 +14,8 @@ import { GqlConfigService } from "./config.service";
 	imports: [
 		ConfigModule.forRoot({
 			load: [configuration],
-			cache: true
+			cache: true,
+			validationSchema: validationSchema
 		})
 	],
 	providers: [ConfigService, GqlConfigService],
