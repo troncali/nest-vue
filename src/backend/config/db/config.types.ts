@@ -2,18 +2,17 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { TlsOptions } from "tls";
 
 /** Types for PostgreSQL's configurable options. */
-type PostgresDbOptions = {
+export type PostgresDbOptions = {
 	type: "postgres";
 } & TypeOrmModuleOptions;
 
 /** Types for MongoDB's configurable options. */
-type MongoDbOptions = {
+export type MongoDbOptions = {
 	type: "mongodb";
 } & TypeOrmModuleOptions;
 
 /** Base database configuration properties for intellisense. */
-interface BaseDbOptionTypes {
-	// Full property path is required for nested properties.
+export interface BaseDbOptionTypes {
 	"db.type": string;
 	"db.name": string;
 	"db.host": string;
@@ -26,19 +25,19 @@ interface BaseDbOptionTypes {
 }
 
 /** PostgreSQL's configuration properties for intellisense. */
-interface PostgresOptionTypes extends BaseDbOptionTypes {
+export interface PostgresOptionTypes extends BaseDbOptionTypes {
 	"db.password": string | (() => string) | (() => Promise<string>);
 	"db.schema": string;
 	"db.ssl": boolean | TlsOptions;
 }
 
 /** MongoDB's configuration properties for intellisense. */
-interface MongoOptionTypes extends BaseDbOptionTypes {
+export interface MongoOptionTypes extends BaseDbOptionTypes {
 	"db.password": string;
 }
 
 /** TypeORM's compatible database types */
-enum TypeOrmDatabaseTypes {
+export enum TypeOrmDatabaseTypes {
 	BetterSQLite3 = "better-sqlite3",
 	CockroachDB = "cockroachdb",
 	Cordova = "cordova",
@@ -53,11 +52,3 @@ enum TypeOrmDatabaseTypes {
 	SQLite = "sqlite",
 	SQLjs = "sqljs"
 }
-
-export {
-	PostgresDbOptions,
-	MongoDbOptions,
-	PostgresOptionTypes,
-	MongoOptionTypes,
-	TypeOrmDatabaseTypes
-};
