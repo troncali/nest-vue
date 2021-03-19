@@ -27,6 +27,7 @@
 		"test": "yarn jest"
 	},
 	"dependencies": {
+		"@casl/ability": "^5.2.2",
 		"@nestjs/common": "^7.5.5",
 		"@nestjs/config": "^0.6.1",
 		"@nestjs/core": "^7.5.5",
@@ -34,12 +35,14 @@
 		"@nestjs/platform-fastify": "^7.5.5",
 		"@nestjs/serve-static": "^2.1.4",
 		"@nestjs/typeorm": "^7.1.5",
-		"apollo-server-fastify": "^2.21.0",
+		"apollo-server-fastify": "3.0.0-alpha.3",
 		"core-js": "^3.8.0",
+		"fast-json-stringify": "^2.5.2",
 		"fastify": "^3.9.1",
 		"fastify-static": "^3.3.0",
 		"graphql": "^15.5.0",
 		"graphql-tools": "^7.0.4",
+		"joi": "^17.4.0",
 		"pg": "^8.5.1",
 		"reflect-metadata": "^0.1.13",
 		"rimraf": "^3.0.2",
