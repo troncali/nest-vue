@@ -36,6 +36,8 @@
 		"@nestjs/serve-static": "^2.1.4",
 		"@nestjs/typeorm": "^7.1.5",
 		"apollo-server-fastify": "3.0.0-alpha.3",
+		"class-transformer": "^0.4.0",
+		"class-validator": "^0.13.1",
 		"core-js": "^3.8.0",
 		"fast-json-stringify": "^2.5.2",
 		"fastify": "^3.9.1",
