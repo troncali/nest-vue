@@ -12,6 +12,6 @@ export default registerAs(
 	(): GqlModuleOptions => ({
 		autoSchemaFile: join(process.cwd(), "src/backend/schema.gql"),
 		sortSchema: true,
-		path: `${process.env.BACKEND_BASE_ROUTE}/${process.env.GRAPHQL_PATH}`
+		path: `${process.env.BACKEND_BASE_ROUTE}/${process.env.GRAPHQL_ROUTE}`
 	})
 );

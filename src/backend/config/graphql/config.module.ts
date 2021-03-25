@@ -22,3 +22,4 @@ import validationSchema from "./config.validation";
 	exports: [ConfigService, GqlConfigService]
 })
 export class GqlConfigModule {}
+// TODO: configure GraphQL options - https://www.apollographql.com/docs/apollo-server/api/apollo-server/#constructor
