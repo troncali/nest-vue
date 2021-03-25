@@ -3350,6 +3350,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/validator@npm:^13.1.3":
+  version: 13.1.3
+  resolution: "@types/validator@npm:13.1.3"
+  checksum: 3ffecee869a8bfef7e9cda47bc37e7e074c2b1e1ab90dfabf345ee7e15818bd3272b575afe490b096b597d22c3a7a4ce0d3708d59cadd368f63f443cdb13c66d
+  languageName: node
+  linkType: hard
+
 "@types/webpack-dev-server@npm:^3.11.0":
   version: 3.11.1
   resolution: "@types/webpack-dev-server@npm:3.11.1"
@@ -6646,6 +6653,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-transformer@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "class-transformer@npm:0.4.0"
+  checksum: 4057346b512705b1a5a68025b025a5be1ff847d7e0e76e82bbb937f832cf6235c5f66e874487d4bd35d67401411e8a3279c9d36bdd8c800336d5507ee6e94af0
+  languageName: node
+  linkType: hard
+
 "class-utils@npm:^0.3.5":
   version: 0.3.6
   resolution: "class-utils@npm:0.3.6"
@@ -6655,6 +6669,17 @@ __metadata:
     isobject: ^3.0.0
     static-extend: ^0.1.1
   checksum: be108900801e639e50f96a7e4bfa8867c753a7750a7603879f3981f8b0a89cba657497a2d5f40cd4ea557ff15d535a100818bb486baf6e26fe5d7872e75f1078
+  languageName: node
+  linkType: hard
+
+"class-validator@npm:^0.13.1":
+  version: 0.13.1
+  resolution: "class-validator@npm:0.13.1"
+  dependencies:
+    "@types/validator": ^13.1.3
+    libphonenumber-js: ^1.9.7
+    validator: ^13.5.2
+  checksum: 1d77f869792e83baef67d18220baf1e1a413a43efbd454ed359e0da691462e6d7d869e73de3ce5bb4a67206084338e5e4323e9e54dd8bc967c6fadb4e9ac44c2
   languageName: node
   linkType: hard
 
@@ -12867,6 +12892,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.9.7":
+  version: 1.9.14
+  resolution: "libphonenumber-js@npm:1.9.14"
+  checksum: 6f06ec412686ef890ac4869969cda96be63b61d5cba16f1e266b435ce53399e645f4154b234c380a8b790812463d8dd21bc4ef513684a42ab336987bd122fdeb
+  languageName: node
+  linkType: hard
+
 "light-my-request@npm:4.2.1, light-my-request@npm:^4.2.0":
   version: 4.2.1
   resolution: "light-my-request@npm:4.2.1"
@@ -13808,6 +13840,8 @@ fsevents@~2.1.2:
     apollo-server-fastify: 3.0.0-alpha.3
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
+    class-transformer: ^0.4.0
+    class-validator: ^0.13.1
     copy-webpack-plugin: 5.1.2
     core-js: ^3.8.0
     eslint: ^7.15.0
@@ -18952,6 +18986,13 @@ typescript@4.0.5:
     spdx-correct: ^3.0.0
     spdx-expression-parse: ^3.0.0
   checksum: 35703ac889d419cf2aceef63daeadbe4e77227c39ab6287eeb6c1b36a746b364f50ba22e88591f5d017bc54685d8137bc2d328d0a896e4d3fd22093c0f32a9ad
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.5.2":
+  version: 13.5.2
+  resolution: "validator@npm:13.5.2"
+  checksum: 28655521e2d80bd41af856f8691d199e4081396d87adab34f9b66926873e4654e6a2acbd5a22d7dc96835d8caa6ba3d829da12e86d668dc709d9ab97e16183bd
   languageName: node
   linkType: hard
 
