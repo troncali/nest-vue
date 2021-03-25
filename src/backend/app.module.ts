@@ -9,9 +9,11 @@ import { DbConfigModule } from "./config/db/config.module";
 import { DefaultDbConfigService } from "./config/db/default-postgres/config.service";
 import { GqlConfigModule } from "./config/graphql/config.module";
 import { GqlConfigService } from "./config/graphql/config.service";
+import { UsersModule } from "./models/users/users.module";
 @Module({
 	imports: [
 		AppConfigModule,
+		// TODO: put db and gql in provider(s)
 		GraphQLModule.forRootAsync({
 			imports: [GqlConfigModule],
 			useExisting: GqlConfigService
@@ -19,7 +21,8 @@ import { GqlConfigService } from "./config/graphql/config.service";
 		TypeOrmModule.forRootAsync({
 			imports: [DbConfigModule],
 			useExisting: DefaultDbConfigService
-		})
+		}),
+		UsersModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
