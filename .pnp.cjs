@@ -71,6 +71,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["apollo-server-fastify", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:3.0.0-alpha.3"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["babel-loader", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.2.2"],
+            ["class-transformer", "npm:0.4.0"],
+            ["class-validator", "npm:0.13.1"],
             ["copy-webpack-plugin", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:5.1.2"],
             ["core-js", "npm:3.9.1"],
             ["eslint", "npm:7.15.0"],
@@ -5242,6 +5244,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/validator", [
+        ["npm:13.1.3", {
+          "packageLocation": "./.yarn/cache/@types-validator-npm-13.1.3-4191eefe06-3ffecee869.zip/node_modules/@types/validator/",
+          "packageDependencies": [
+            ["@types/validator", "npm:13.1.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/webpack", [
         ["npm:4.41.25", {
           "packageLocation": "./.yarn/cache/@types-webpack-npm-4.41.25-dd33ac05ac-90141c04f8.zip/node_modules/@types/webpack/",
@@ -9576,6 +9587,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["class-transformer", [
+        ["npm:0.4.0", {
+          "packageLocation": "./.yarn/cache/class-transformer-npm-0.4.0-7e25d375bc-4057346b51.zip/node_modules/class-transformer/",
+          "packageDependencies": [
+            ["class-transformer", "npm:0.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["class-utils", [
         ["npm:0.3.6", {
           "packageLocation": "./.yarn/cache/class-utils-npm-0.3.6-2c691ad006-be10890080.zip/node_modules/class-utils/",
@@ -9585,6 +9605,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["define-property", "npm:0.2.5"],
             ["isobject", "npm:3.0.1"],
             ["static-extend", "npm:0.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["class-validator", [
+        ["npm:0.13.1", {
+          "packageLocation": "./.yarn/cache/class-validator-npm-0.13.1-6dc5e76ff9-1d77f86979.zip/node_modules/class-validator/",
+          "packageDependencies": [
+            ["class-validator", "npm:0.13.1"],
+            ["@types/validator", "npm:13.1.3"],
+            ["libphonenumber-js", "npm:1.9.14"],
+            ["validator", "npm:13.5.2"]
           ],
           "linkType": "HARD",
         }]
@@ -16622,6 +16654,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["libphonenumber-js", [
+        ["npm:1.9.14", {
+          "packageLocation": "./.yarn/cache/libphonenumber-js-npm-1.9.14-8ecb6ebbec-6f06ec4126.zip/node_modules/libphonenumber-js/",
+          "packageDependencies": [
+            ["libphonenumber-js", "npm:1.9.14"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["light-my-request", [
         ["npm:4.2.1", {
           "packageLocation": "./.yarn/cache/light-my-request-npm-4.2.1-b1b2d30642-0ff7acc541.zip/node_modules/light-my-request/",
@@ -17669,6 +17710,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["apollo-server-fastify", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:3.0.0-alpha.3"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["babel-loader", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.2.2"],
+            ["class-transformer", "npm:0.4.0"],
+            ["class-validator", "npm:0.13.1"],
             ["copy-webpack-plugin", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:5.1.2"],
             ["core-js", "npm:3.9.1"],
             ["eslint", "npm:7.15.0"],
@@ -23561,6 +23604,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validate-npm-package-license", "npm:3.0.4"],
             ["spdx-correct", "npm:3.1.1"],
             ["spdx-expression-parse", "npm:3.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["validator", [
+        ["npm:13.5.2", {
+          "packageLocation": "./.yarn/cache/validator-npm-13.5.2-a981b4609f-28655521e2.zip/node_modules/validator/",
+          "packageDependencies": [
+            ["validator", "npm:13.5.2"]
           ],
           "linkType": "HARD",
         }]
