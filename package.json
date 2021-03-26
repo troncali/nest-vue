@@ -1,6 +1,6 @@
 {
 	"name": "nest-vue",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Fullstack typescript monorepo for NestJS + Fastify backend, Vue frontend, Jest testing, and agnostic data via TypeORM + GraphQL.",
 	"main": "build/src/backend/main.js",
 	"repository": "https://github.com/troncali/nest-vue.git",
