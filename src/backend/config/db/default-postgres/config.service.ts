@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { TypeOrmOptionsFactory } from "@nestjs/typeorm";
 
 import {
 	PostgresDbOptions,
@@ -14,8 +15,26 @@ import {
  * @class
  */
 @Injectable()
-export class DefaultDbConfigService {
+export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 	constructor(private configService: ConfigService<PostgresOptionTypes>) {}
+
+	/** Generate the full configuration object for the default database. */
+	createTypeOrmOptions(): PostgresDbOptions {
+		return {
+			name: this.name,
+			type: this.type,
+			host: this.host,
+			port: this.port,
+			username: this.username,
+			password: this.password,
+			database: this.database,
+			schema: this.schema,
+			ssl: this.ssl,
+			entities: this.entities,
+			autoLoadEntities: this.autoLoadEntities,
+			synchronize: this.synchronize
+		};
+	}
 
 	/** Database type. */
 	get type(): PostgresDbOptions["type"] {
@@ -33,19 +52,17 @@ export class DefaultDbConfigService {
 
 	/** Database host. */
 	get host(): PostgresDbOptions["host"] {
-		return this.configService.get<PostgresDbOptions["host"]>("db.host");
+		return this.configService.get("db.host");
 	}
 
 	/** Database port. */
 	get port(): PostgresDbOptions["port"] {
-		return this.configService.get<PostgresDbOptions["port"]>("db.port");
+		return this.configService.get("db.port");
 	}
 
 	/** Database username. */
 	get username(): PostgresDbOptions["username"] {
-		return this.configService.get<PostgresDbOptions["username"]>(
-			"db.username"
-		);
+		return this.configService.get("db.username");
 	}
 
 	/**
@@ -54,26 +71,22 @@ export class DefaultDbConfigService {
 	 * @returns A function that returns a promise-wrapped string.
 	 */
 	get password(): PostgresDbOptions["password"] {
-		return this.configService.get<PostgresDbOptions["password"]>(
-			"db.password"
-		);
+		return this.configService.get("db.password");
 	}
 
 	/** Database name that will be the target of operations.  */
 	get database(): PostgresDbOptions["database"] {
-		return this.configService.get<PostgresDbOptions["database"]>(
-			"db.database"
-		);
+		return this.configService.get("db.database");
 	}
 
 	/** Database schema that will be the target of operations.  */
 	get schema(): PostgresDbOptions["schema"] {
-		return this.configService.get<PostgresDbOptions["schema"]>("db.schema");
+		return this.configService.get("db.schema");
 	}
 
 	/** Object with SSL parameters.  */
 	get ssl(): PostgresDbOptions["ssl"] {
-		return this.configService.get<PostgresDbOptions["ssl"]>("db.ssl");
+		return this.configService.get("db.ssl");
 	}
 
 	/**
@@ -82,16 +95,12 @@ export class DefaultDbConfigService {
 	 * are supported, but they cannot be used with webpack.
 	 */
 	get entities(): PostgresDbOptions["entities"] {
-		return this.configService.get<PostgresDbOptions["entities"]>(
-			"db.entities"
-		);
+		return this.configService.get("db.entities");
 	}
 
 	/** Whether to automatically load entities.  */
 	get autoLoadEntities(): PostgresDbOptions["autoLoadEntities"] {
-		return this.configService.get<PostgresDbOptions["autoLoadEntities"]>(
-			"db.autoLoadEntities"
-		);
+		return this.configService.get("db.autoLoadEntities");
 	}
 
 	/**
@@ -102,26 +111,6 @@ export class DefaultDbConfigService {
 	 * Default: false in production (due to data loss), true in development.
 	 */
 	get synchronize(): PostgresDbOptions["synchronize"] {
-		return this.configService.get<PostgresDbOptions["synchronize"]>(
-			"db.synchronize"
-		);
-	}
-
-	/** The full configuration object for the default database. */
-	get options(): PostgresDbOptions {
-		return {
-			name: this.name,
-			type: this.type,
-			host: this.host,
-			port: this.port,
-			username: this.username,
-			password: this.password,
-			database: this.database,
-			schema: this.schema,
-			ssl: this.ssl,
-			entities: this.entities,
-			autoLoadEntities: this.autoLoadEntities,
-			synchronize: this.synchronize
-		};
+		return this.configService.get("db.synchronize");
 	}
 }

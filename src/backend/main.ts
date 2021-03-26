@@ -18,11 +18,14 @@ import { DockerHandler } from "../lib/docker-handler";
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
-		new FastifyAdapter()
+		new FastifyAdapter({
+			// Set Fastify options: https://www.fastify.io/docs/latest/Server/
+			ignoreTrailingSlash: true
+		})
 	);
 
-	// Load '.env' variables and Docker secrets
 	const appConfig: AppConfigService = app.get(AppConfigService);
+	app.setGlobalPrefix(`${appConfig.baseRoute}`);
 
 	// Docker requires 0.0.0.0 for host instead of default 'localhost'
 	await app.listen(appConfig.port, "0.0.0.0");
