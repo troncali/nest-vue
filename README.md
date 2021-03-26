@@ -40,10 +40,12 @@ These core services are supported by the following:
 
 Scripts run from the project root and must be called with `yarn` to resolve dependencies.
 
+-   `yarn docker:dev`: spins up db and nginx for local development
+    -   Nginx proxies to the local backend to mimic production and take advantage of developer tools (like file watching)
+-   `yarn b-start`: serve and watch the backend at http://localhost:3001/
+-   `yarn f-start`: serve and watch the frontend through the Vue CLI Service at http://localhost:8080/
 -   `yarn b-build`: outputs compiled backend (Nest) to `./build`
 -   `yarn f-build`: outputs compiled frontend (Vue) to `./public`
--   `yarn b-start`: serve and watch the backend at http://localhost:3000/
--   `yarn f-start`: serve and watch the frontend through the Vue CLI Service at http://localhost:8080/
 -   `yarn test`: run all tests for backend and frontend
 -   `yarn b-test`: run backend unit and e2e tests
 -   `yarn f-test`: run frontend unit and e2e tests
