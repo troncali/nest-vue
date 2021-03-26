@@ -4,6 +4,13 @@ services:
     db:
         ports:
             - ${DB_PORT}:${DB_PORT}
+        # command: ["postgres", "-d", "2"]
+        command: [
+                "postgres",
+                # Set runtime parameters
+                "-c",
+                "log_statement=all" # Which SQL statements to log
+            ]
 
     nginx:
         volumes:
