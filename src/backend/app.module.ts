@@ -1,29 +1,15 @@
 import { Module } from "@nestjs/common";
-import { GraphQLModule } from "@nestjs/graphql";
-import { TypeOrmModule } from "@nestjs/typeorm";
+
+import { AppConfigModule } from "./config/app/config.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { AppConfigModule } from "./config/app/config.module";
-import { DbConfigModule } from "./config/db/config.module";
-import { DefaultDbConfigService } from "./config/db/default-postgres/config.service";
-import { GqlConfigModule } from "./config/graphql/config.module";
-import { GqlConfigService } from "./config/graphql/config.service";
+
 import { UsersModule } from "./models/users/users.module";
+import { DatabaseProvider } from "./providers/database.provider";
+import { GraphQLProvider } from "./providers/graphql.provider";
 @Module({
-	imports: [
-		AppConfigModule,
-		// TODO: put db and gql in provider(s)
-		GraphQLModule.forRootAsync({
-			imports: [GqlConfigModule],
-			useExisting: GqlConfigService
-		}),
-		TypeOrmModule.forRootAsync({
-			imports: [DbConfigModule],
-			useExisting: DefaultDbConfigService
-		}),
-		UsersModule
-	],
+	imports: [AppConfigModule, DatabaseProvider, GraphQLProvider, UsersModule],
 	controllers: [AppController],
 	providers: [AppService]
 })
