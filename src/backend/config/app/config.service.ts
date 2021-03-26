@@ -1,17 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
-// Define interface to prevent references to properties that do not exist
-interface AppEnvVars {
-	// Full property path is required for nested properties
-	// "app.name": string;
-	// "app.env": string;
-	// "app.url": string;
-	"app.port": number;
-}
+import { AppEnvVars } from "./config.types";
 
 /**
- * Service dealing with app config based operations.
+ * Configuration service for core application.
  *
  * @class
  */
@@ -19,16 +12,21 @@ interface AppEnvVars {
 export class AppConfigService {
 	constructor(private configService: ConfigService<AppEnvVars>) {}
 
-	// get name(): string {
-	// 	return this.configService.get<string>("app.name");
-	// }
-	// get env(): string {
-	// 	return this.configService.get<string>("app.env");
-	// }
-	// get url(): string {
-	// 	return this.configService.get<string>("app.url");
-	// }
+	/** Environment in which the application is running. */
+	get env(): string | undefined {
+		return this.configService.get<string>("app.env");
+	}
+
+	/** Port on which the application is listening. */
 	get port(): number {
 		return Number(this.configService.get<number>("app.port"));
+	}
+
+	/**
+	 * Global route prefix for the application.  Used for NGINX proxy routing.
+	 * @example basePath=v1 : NestJS routes will begin with https://localhost/v1/
+	 */
+	get baseRoute(): string | undefined {
+		return this.configService.get("app.baseRoute");
 	}
 }

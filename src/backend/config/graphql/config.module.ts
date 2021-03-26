@@ -1,13 +1,12 @@
-// import * as Joi from "@hapi/joi";
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
-import { AppConfigService } from "./config.service";
+import { GqlConfigService } from "./config.service";
 import configuration from "./configuration";
 import validationSchema from "./config.validation";
 
 /**
- * Import and provide base application configuration classes.
+ * Import and provide GraphQL-related configuration classes.
  *
  * @module
  */
@@ -19,7 +18,8 @@ import validationSchema from "./config.validation";
 			validationSchema: validationSchema
 		})
 	],
-	providers: [ConfigService, AppConfigService],
-	exports: [ConfigService, AppConfigService]
+	providers: [ConfigService, GqlConfigService],
+	exports: [ConfigService, GqlConfigService]
 })
-export class AppConfigModule {}
+export class GqlConfigModule {}
+// TODO: configure GraphQL options - https://www.apollographql.com/docs/apollo-server/api/apollo-server/#constructor
