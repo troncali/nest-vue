@@ -8,6 +8,9 @@ import {
 	UpdateDateColumn
 } from "typeorm";
 
+// TODO: field-level GraphQL authentication with directives? See https://github.com/LawJolla/prisma-auth0-example/issues/12
+// TODO: TypeORM relationships and nested GraphQL handling
+// TODO: mutations
 /**
  * Complete data structure of the User entity for the database and GraphQL.
  */
