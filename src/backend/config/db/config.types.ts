@@ -19,9 +19,11 @@ export interface BaseDbOptionTypes {
 	"db.port": number;
 	"db.username": string;
 	"db.database": string;
-	"db.entities": [];
 	"db.autoLoadEntities": boolean;
-	"db.synchronize": boolean;
+	"db.migrations": [];
+	// "db.entities": [];
+	// "db.logging": boolean;
+	// "db.synchronize": boolean;
 }
 
 /** PostgreSQL's configuration properties for intellisense. */
