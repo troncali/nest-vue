@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/serve-static", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:2.1.4"],
             ["@nestjs/testing", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/typeorm", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.1.5"],
+            ["@types/faker", "npm:5.1.7"],
             ["@types/jest", "npm:26.0.15"],
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:14.14.10"],
@@ -79,6 +80,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:6.15.0"],
             ["eslint-plugin-prettier", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:3.1.4"],
             ["eslint-plugin-vue", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.1.0"],
+            ["faker", "npm:5.5.0"],
             ["fast-json-stringify", "npm:2.5.2"],
             ["fastify", "npm:3.9.1"],
             ["fastify-static", "npm:3.3.0"],
@@ -4817,6 +4819,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.14.10"],
             ["@types/qs", "npm:6.9.5"],
             ["@types/range-parser", "npm:1.2.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/faker", [
+        ["npm:5.1.7", {
+          "packageLocation": "./.yarn/cache/@types-faker-npm-5.1.7-2d4627cfe8-24390a1bdc.zip/node_modules/@types/faker/",
+          "packageDependencies": [
+            ["@types/faker", "npm:5.1.7"]
           ],
           "linkType": "HARD",
         }]
@@ -12266,6 +12277,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["faker", [
+        ["npm:5.5.0", {
+          "packageLocation": "./.yarn/cache/faker-npm-5.5.0-cfcaaf41f2-c766f0ec83.zip/node_modules/faker/",
+          "packageDependencies": [
+            ["faker", "npm:5.5.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["fast-decode-uri-component", [
         ["npm:1.0.1", {
           "packageLocation": "./.yarn/cache/fast-decode-uri-component-npm-1.0.1-578ba9fecf-427a48fe09.zip/node_modules/fast-decode-uri-component/",
@@ -17686,6 +17706,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/serve-static", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:2.1.4"],
             ["@nestjs/testing", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.5.5"],
             ["@nestjs/typeorm", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.1.5"],
+            ["@types/faker", "npm:5.1.7"],
             ["@types/jest", "npm:26.0.15"],
             ["@types/long", "npm:4.0.1"],
             ["@types/node", "npm:14.14.10"],
@@ -17718,6 +17739,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:6.15.0"],
             ["eslint-plugin-prettier", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:3.1.4"],
             ["eslint-plugin-vue", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:7.1.0"],
+            ["faker", "npm:5.5.0"],
             ["fast-json-stringify", "npm:2.5.2"],
             ["fastify", "npm:3.9.1"],
             ["fastify-static", "npm:3.3.0"],
