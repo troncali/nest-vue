@@ -29,10 +29,12 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 			password: this.password,
 			database: this.database,
 			schema: this.schema,
-			ssl: this.ssl,
-			entities: this.entities,
 			autoLoadEntities: this.autoLoadEntities,
-			synchronize: this.synchronize
+			// entities: this.entities,
+			migrations: this.migrations
+			// logging: this.logging,
+			// ssl: this.ssl,
+			// synchronize: this.synchronize
 		};
 	}
 
@@ -84,9 +86,9 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 		return this.configService.get("db.schema");
 	}
 
-	/** Object with SSL parameters.  */
-	get ssl(): PostgresDbOptions["ssl"] {
-		return this.configService.get("db.ssl");
+	/** Whether to automatically load entities.  */
+	get autoLoadEntities(): PostgresDbOptions["autoLoadEntities"] {
+		return this.configService.get("db.autoLoadEntities");
 	}
 
 	/**
@@ -94,23 +96,31 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 	 * and directories from which entities will be loaded. Glob patterns
 	 * are supported, but they cannot be used with webpack.
 	 */
-	get entities(): PostgresDbOptions["entities"] {
-		return this.configService.get("db.entities");
+	// get entities(): PostgresDbOptions["entities"] {
+	// 	return this.configService.get("db.entities");
+	// }
+
+	get migrations(): PostgresDbOptions["migrations"] {
+		return this.configService.get("db.migrations");
 	}
 
-	/** Whether to automatically load entities.  */
-	get autoLoadEntities(): PostgresDbOptions["autoLoadEntities"] {
-		return this.configService.get("db.autoLoadEntities");
-	}
+	// get logging(): PostgresDbOptions["logging"] {
+	// 	return this.configService.get("db.logging");
+	// }
+
+	/** Object with SSL parameters.  */
+	// get ssl(): PostgresDbOptions["ssl"] {
+	// 	return this.configService.get("db.ssl");
+	// }
 
 	/**
 	 * Whether the database schema should be created on every application
 	 * launch, which can be useful during development. Alternatively, use
 	 * `yarn nest schema:sync` command.
 	 *
-	 * Default: false in production (due to data loss), true in development.
+	 * Default: false (due to data loss).
 	 */
-	get synchronize(): PostgresDbOptions["synchronize"] {
-		return this.configService.get("db.synchronize");
-	}
+	// get synchronize(): PostgresDbOptions["synchronize"] {
+	// 	return this.configService.get("db.synchronize");
+	// }
 }
