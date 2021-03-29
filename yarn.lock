@@ -2986,6 +2986,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/faker@npm:^5.1.7":
+  version: 5.1.7
+  resolution: "@types/faker@npm:5.1.7"
+  checksum: 24390a1bdcb8346df4dff71174c216273416a55333c0834abd7c76a7d3e3e1d227dc1e52b1caaf2a8a0c321f1d7414c01aca06ea8e37a5ff46d0aeae9d746242
+  languageName: node
+  linkType: hard
+
 "@types/fs-capacitor@npm:*":
   version: 2.0.0
   resolution: "@types/fs-capacitor@npm:2.0.0"
@@ -8968,6 +8975,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"faker@npm:^5.5.0":
+  version: 5.5.0
+  resolution: "faker@npm:5.5.0"
+  checksum: c766f0ec836cb2f93abe192b32efea0d3afdf416bf776e6738d4cd1758e2d48bb3b312966f8b292f6404863525b35ea1d7f82ad8ec8de750c67a57ada268e20f
+  languageName: node
+  linkType: hard
+
 "fast-decode-uri-component@npm:^1.0.1":
   version: 1.0.1
   resolution: "fast-decode-uri-component@npm:1.0.1"
@@ -13816,6 +13830,7 @@ fsevents@~2.1.2:
     "@nestjs/serve-static": ^2.1.4
     "@nestjs/testing": ^7.5.5
     "@nestjs/typeorm": ^7.1.5
+    "@types/faker": ^5.1.7
     "@types/jest": ^26.0.15
     "@types/long": ^4.0.1
     "@types/node": ^14.14.10
@@ -13848,6 +13863,7 @@ fsevents@~2.1.2:
     eslint-config-prettier: ^6.15.0
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-vue: ^7.0.0-0
+    faker: ^5.5.0
     fast-json-stringify: ^2.5.2
     fastify: ^3.9.1
     fastify-static: ^3.3.0
