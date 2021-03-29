@@ -1,5 +1,5 @@
-import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
+import { Logger } from "@nestjs/common";
 
 import { Migrator } from "./providers/migrations/migrators";
 import { MigrationProvider } from "./providers/migrations/migration.provider";
