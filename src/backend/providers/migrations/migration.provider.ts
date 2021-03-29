@@ -1,4 +1,3 @@
-import { User } from "@/backend/models/users/user.entity";
 import { Injectable, Logger } from "@nestjs/common";
 import { Connection } from "typeorm";
 
