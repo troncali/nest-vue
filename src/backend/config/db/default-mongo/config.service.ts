@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmOptionsFactory } from "@nestjs/typeorm";
+import { SSL_OP_ALL } from "constants";
 
 import {
 	MongoDbOptions,
@@ -28,9 +29,11 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 			username: this.username,
 			password: this.password,
 			database: this.database,
-			entities: this.entities,
 			autoLoadEntities: this.autoLoadEntities,
-			synchronize: this.synchronize
+			// entities: this.entities,
+			migrations: this.migrations
+			// logging: this.logging,
+			// synchronize: this.synchronize
 		};
 	}
 
@@ -73,19 +76,27 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 		return this.configService.get("db.database");
 	}
 
+	/** Whether to automatically load entities.  */
+	get autoLoadEntities(): MongoDbOptions["autoLoadEntities"] {
+		return this.configService.get("db.autoLoadEntities");
+	}
+
 	/**
 	 * Entities to load for this connection. Accepts both entity classes
 	 * and directories from which entities will be loaded. Glob patterns
 	 * are supported, but they cannot be used with webpack.
 	 */
-	get entities(): MongoDbOptions["entities"] {
-		return this.configService.get("db.entities");
+	// get entities(): MongoDbOptions["entities"] {
+	// 	return this.configService.get("db.entities");
+	// }
+
+	get migrations(): MongoDbOptions["migrations"] {
+		return this.configService.get("db.migrations");
 	}
 
-	/** Whether to automatically load entities.  */
-	get autoLoadEntities(): MongoDbOptions["autoLoadEntities"] {
-		return this.configService.get("db.autoLoadEntities");
-	}
+	// get logging(): MongoDbOptions["logging"] {
+	// 	return this.configService.get("db.logging");
+	// }
 
 	/**
 	 * Whether the database schema should be created on every application
@@ -95,7 +106,7 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 	 *
 	 * Default: false in production (due to data loss), true in development.
 	 */
-	get synchronize(): MongoDbOptions["synchronize"] {
-		return this.configService.get("db.synchronize");
-	}
+	// get synchronize(): MongoDbOptions["synchronize"] {
+	// 	return this.configService.get("db.synchronize");
+	// }
 }
