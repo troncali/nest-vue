@@ -3,6 +3,7 @@ import { Exclude } from "class-transformer";
 import {
 	Column,
 	CreateDateColumn,
+	DeleteDateColumn,
 	Entity,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
@@ -53,4 +54,9 @@ export class User {
 	@Field()
 	@UpdateDateColumn()
 	updatedAt!: Date;
+
+	/** Date of User's deletion from the database. */
+	@Field()
+	@DeleteDateColumn()
+	deletedAt?: Date;
 }
