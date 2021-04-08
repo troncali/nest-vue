@@ -38,11 +38,10 @@ services:
             mode: replicated
             replicas: 1
         restart: unless-stopped
-        depends_on:
-            - db
         secrets:
             - DB_USERNAME
             - DB_PASSWORD
+            - BACKEND_SESSION_KEY_1
         environment:
             - NODE_ENV=production
             - DOCKER_ENV=true
@@ -82,9 +81,6 @@ services:
             - "443:443"
         networks:
             - app_network
-        depends_on:
-            - backend
-            - db
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
             - BACKEND_SERVICE_NAME=backend
@@ -140,3 +136,5 @@ secrets:
         file: ./src/docker/secrets/DB_USERNAME
     DB_PASSWORD:
         file: ./src/docker/secrets/DB_PASSWORD
+    BACKEND_SESSION_KEY_1:
+        file: ./src/docker/secrets/BACKEND_SESSION_KEY_1
