@@ -6,5 +6,5 @@ import * as Joi from "joi";
  */
 export default Joi.object({
 	BACKEND_BASE_ROUTE: Joi.string().required(),
-	GRAPHQL_ROUTE: Joi.string().required().default("graphql")
+	GRAPHQL_PATH: Joi.string().required().default("graphql")
 });
