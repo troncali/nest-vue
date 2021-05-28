@@ -6,15 +6,19 @@ Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](htt
 
 #### Get Started
 
-```shell
-git clone https://github.com/troncali/nest-vue project
-cd project
+```bash
+git clone https://github.com/troncali/nest-vue your-project
+cd your-project
 yarn install
 ```
 
 #### VSCode Setup
 
-Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support).
+Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support). TLDR: `yarn dlx @yarnpkg/pnpify --sdk vscode`.
+
+#### Project Setup
+
+Some minimal setup is required (environment variables, certificates, etc). [Follow the guide](guides/setup.md).
 
 ## The Stack (VxNN)
 
@@ -58,6 +62,7 @@ In progress.
 
 Learn how to get started with this respository, how services are set up, and how you can customize them to your needs.
 
+-   [Initial Setup](guides/setup.md)
 -   [Docker](README-Docker.md)
 -   [Jenkins](README-Jenkins.md)
 -   [Resources](README-Resources.md)
