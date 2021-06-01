@@ -1,0 +1,12 @@
+diff --git a/dist/graphql.module.js b/dist/graphql.module.js
+index 959af17fda8c13b9aa8ac580d82d61cacbac2aca..d1d26ae6c8c57df6a01224194d13fd7ec173f531 100644
+--- a/dist/graphql.module.js
++++ b/dist/graphql.module.js
+@@ -147,6 +147,7 @@ let GraphQLModule = GraphQLModule_1 = class GraphQLModule {
+             const path = this.getNormalizedPath(apolloOptions);
+             const apolloServer = new ApolloServer(apolloOptions);
+             const { disableHealthCheck, onHealthCheck, cors, bodyParserConfig, } = this.options;
++            yield apolloServer.start();
+             yield app.register(apolloServer.createHandler({
+                 disableHealthCheck,
+                 onHealthCheck,

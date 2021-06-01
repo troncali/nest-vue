@@ -1,23 +1,48 @@
-.DS_Store
-
 # protected files
 .env
 .htpasswd
 src/docker/secrets/*
 !src/docker/secrets/EXAMPLE_SECRET
 
-# Generated Files
-src/backend/schema.gql
-build
-public
-docs
-
 # Development certificates
-src/nginx/dev-certs/*.crt
-src/nginx/dev-certs/*.csr
-src/nginx/dev-certs/*.key
-src/nginx/dev-certs/*.pem
-src/nginx/dev-certs/*.srl
+src/nginx/dev-certs/*
+!src/nginx/dev-certs/dev-domain.ext
+
+# Generated Files
+/src/backend/schema.gql
+/build
+/dist
+/docs
+/public
+/tmp
+/out-tsc
+
+# Dependency directories
+/node_modules
+/jspm_packages
+.yarn/*
+# !.yarn/cache
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
 # Logs
 logs
@@ -40,7 +65,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+/coverage
 *.lcov
 
 # nyc test coverage
@@ -57,17 +82,6 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-
-# Dependency directories
-node_modules
-jspm_packages
-.yarn/*
-# !.yarn/cache
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-# .pnp.*
 
 # TypeScript v1 declaration files
 typings/
@@ -126,3 +140,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# misc
+/.sass-cache
+/connect.lock
+
+# System Files
+.DS_Store
+Thumbs.db

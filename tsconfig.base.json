@@ -1,0 +1,31 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"strict": true,
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2015",
+		"module": "esnext",
+		"removeComments": true,
+		"lib": ["es2017", "dom"],
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		".vscode",
+		".yarn",
+		"build",
+		"public",
+		"tmp",
+		".pnp.cjs"
+	]
+}
