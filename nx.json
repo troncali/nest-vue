@@ -1,0 +1,26 @@
+{
+	"implicitDependencies": {
+		"package.json": {
+			"dependencies": "*",
+			"devDependencies": "*"
+		},
+		".eslintrc.js": "*"
+	},
+	"affected": {
+		"defaultBase": "main"
+	},
+	"npmScope": "nest-vue",
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "@nrwl/workspace/tasks-runners/default",
+			"options": {
+				"cacheableOperations": ["build", "lint", "test", "e2e"]
+			}
+		}
+	},
+	"projects": {
+		"backend": {
+			"tags": []
+		}
+	}
+}
