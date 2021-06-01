@@ -1,0 +1,17 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../build/out-tsc",
+		"module": "commonjs",
+		"types": ["node"],
+		"emitDecoratorMetadata": true,
+		"target": "es2017",
+		"allowSyntheticDefaultImports": true
+	},
+	"exclude": ["**/*.spec.ts"],
+	"include": [
+		"**/*.ts",
+		"../lib/docker-handler/index.ts",
+		"webpack.config.js"
+	]
+}
