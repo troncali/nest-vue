@@ -3,12 +3,12 @@ module.exports = {
 	preset: "../../jest.preset.js",
 	globals: {
 		"ts-jest": {
-			tsconfig: "<rootDir>/tsconfig.spec.json"
+			tsconfig: "<rootDir>/tsconfig.test.json"
 		}
 	},
 	transform: {
 		"^.+\\.[tj]s$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "js", "html"],
-	coverageDirectory: "../../coverage/backend"
+	coverageDirectory: "../../builds/coverage/backend"
 };

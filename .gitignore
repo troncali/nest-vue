@@ -10,7 +10,7 @@ src/nginx/dev-certs/*
 
 # Generated Files
 /src/backend/schema.gql
-/build
+/builds
 /dist
 /docs
 /public

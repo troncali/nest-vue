@@ -5,7 +5,7 @@ import {
 	NestFastifyApplication
 } from "@nestjs/platform-fastify";
 import * as request from "supertest";
-import { AppModule } from "@/backend/app.module";
+import { AppModule } from "@src/backend/app.module";
 
 describe("AppController (e2e)", () => {
 	let app: INestApplication;
