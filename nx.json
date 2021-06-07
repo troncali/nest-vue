@@ -1,15 +1,19 @@
 {
-	"implicitDependencies": {
-		"package.json": {
-			"dependencies": "*",
-			"devDependencies": "*"
-		},
-		".eslintrc.js": "*"
-	},
+	"npmScope": "nest-vue",
 	"affected": {
 		"defaultBase": "main"
 	},
-	"npmScope": "nest-vue",
+	"workspaceLayout": {
+		"appsDir": "src",
+		"libsDir": "libs"
+	},
+	"implicitDependencies": {
+		"workspace.json": "*",
+		"package.json": { "dependencies": "*", "devDependencies": "*" },
+		"tsconfig.base.json": "*",
+		".eslintrc.json": "*",
+		"nx.json": "*"
+	},
 	"tasksRunnerOptions": {
 		"default": {
 			"runner": "@nrwl/workspace/tasks-runners/default",
@@ -19,8 +23,7 @@
 		}
 	},
 	"projects": {
-		"backend": {
-			"tags": []
-		}
+		"backend": { "tags": [] },
+		"frontend": { "tags": [] }
 	}
 }

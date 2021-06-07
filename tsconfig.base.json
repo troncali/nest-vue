@@ -16,16 +16,9 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"]
+			"@src/*": ["src/*"],
+			"@libs/*": ["libs/*"]
 		}
 	},
-	"exclude": [
-		"node_modules",
-		".vscode",
-		".yarn",
-		"build",
-		"public",
-		"tmp",
-		".pnp.cjs"
-	]
+	"exclude": ["node_modules", ".vscode", ".yarn", "builds", "public", "tmp"]
 }

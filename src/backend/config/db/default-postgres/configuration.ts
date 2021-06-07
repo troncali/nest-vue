@@ -2,7 +2,7 @@ import { registerAs } from "@nestjs/config";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 import { TypeOrmDatabaseTypes } from "../config.types";
-import { DockerHandler } from "../../../../lib/docker-handler";
+import { DockerHandler } from "@libs/docker-handler";
 import { ModelIndex } from "../../../models/model.index";
 
 // Available connection options:
