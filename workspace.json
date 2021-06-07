@@ -14,7 +14,7 @@
 					"executor": "@nrwl/node:build",
 					"outputs": ["{options.outputPath}"],
 					"options": {
-						"outputPath": "build/backend",
+						"outputPath": "builds/backend",
 						"main": "src/backend/main.ts",
 						"tsConfig": "src/backend/tsconfig.app.json",
 						"assets": ["src/backend/static"],
@@ -48,10 +48,84 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/backend"],
+					"outputs": ["builds/coverage/backend"],
 					"options": {
 						"jestConfig": "src/backend/jest.config.js",
 						"passWithNoTests": true
+					}
+				},
+				"e2e": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["builds/coverage/backend"],
+					"options": {
+						"jestConfig": "e2e/backend/jest.config.js",
+						"tsConfig": "e2e/backend/tsconfig.test.json",
+						"passWithNoTests": false
+					}
+				}
+			}
+		},
+		"frontend": {
+			"root": "src/frontend",
+			"sourceRoot": "src/frontend",
+			"projectType": "application",
+			"targets": {
+				"build": {
+					"executor": "@nx-plus/vue:browser",
+					"options": {
+						"dest": "builds/frontend",
+						"index": "src/frontend/static/index.html",
+						"main": "src/frontend/main.ts",
+						"tsConfig": "src/frontend/tsconfig.app.json"
+					},
+					"configurations": {
+						"production": {
+							"mode": "production",
+							"filenameHashing": true,
+							"productionSourceMap": true,
+							"css": {
+								"extract": true,
+								"sourceMap": false
+							}
+						}
+					}
+				},
+				"serve": {
+					"executor": "@nx-plus/vue:dev-server",
+					"options": {
+						"browserTarget": "frontend:build"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "frontend:build:production"
+						}
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["src/frontend/**/*.{ts,tsx,vue}"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["builds/coverage/frontend"],
+					"options": {
+						"jestConfig": "src/frontend/jest.config.js",
+						"passWithNoTests": false
+					}
+				},
+				"e2e": {
+					"executor": "@nrwl/cypress:cypress",
+					"options": {
+						"cypressConfig": "e2e/frontend/cypress.json",
+						"tsConfig": "e2e/frontend/tsconfig.test.json",
+						"devServerTarget": "frontend:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "frontend:serve:production"
+						}
 					}
 				}
 			}

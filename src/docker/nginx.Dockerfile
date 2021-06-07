@@ -1,4 +1,4 @@
-# Target a small image size (but uses `musl libc` instead of `glibc`; use 
+# Target a small image size (but uses `musl libc` instead of `glibc`; use
 # `nginx:latest` if `glibc` is required)
 FROM nginx:alpine
 
@@ -25,4 +25,4 @@ USER ${NGINX_UID}:${NGINX_GID}
 COPY --chown=${NGINX_UID}:${NGINX_GID} ./src/nginx/nginx.conf ./templates/nginx.conf.template
 
 # Serve frontend and static files
-COPY --chown=${NGINX_UID}:${NGINX_GID} ./public ./html
+COPY --chown=${NGINX_UID}:${NGINX_GID} ./builds/frontend ./html

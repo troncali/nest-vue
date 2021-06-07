@@ -33,6 +33,7 @@ Here's what this boilerplate template is meant to help you easily deploy, so you
 
 These core services are supported by the following:
 
+-   **Nx** - extensible build framework with computation caching to rebuild only what is necessary; includes Nest and Vue plugins that expose their CLI generators, etc.
 -   **Yarn** - slim dependency management using [Plug'N'Play](https://yarnpkg.com/features/pnp) for smaller repositories.
     -   This repository is roughly 216 mb with 288 items.
     -   Using `npm install`, the repository is roughly 770 mb with 75,856 items (March 6, 2021).
@@ -40,30 +41,40 @@ These core services are supported by the following:
 -   **certbot** - SSL certificate generation for both local development and remote hosts.
 -   **Jenkins** - base pipeline for CI/CD that can be built out to fit your needs.
 
-## Scripts
-
-Scripts run from the project root and must be called with `yarn` to resolve dependencies.
-
--   `yarn docker:dev`: spins up db and nginx for local development
-    -   Nginx proxies to the local backend to mimic production and take advantage of developer tools (like file watching)
--   `yarn b-start`: serve and watch the backend at http://localhost:3001/
--   `yarn f-start`: serve and watch the frontend through the Vue CLI Service at http://localhost:8080/
--   `yarn b-build`: outputs compiled backend (Nest) to `./build`
--   `yarn f-build`: outputs compiled frontend (Vue) to `./public`
--   `yarn test`: run all tests for backend and frontend
--   `yarn b-test`: run backend unit and e2e tests
--   `yarn f-test`: run frontend unit and e2e tests
--   `yarn docs`: outputs backend (Nest) documentation to `./docs`
--   `yarn jenkins`: spin up Jenkins
-
 ## Documentation
-
-In progress.
 
 Learn how to get started with this respository, how services are set up, and how you can customize them to your needs.
 
 -   [Initial Setup](guides/setup.md)
--   [Docker](README-Docker.md)
--   [Jenkins](README-Jenkins.md)
--   [Resources](README-Resources.md)
--   [Roadmap](README-Roadmap.md)
+-   [Docker](README-Docker.md) - in progress
+-   [Jenkins](README-Jenkins.md) - in grogress
+-   [Resources](README-Resources.md) - in progress
+-   [Roadmap](README-Roadmap.md) - in progress
+
+## Scripts
+
+Scripts run from the project root and must be called with `yarn` to resolve dependencies.
+
+#### Development
+
+-   `yarn docker:dev`: spins up `db` and `nginx` for local development
+    -   Nginx proxies to the local backend to mimic production and take advantage of developer tools (like file watching)
+-   `yarn nx serve [app]`: serve and watch an app (`backend` or `frontend`)
+    -   `backend` served at http://localhost:3001/; also https if nginx container is running
+    -   `frontend` served at http://localhost:8080/
+-   `yarn nx build [app]`: outputs compiled app to `./builds/[project]`
+-   `yarn migration:[create|run|undo]`: create, run, or undo a database migration
+-   `yarn seed`: seed the database
+
+#### Testing
+
+-   `yarn nx test [app]`: run unit tests
+-   `yarn nx e2e [app]`: run integration tests (Cypress for frontend, Jest for backend)
+-   `snyk test`: check dependency vulnerabilities
+
+#### Support
+
+-   `yarn docker:dev-certs`: create SSL certificates for local development
+-   `yarn docker:deploy`: add your docker context for easy deployment
+-   `yarn docs`: outputs backend (Nest) documentation to `./docs`
+-   `yarn jenkins`: spin up Jenkins (must install Jenkins, `brew install jenkins`)

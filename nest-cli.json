@@ -1,4 +1,4 @@
-{REMOVE THIS
+{
 	"collection": "@nestjs/schematics",
-	"sourceRoot": "./src/backend"
+	"sourceRoot": "src"
 }
