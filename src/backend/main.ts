@@ -6,7 +6,7 @@ import {
 
 import { AppModule } from "./app.module";
 import { AppConfigService } from "./config/app/config.service";
-import { DockerHandler } from "../lib/docker-handler";
+import { DockerHandler } from "@libs/docker-handler";
 
 /** Start NestJS server. */
 async function bootstrap() {

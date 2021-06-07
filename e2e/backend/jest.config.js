@@ -1,5 +1,6 @@
 module.exports = {
-	displayName: "backend",
+	displayName: "backend-e2e",
+	testMatch: ["<rootDir>/**/*.e2e.[jt]s?(x)"],
 	preset: "../../jest.preset.js",
 	globals: {
 		"ts-jest": {
@@ -9,6 +10,6 @@ module.exports = {
 	transform: {
 		"^.+\\.[tj]s$": "ts-jest"
 	},
-	moduleFileExtensions: ["ts", "js", "html"],
-	coverageDirectory: "../../builds/coverage/backend"
+	moduleFileExtensions: ["ts", "js", "html", "json"],
+	coverageDirectory: "../../coverage/backend"
 };

@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 
 import { DatabaseProvider } from "../database.provider";
 import { SeedProvider } from "./seed.provider";
-import { UsersSeeder } from "@/backend/models/users/migrations/users.seeder";
+import { UsersSeeder } from "../../models/users/migrations/users.seeder";
 
 /**
  * Import and provide seed-related classes.

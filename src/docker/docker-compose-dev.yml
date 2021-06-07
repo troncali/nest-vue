@@ -15,7 +15,7 @@ services:
     nginx:
         volumes:
             - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost
-            - ./public:/etc/nginx/html
+            - ./builds/frontend:/etc/nginx/html
         environment:
             - APP_DOMAIN=localhost
             - BACKEND_SERVICE_NAME=host.docker.internal # localhost on host matchine

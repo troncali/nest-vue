@@ -1,0 +1,12 @@
+{
+	"fileServerFolder": ".",
+	"fixturesFolder": "./fixtures",
+	"integrationFolder": "./integration",
+	"modifyObstructiveCode": false,
+	"pluginsFile": "./plugins/index",
+	"supportFile": "./support/index.ts",
+	"video": false,
+	"videosFolder": "../../builds/frontend-e2e/videos",
+	"screenshotsFolder": "../../builds/frontend-e2e/screenshots",
+	"chromeWebSecurity": false
+}

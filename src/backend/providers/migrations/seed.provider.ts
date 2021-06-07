@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
-import { BaseSeederService } from "@/backend/models/base.seeder.service";
-import { UsersSeederService } from "@/backend/models/users/migrations/users.seeder.service";
+import { BaseSeederService } from "../../models/base.seeder.service";
+import { UsersSeederService } from "../../models/users/migrations/users.seeder.service";
 
 /**
  * Seed service that dispatches database actions.
