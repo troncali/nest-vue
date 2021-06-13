@@ -2,22 +2,29 @@ import { Injectable } from "@nestjs/common";
 import * as Faker from "faker";
 
 import { BaseSeederService } from "../../base.seeder.service";
-import { UsersRepository } from "../providers/users.repository";
+import { UserRepository } from "../providers/user.repository";
 import { User } from "../user.entity";
 import { CreateUserDto } from "../user.dto";
 
 /**
- * Establish methods specific to the User seeder.
+ * Seeder service for `User` entity.
+ *
+ * @class
  */
 @Injectable()
-export class UsersSeederService extends BaseSeederService<
-	User,
-	UsersRepository
-> {
-	constructor(public readonly repository: UsersRepository) {
+export class UserSeederService extends BaseSeederService<User, UserRepository> {
+	/**
+	 * Initialize seeder dependencies.
+	 * @param repository The injected `UserRepository` instance.
+	 */
+	constructor(public readonly repository: UserRepository) {
 		super(repository);
 	}
 
+	/**
+	 * Build the `User` data to seed.
+	 * @returns An array of entities and/or DTOs containing data to seed.
+	 */
 	async buildSeed() {
 		let staticUser1 = new User();
 		staticUser1 = {

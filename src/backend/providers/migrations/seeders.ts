@@ -2,7 +2,8 @@ import { Module } from "@nestjs/common";
 
 import { DatabaseProvider } from "../database.provider";
 import { SeedProvider } from "./seed.provider";
-import { UsersSeeder } from "../../models/users/migrations/users.seeder";
+import { UserSeeder } from "../../models/user/migrations/user.seeder";
+import { SessionSeeder } from "../../models/session/migrations/session.seeder";
 
 /**
  * Import and provide seed-related classes.
@@ -10,7 +11,7 @@ import { UsersSeeder } from "../../models/users/migrations/users.seeder";
  * @module
  */
 @Module({
-	imports: [DatabaseProvider, UsersSeeder],
+	imports: [DatabaseProvider, UserSeeder, SessionSeeder],
 	providers: [SeedProvider]
 })
 export class Seeders {}

@@ -5,9 +5,7 @@ import {
 	plainToClass
 } from "class-transformer";
 
-/**
- * Establish methods for all repositories.
- */
+/** Establish methods for all repositories. */
 export class BaseRepository<T> extends Repository<T> {
 	/**
 	 * Tranforms data returned by TypeORM into the desired DTO. Only properties
@@ -24,6 +22,21 @@ export class BaseRepository<T> extends Repository<T> {
 	 * const user = await this.usersRepo.findOne(id);
 	 * return await this.usersRepo.transform(BasicSafeUserDto, user);
 	 */
+	async transform<U>(
+		dto: ClassConstructor<U>,
+		data: T,
+		options?: ClassTransformOptions
+	): Promise<U>;
+	async transform<U>(
+		dto: ClassConstructor<U>,
+		data: T[],
+		options?: ClassTransformOptions
+	): Promise<U[]>;
+	async transform<U>(
+		dto: ClassConstructor<U>,
+		data: T | T[],
+		options?: ClassTransformOptions
+	): Promise<U | U[]>;
 	async transform<U>(
 		dto: ClassConstructor<U>,
 		data: T | T[],
