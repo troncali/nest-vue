@@ -8,6 +8,10 @@ import { Connection } from "typeorm";
  */
 @Injectable()
 export class MigrationProvider {
+	/**
+	 * Initialize migration dependencies.
+	 * @param connection The TypeORM Connection instance.
+	 */
 	constructor(private readonly connection: Connection) {}
 
 	/**

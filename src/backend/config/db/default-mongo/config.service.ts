@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmOptionsFactory } from "@nestjs/typeorm";
-import { SSL_OP_ALL } from "constants";
 
 import {
 	MongoDbOptions,
@@ -17,6 +16,10 @@ import {
  */
 @Injectable()
 export class DefaultDbConfigService implements TypeOrmOptionsFactory {
+	/**
+	 * Initialize configuration service dependencies.
+	 * @param configService The injected `ConfigService` instance.
+	 */
 	constructor(private configService: ConfigService<MongoOptionTypes>) {}
 
 	/** Generate the full configuration object for the default database. */
@@ -90,6 +93,7 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 	// 	return this.configService.get("db.entities");
 	// }
 
+	/** Migrations to load for the `MigrationProvider`. */
 	get migrations(): MongoDbOptions["migrations"] {
 		return this.configService.get("db.migrations");
 	}
