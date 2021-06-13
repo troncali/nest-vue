@@ -13,6 +13,10 @@ import { GqlOptionTypes } from "./config.types";
  */
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
+	/**
+	 * Initialize configuration service dependencies.
+	 * @param configService The injected `ConfigService` instance.
+	 */
 	constructor(private configService: ConfigService<GqlOptionTypes>) {}
 
 	/** Generate the full GraphQL configuration object. */

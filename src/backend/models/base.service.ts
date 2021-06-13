@@ -51,17 +51,23 @@ export abstract class BaseModelService<T> {
 
 	/**
 	 * Builds list of field names in GraphQL query, mutation, or subscription.
+	 * Always include `id` field, which is necessary to resolve nested entities.
 	 * @param info Current instance of GraphQL `info` argument
 	 * @example const fields = this.usersService.getFieldNames(info);
 	 */
 	getFieldNames(info: GraphQLResolveInfo) {
-		return (info.fieldNodes[0].selectionSet?.selections
+		return info.fieldNodes[0].selectionSet?.selections
 			.map((item: SelectionNode) =>
-				"name" in item ? item.name.value : null
+				"name" in item
+					? (item.kind === "Field" &&
+							item.selectionSet === undefined) ||
+					  item.kind === "FragmentSpread"
+						? item.name.value
+						: null
+					: null
 			)
-			.filter((item) =>
-				item !== null ? true : false
-			) as unknown) as (keyof T)[];
+			.concat(["id"]) // always include "id" field (for nest queries)
+			.filter((item) => (item !== null ? true : false)) as (keyof T)[];
 	}
 
 	/**
@@ -71,8 +77,8 @@ export abstract class BaseModelService<T> {
 	 * @param repository The entity repository - e.g., `this.usersRepo`.
 	 * @param ids A single `id` or an array of `id`s queried in GraphQL request.
 	 * @param options TypeORM find options to apply.
-	 * 
-	 * @example 
+	 *
+	 * @example
 	 * const users = await this.getOneOrMoreIds(this.usersRepo, ids);
 
 	 */

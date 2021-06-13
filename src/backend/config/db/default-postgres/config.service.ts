@@ -16,6 +16,10 @@ import {
  */
 @Injectable()
 export class DefaultDbConfigService implements TypeOrmOptionsFactory {
+	/**
+	 * Initialize configuration service dependencies.
+	 * @param configService The injected `ConfigService` instance.
+	 */
 	constructor(private configService: ConfigService<PostgresOptionTypes>) {}
 
 	/** Generate the full configuration object for the default database. */
@@ -69,7 +73,6 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 
 	/**
 	 * Database password.
-	 *
 	 * @returns A function that returns a promise-wrapped string.
 	 */
 	get password(): PostgresDbOptions["password"] {
@@ -100,6 +103,7 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 	// 	return this.configService.get("db.entities");
 	// }
 
+	/** Migrations to load for `MigrationProvider`. */
 	get migrations(): PostgresDbOptions["migrations"] {
 		return this.configService.get("db.migrations");
 	}
