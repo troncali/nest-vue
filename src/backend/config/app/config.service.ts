@@ -10,6 +10,10 @@ import { AppEnvVars } from "./config.types";
  */
 @Injectable()
 export class AppConfigService {
+	/**
+	 * Initialize configuration service dependencies.
+	 * @param configService The injected `ConfigService` instance.
+	 */
 	constructor(private configService: ConfigService<AppEnvVars>) {}
 
 	/** Environment in which the application is running. */
