@@ -5,19 +5,24 @@ import {
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from "typeorm";
+import { BaseModelEntity } from "../base.entity";
+import { SessionDto } from "../session/session.dto";
+import { Session } from "../session/session.entity";
 
 // TODO: field-level GraphQL authentication with directives? See https://github.com/LawJolla/prisma-auth0-example/issues/12
-// TODO: TypeORM relationships and nested GraphQL handling
 // TODO: mutations
+// TODO: bundle queries: https://github.com/slaypni/type-graphql-dataloader
+
 /**
  * Complete data structure of the User entity for the database and GraphQL.
  */
 @ObjectType()
 @Entity()
-export class User {
+export class User extends BaseModelEntity {
 	/** User's UUID. */
 	@Field()
 	@PrimaryGeneratedColumn("uuid")
@@ -43,7 +48,12 @@ export class User {
 	@Field()
 	@Exclude()
 	@Column("text", { select: false })
-	password!: string;
+	password?: string;
+
+	/** User's sessions. */
+	@Field(() => [SessionDto])
+	@OneToMany(() => Session, (session) => session.user, { cascade: true })
+	sessions?: SessionDto[];
 
 	/** Date of User's creation in the database. */
 	@Field()

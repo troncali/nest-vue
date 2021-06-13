@@ -2,10 +2,16 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm";
 import { Logger } from "@nestjs/common";
 
 /**
- * Migration: initial `user` table.
+ * Migration service for `User` entity: create the `user` table.
+ *
+ * @class
  */
-export class Users1616910769703 implements MigrationInterface {
-	constructor(public readonly name: string = "Users1616910769703") {}
+export class User1616910769703 implements MigrationInterface {
+	/**
+	 * Initialize migration metadata.
+	 * @param name The class name of the migration.
+	 */
+	constructor(public readonly name: string = "User1616910769703") {}
 
 	/**
 	 * Creates `user` table, if it does not exist, with UUID, email, password,
@@ -46,7 +52,7 @@ export class Users1616910769703 implements MigrationInterface {
 			}),
 			true
 		);
-		Logger.log(`√ ${this.name}: created \`users\` table`);
+		Logger.log(`√ ${this.name}: created \`user\` table`);
 	}
 
 	/**
@@ -56,6 +62,6 @@ export class Users1616910769703 implements MigrationInterface {
 	 */
 	public async down(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.dropTable("user", true, true, true);
-		Logger.log(`↺ ${this.name}: dropped \`users\` table`);
+		Logger.log(`↺ ${this.name}: dropped \`user\` table`);
 	}
 }

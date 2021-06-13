@@ -3,8 +3,14 @@ import { Logger } from "@nestjs/common";
 
 /**
  * Establish methods for all Seeder services.
+ *
+ * @class
  */
 export abstract class BaseSeederService<U, T extends Repository<U>> {
+	/**
+	 * Initialize seeder dependencies.
+	 * @param repository The injected repository instance.
+	 */
 	constructor(public readonly repository: T) {}
 
 	/**
@@ -20,7 +26,7 @@ export abstract class BaseSeederService<U, T extends Repository<U>> {
 	async hydrate(seederName: string) {
 		const seed = await this.buildSeed();
 
-		await this.repository.clear();
+		await this.repository.delete({});
 		await this.repository
 			.save(seed)
 			.then(() => Logger.log(`√ ${seederName}`))
@@ -31,6 +37,19 @@ export abstract class BaseSeederService<U, T extends Repository<U>> {
 					}`
 				);
 			});
+	}
+
+	/**
+	 * Can be invoked to delay the return of `buildSeed` method when a dependent
+	 * seeder needs another seeder to complete first.  For example, the User
+	 * seeder must be complete for the Session seeder to succeed, because the
+	 * User `id` must exist.
+	 * @param ms Length of delay in milliseconds.
+	 */
+	stall(ms: number) {
+		return new Promise((resolve) => {
+			setTimeout(() => resolve(""), ms);
+		});
 	}
 }
 
