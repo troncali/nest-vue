@@ -29,10 +29,7 @@ export class CipherProvider {
 	/**
 	 * Verifies whether a `utf8` string matches the provided hash.
 	 *
-	 * @example let attempt;
-	 * if (user?.password) {
-	 * 	const attempt = await this.cipherProvider.verifyHash(user.password, password);
-	 * }
+	 * @example const attempt = await this.cipherProvider.verifyHash(user.password, password);
 	 *
 	 * @param hash The hash to verify against.
 	 * @param plain The string to verify.
