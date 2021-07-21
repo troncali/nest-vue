@@ -33,4 +33,14 @@ export class AppConfigService {
 	get baseRoute(): string | undefined {
 		return this.configService.get("app.baseRoute");
 	}
+
+	/** Name of the cookie in which encrypted session data is stored. */
+	get sessionCookieName(): string {
+		return this.configService.get("app.sessionCookieName") || "session";
+	}
+
+	/** Property on the session object where authenticated user data is stored. */
+	get sessionUserProperty(): string {
+		return this.configService.get("app.sessionUserProperty") || "user";
+	}
 }

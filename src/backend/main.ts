@@ -34,7 +34,7 @@ async function bootstrap() {
 				returnType: "buffer"
 			})
 		],
-		cookieName: "session",
+		cookieName: appConfig.sessionCookieName,
 		cookie: { httpOnly: true, sameSite: true, secure: true }
 	});
 
