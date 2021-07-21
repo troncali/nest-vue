@@ -1,4 +1,12 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import {
+	Body,
+	Controller,
+	Get,
+	HttpException,
+	HttpStatus,
+	Param,
+	Post
+} from "@nestjs/common";
 
 import { UserService } from "./providers/user.service";
 
@@ -18,5 +26,22 @@ export class UserController {
 	@Get("/:id")
 	async get(@Param("id") id: string) {
 		return await this.userService.getByIds(id);
+	}
+
+	/**
+	 * Create a `User` record: `/user/create`
+	 * @param body The request body.
+	 * @returns A `User` record.
+	 */
+	@Post("/create")
+	async create(@Body() body: any) {
+		return await this.userService
+			.create(body.email, body.password)
+			.catch(({ message, detail }) => {
+				throw new HttpException(
+					{ message, detail },
+					HttpStatus.UNPROCESSABLE_ENTITY
+				);
+			});
 	}
 }

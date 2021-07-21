@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 
 import { UserRepository } from "./user.repository";
 import { BasicUserDto, UserDto } from "../user.dto";
 import { User } from "../user.entity";
 import { BaseModelService } from "../../base.service";
+import { CipherProvider } from "../../../providers/cipher.provider";
 
 /**
  * Model service for `User` entity.
@@ -16,8 +16,12 @@ export class UserService extends BaseModelService<User> {
 	/**
 	 * Initialize service dependencies.
 	 * @param userRepo The injected `UserRepository` instance.
+	 * @param cipherProvider The injected `CipherProvider` instance.
 	 */
-	constructor(private readonly userRepo: UserRepository) {
+	constructor(
+		private readonly userRepo: UserRepository,
+		private readonly cipherProvider: CipherProvider
+	) {
 		super();
 	}
 
@@ -48,6 +52,31 @@ export class UserService extends BaseModelService<User> {
 		const users = await this.getOneOrMoreIds(this.userRepo, ids);
 		if (!users) throw new Error("No user found.");
 		return await this.userRepo.transform(BasicUserDto, users);
+	}
+
+	/**
+	 * For authentication only, get a full `User` record by email. Includes
+	 * encrypted password.
+	 * @param email The `User`'s email.
+	 * @returns A single `User` record.
+	 */
+	async getUserForAuth(email: string): Promise<User | undefined> {
+		return await this.userRepo.findOne({
+			where: { email },
+			select: this.userRepo.allColumns()
+		});
+	}
+
+	/**
+	 * Create a `User` record.
+	 * @param email The `User`'s email.
+	 * @param password The `User`'s initial, unencrypted password from
+	 * registration form.
+	 * @returns A `User` record.
+	 */
+	async create(email: string, password: string) {
+		const hash = await this.cipherProvider.oneWayHash(password);
+		return await this.userRepo.save({ email, password: hash });
 	}
 
 	// async getFieldsForIds(

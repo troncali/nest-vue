@@ -7,6 +7,7 @@ import { UserRepository } from "./providers/user.repository";
 import { UserResolver } from "./providers/user.resolver";
 import { UserService } from "./providers/user.service";
 import { SessionModule } from "../session/session.module";
+import { CipherProvider } from "../../providers/cipher.provider";
 
 /**
  * Import and provide user-related classes.
@@ -19,7 +20,7 @@ import { SessionModule } from "../session/session.module";
 		forwardRef(() => SessionModule)
 	],
 	controllers: [UserController],
-	providers: [UserService, UserResolver],
+	providers: [UserService, UserResolver, CipherProvider],
 	exports: [UserService, TypeOrmModule]
 })
 export class UserModule {}
