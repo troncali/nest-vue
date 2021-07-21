@@ -1,23 +1,21 @@
 import { Module } from "@nestjs/common";
 
-import { AppConfigModule } from "./config/app/config.module";
-
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-
 import { DatabaseProvider } from "./providers/database.provider";
 import { GraphQLProvider } from "./providers/graphql.provider";
 
+import { AppConfigModule } from "./config/app/config.module";
+import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./models/user/user.module";
-import { SessionModule } from "./models/session/session.module";
 
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
 @Module({
 	imports: [
 		AppConfigModule,
 		DatabaseProvider,
 		GraphQLProvider,
 		UserModule,
-		SessionModule
+		AuthModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
