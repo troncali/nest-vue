@@ -13,7 +13,6 @@ import { User } from "../user.entity";
 import { UserDto } from "../user.dto";
 import { UserService } from "./user.service";
 import { SessionDto } from "../../session/session.dto";
-import { forwardRef, Inject } from "@nestjs/common";
 import { SessionService } from "../../session/providers/session.service";
 
 /**

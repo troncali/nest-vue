@@ -31,10 +31,10 @@ export class UserDto extends BasicUserDto {
 	@Expose() @Field(() => [SessionDto]) sessions?: SessionDto[];
 }
 
-/** Unsafe DTO to server with user email and password for login. */
+/** DTO to server with asserted user email and password for login. */
 export class LoginUserDto {
-	/** User's email. */
+	/** The asserted `User` email from login form. */
 	@IsNotEmpty() readonly email!: string;
-	/** User's initial, unencrypted password from login form. */
+	/** The asserted `User` password from login form. */
 	@IsNotEmpty() readonly password!: string;
 }
