@@ -8,4 +8,8 @@ export interface AppEnvVars {
 	"app.port": number;
 	/** Global route prefix for the application. */
 	"app.baseRoute": string;
+	/** Name of the cookie in which encrypted session data is stored. */
+	"app.sessionCookieName": string;
+	/** Property on the session object where authenticated user data is stored. */
+	"app.sessionUserProperty": string;
 }

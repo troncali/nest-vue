@@ -6,5 +6,7 @@ import { registerAs } from "@nestjs/config";
 export default registerAs("app", () => ({
 	env: process.env.NODE_ENV,
 	port: process.env.BACKEND_PORT,
-	baseRoute: process.env.BACKEND_BASE_ROUTE
+	baseRoute: process.env.BACKEND_BASE_ROUTE,
+	sessionCookieName: "session",
+	sessionUserProperty: "user"
 }));
