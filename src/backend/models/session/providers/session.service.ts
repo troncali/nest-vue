@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { FindManyOptions } from "typeorm";
 
 import { BaseModelService } from "../../base.service";
@@ -52,6 +51,14 @@ export class SessionService extends BaseModelService<Session> {
 		const session = await this.sessionRepo.save({ user });
 		delete user.password;
 		return { ...user, sessionId: session.id };
+	}
+
+	/**
+	 * Delete the active `Session`.
+	 * @param id UUID of the `Session` to be delete.
+	 */
+	async delete(id: string) {
+		return await this.sessionRepo.delete({ id });
 	}
 
 	/**
