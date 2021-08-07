@@ -26,3 +26,5 @@ COPY --chown=${NGINX_UID}:${NGINX_GID} ./src/nginx/nginx.conf ./templates/nginx.
 
 # Serve frontend and static files
 COPY --chown=${NGINX_UID}:${NGINX_GID} ./builds/frontend ./html
+
+# TODO: update to use bunkerized-nginx instead
