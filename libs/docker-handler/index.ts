@@ -2,15 +2,36 @@ import { readFile } from "fs/promises";
 import { readFileSync } from "fs";
 import * as path from "path";
 
-import { NestFastifyApplication } from "@nestjs/platform-fastify";
-import { Logger } from "@nestjs/common";
-
-/** Service for handling interactions with Docker. */
+/**
+ * Service for handling interactions with the Docker container in which an
+ * application is running.
+ */
 export class DockerHandler {
+	static _envFlag = "DOCKER_ENV";
+	static _secretsDir = "/run/secrets";
+	static _localDir = "./src/docker/secrets";
+	static _appCloseMethod = "close";
+
 	/**
-	 * Read Docker secret from filesystem.
+	 * Optionally overrides default values used by DockerHandler for environment
+	 * and directory variables.
 	 *
-	 * @example async () => await getSecret("SECRET")
+	 * @example DockerHandler.setup({ envFlag: "DOCKER_ENV" })
+	 *
+	 * @param {DockerHandlerOptions} options Values to use in place of
+	 * DockerHandler's default environment and directory variables.
+	 */
+	public static setup(options: DockerHandlerOptions): void {
+		this._envFlag = options.envFlag || this._envFlag;
+		this._secretsDir = options.containerSecretsDir || this._secretsDir;
+		this._localDir = options.localSecretsDir || this._localDir;
+		this._appCloseMethod = options.appCloseMethod || this._appCloseMethod;
+	}
+
+	/**
+	 * Read Docker secret from file system.
+	 *
+	 * @example const result = async () => await DockerHandler.getSecret("SECRET")
 	 *
 	 * @param {string} secretName Name of the Docker secret to read.
 	 * @param {DockerGetSecretOptions} [options] Options to apply when getting
@@ -44,11 +65,10 @@ export class DockerHandler {
 	}
 
 	/**
-	 * Read Docker secret synchronously from filesystem.
+	 * Read Docker secret synchronously from file system.
 	 *
 	 * @example const result = DockerHandler.getSecretSync("SECRET")
 	 *
-	 * @method
 	 * @param {string} secretName Name of the Docker secret to read.
 	 * @param {DockerGetSecretOptions} [options] Options to apply when getting
 	 * the Docker secret.
@@ -83,40 +103,49 @@ export class DockerHandler {
 	/**
 	 * Generate absolute path to Docker secret.
 	 *
-	 * @method
 	 * @param {string} [pathFromProjectRoot] Relative path from the project root
 	 * to the folder in which Docker secrets are located. Default:
-	 * ```./src/docker/secrets```.
-	 * @returns {string} ```/run/secrets``` if ```DOCKER_ENV=true```;
-	 * otherwise, absolute path to Docker secret on local filesystem.
+	 * `./src/docker/secrets`; override default with
+	 * `DockerHandler.setup({ localSecretsDir: "./the/path" })`.
+	 *
+	 * @returns {string} Absolute path to Docker secret on local file system, or
+	 * container path if running in one. Default container path:`/run/secrets`.
+	 * Default container flag: `DOCKER_ENV=true`. Override defaults with
+	 * `DockerHandler.setup({ envFlag: "THE_VAR", containerSecretsDir: "/the/path" })`.
 	 */
 	private static resolveSecretPath(pathFromProjectRoot?: string): string {
 		// Use the default secret location for docker environments
-		if (process.env.DOCKER_ENV === "true") return "/run/secrets";
+		if (process.env[this._envFlag] === "true") return this._secretsDir;
 		// Outside docker, use default project location unless another is passed
-		if (!pathFromProjectRoot) pathFromProjectRoot = "./src/docker/secrets";
+		if (!pathFromProjectRoot) pathFromProjectRoot = this._localDir;
 		return path.resolve(pathFromProjectRoot);
 	}
 
 	/**
-	 * Gracefully stop server and docker container.
+	 * Gracefully close the target application and stop the docker container.
+	 * Requires the `app` instance to implement a `close` method, if it does not
+	 * already have one. Default method name: `close`. Override with
+	 * `DockerHandler.setup({ appCloseMethod: "methodName" })`.
 	 *
-	 * @method
-	 * @param {NestFastifyApplication} app The ```app``` instance.
-	 * @returns {void}
+	 * @param {NestFastifyApplication} app The `app` instance.
 	 */
-	public static catchSignals(app: NestFastifyApplication): void {
+	public static catchSignals(app: RunningAppInstance): void {
+		if (!app[this._appCloseMethod])
+			throw new Error(
+				`DockerHandler: target application instance must implement a ` +
+					`${this._appCloseMethod}() method.`
+			);
+
 		for (const signal in DockerSignals) {
 			if (isNaN(Number(signal))) {
 				process.on(signal, () => {
 					console.log(`${signal} signal received from docker`);
 					try {
-						app.close();
-						console.log(`Server closed`);
+						app[this._appCloseMethod]();
+						console.log(`Application closed`);
 					} catch (e) {
 						throw new Error(e);
 					}
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					process.exit(128 + (<any>DockerSignals)[signal]);
 				});
 			}
@@ -131,15 +160,12 @@ export class DockerHandler {
 	 * 	printReadError(err, "SECRET", "./src/docker/secrets")
 	 * }
 	 *
-	 * @class
-	 * @param {NodeJS.ErrnoException} err - Default error thrown by NodeJS
-	 * ```fs``` module.
-	 * @param {string} secretName - Name of the Docker secret that failed to be
+	 * @param {NodeJS.ErrnoException} err Default error thrown by NodeJS
+	 * `fs` module.
+	 * @param {string} secretName Name of the Docker secret that failed to be
 	 * read.
-	 * @param {string} pathFromProjectRoot - Relative path used to look for the
+	 * @param {string} pathFromProjectRoot Relative path used to look for the
 	 * Docker secret.
-	 *
-	 * @return {void}}
 	 */
 	public static printReadError(
 		err: NodeJS.ErrnoException,
@@ -147,33 +173,59 @@ export class DockerHandler {
 		pathFromProjectRoot: string
 	): void {
 		err.code !== "ENOENT"
-			? Logger.error(
-					`Found the secret ${secretName}, but an error occurred ` +
-						`while trying to read it. // ${err.message}`,
-					undefined,
-					"DockerHandler"
+			? console.log(
+					`DockerHandler: Found the secret ${secretName}, but an ` +
+						`error occurred while trying to read it. // ` +
+						`${err.message}`
 			  )
-			: Logger.error(
-					`Could not find the secret ${secretName} in ` +
-						`${pathFromProjectRoot}.`,
-					undefined,
-					"DockerHandler"
+			: console.log(
+					`DockerHandler: Could not find the secret ${secretName} ` +
+						`in ${pathFromProjectRoot}.`
 			  );
 	}
 }
 
 /** Available docker signals and their corresponding exit codes */
-enum DockerSignals {
+export enum DockerSignals {
 	"SIGHUP" = 1,
 	"SIGINT" = 2,
 	"SIGTERM" = 15
 }
 
+/** Values to use in place of DockerHandler's default environment and directory
+ * variables. */
+export interface DockerHandlerOptions {
+	/** Name of the environment variable that, when set to true, indicates the
+	 *  application is running in a Docker container. Default: `DOCKER_ENV`. */
+	envFlag?: string;
+	/** Full path of the folder in which Docker secrets are located in the
+	 *  container. Default: `/run/secrets/`. */
+	containerSecretsDir?: string;
+	/** Relative path of the local folder in which Docker secrets are located
+	 *  for development, from project root. Default: `./src/docker/secrets/`. */
+	localSecretsDir?: string;
+	/** Name of the method on the target app instance that will close it
+	 *  gracefully (e.g., stop the server). Default: `close`. */
+	appCloseMethod?: string;
+}
+
 /** Options to apply when getting the Docker secret. */
-interface DockerGetSecretOptions {
-	/** Relative path from the project root to the folder in which Docker
-	 * secrets are located. Default: ```./src/docker/secrets```. */
+export interface DockerGetSecretOptions {
+	/**
+	 * Relative path from the project root to the folder in which Docker
+	 * secrets are located. Default: `./src/docker/secrets`; override default
+	 * with `DockerHandler.setup({ localSecretsDir: "./the/path" })`.
+	 */
 	pathFromProjectRoot?: string;
 	/** Whether to return the Docker secret as a string or buffer. */
 	returnType?: "string" | "buffer";
 }
+
+export interface RunningAppInstance {
+	/** Default name of the method used to close the application instance
+	 *  (e.g., stop the server). */
+	close?: Function;
+	[key: string]: any;
+}
+
+// TODO: add typing for secrets, and get all secrets in dir? (typescript generics, see https://github.com/hwkd/docker-secret/blob/master/src/index.ts)

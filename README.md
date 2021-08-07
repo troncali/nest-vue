@@ -1,20 +1,20 @@
 # nest-vue
 
-Fullstack typescript monorepo for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
+[Nx](https://nx.dev) monorepo sensibly configured with [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) and [Cypress](https://cypress.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
 
 Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp), and powered by [Docker](https://www.docker.com) with [NGINX](https://www.nginx.com) + [Node.js](https://nodejs.dev) under the hood, [certbot](https://certbot.eff.org) SSL, and [Jenkins](https://www.jenkins.io) CI/CD.
 
 #### Get Started
 
 ```bash
-git clone https://github.com/troncali/nest-vue your-project
+git clone --depth 1 https://github.com/troncali/nest-vue your-project
 cd your-project
 yarn install
 ```
 
 #### VSCode Setup
 
-Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support). TLDR: `yarn dlx @yarnpkg/pnpify --sdk vscode`.
+Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/editor-sdks). TLDR: `yarn dlx @yarnpkg/sdks vscode`.
 
 #### Project Setup
 
@@ -22,7 +22,7 @@ Some minimal setup is required (environment variables, certificates, etc). [Foll
 
 ## The Stack (VxNN)
 
-Here's what this boilerplate template is meant to help you easily deploy, so you can jump straight to substance:
+Here's what this sensibly configured monorepo is meant to help you easily deploy, so you can jump straight to substance:
 
 -   **Vue 3**
 -   **x (Database)** - [PostgreSQL](https://www.postgresql.org) and [MongoDB](https://www.mongodb.com) setups included, but configure and use any database you want.
@@ -35,8 +35,6 @@ These core services are supported by the following:
 
 -   **Nx** - extensible build framework with computation caching to rebuild only what is necessary; includes Nest and Vue plugins that expose their CLI generators, etc.
 -   **Yarn** - slim dependency management using [Plug'N'Play](https://yarnpkg.com/features/pnp) for smaller repositories.
-    -   This repository is roughly 216 mb with 288 items.
-    -   Using `npm install`, the repository is roughly 770 mb with 75,856 items (March 6, 2021).
 -   **Docker** - spin up your database, backend, and frontend with consistent environments both locally and on remote hosts.
 -   **certbot** - SSL certificate generation for both local development and remote hosts.
 -   **Jenkins** - base pipeline for CI/CD that can be built out to fit your needs.
@@ -75,6 +73,7 @@ Scripts run from the project root and must be called with `yarn` to resolve depe
 #### Support
 
 -   `yarn docker:dev-certs`: create SSL certificates for local development
+-   `yarn docker:prod`: builds production docker images
 -   `yarn docker:deploy`: add your docker context for easy deployment
 -   `yarn docs`: outputs backend (Nest) documentation to `./docs`
 -   `yarn jenkins`: spin up Jenkins (must install Jenkins, `brew install jenkins`)
