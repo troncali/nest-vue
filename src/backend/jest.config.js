@@ -10,5 +10,6 @@ module.exports = {
 		"^.+\\.[tj]s$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "js", "html"],
-	coverageDirectory: "../../builds/coverage/backend"
+	coverageDirectory: "../../builds/coverage/backend",
+	testEnvironment: "node"
 };
