@@ -10,9 +10,10 @@
 		"docker:deploy": "docker compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml --context do up",
 		"docker:dev": "CERT_ENV=dev docker compose -f docker-compose.yml -f ./src/docker/docker-compose-dev.yml up nginx db",
 		"docker:dev-cert": "CERT_ENV=dev docker compose run certbot",
+		"docker:prod": "nx build backend && nx build frontend && docker compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml build --no-cache",
 		"docs": "compodoc -p ./src/backend/tsconfig.app.json -d docs -s -w",
 		"migration:create": "typeorm migration:create",
-		"migration:run": "ts-node --project src/backend/tsconfig.app.json  -r tsconfig-paths/register src/backend/migrate.ts run",
+		"migration:run": "ts-node --project src/backend/tsconfig.app.json -r tsconfig-paths/register src/backend/migrate.ts run",
 		"migration:undo": "ts-node --project src/backend/tsconfig.app.json -r tsconfig-paths/register src/backend/migrate.ts undo",
 		"seed": "ts-node --project src/backend/tsconfig.app.json -r tsconfig-paths/register src/backend/seed.ts",
 		"jenkins": "jenkins --httpPort=9999 --httpListenAddress=127.0.0.1",
@@ -50,7 +51,7 @@
 		"@nestjs/typeorm": "^7.1.5",
 		"apollo-server-core": "^3.0.0-preview.1",
 		"apollo-server-fastify": "^3.0.0-preview.1",
-		"argon2": "^0.27.2",
+		"argon2": "^0.28.2",
 		"class-transformer": "^0.4.0",
 		"class-validator": "^0.13.1",
 		"core-js": "^3.8.0",
@@ -169,5 +170,6 @@
 		"f-build": "yarn vue-cli-service build --dest=\"./public\" ./src/frontend/main.ts",
 		"f-test": "yarn jest --selectProjects frontend",
 		"f-watch": "yarn vue-cli-service build --watch --no-clean --dest=\"./public\" ./src/frontend/main.ts"
-	}
+	},
+	"packageManager": "yarn@3.0.0"
 }
