@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo "Pulling..."
                 git branch: 'main', url: 'https://github.com/troncali/nest-vue.git'
-                sh "yarn install"
+                sh "yarn install" // --immutable --immutable-cache ?
             }
         }
 
