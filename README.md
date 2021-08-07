@@ -14,7 +14,7 @@ yarn install
 
 #### VSCode Setup
 
-Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/migration#editor-support). TLDR: `yarn dlx @yarnpkg/pnpify --sdk vscode`.
+Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/editor-sdks). TLDR: `yarn dlx @yarnpkg/sdks vscode`.
 
 #### Project Setup
 
@@ -35,8 +35,6 @@ These core services are supported by the following:
 
 -   **Nx** - extensible build framework with computation caching to rebuild only what is necessary; includes Nest and Vue plugins that expose their CLI generators, etc.
 -   **Yarn** - slim dependency management using [Plug'N'Play](https://yarnpkg.com/features/pnp) for smaller repositories.
-    -   This repository is roughly 216 mb with 288 items.
-    -   Using `npm install`, the repository is roughly 770 mb with 75,856 items (March 6, 2021).
 -   **Docker** - spin up your database, backend, and frontend with consistent environments both locally and on remote hosts.
 -   **certbot** - SSL certificate generation for both local development and remote hosts.
 -   **Jenkins** - base pipeline for CI/CD that can be built out to fit your needs.
@@ -75,6 +73,7 @@ Scripts run from the project root and must be called with `yarn` to resolve depe
 #### Support
 
 -   `yarn docker:dev-certs`: create SSL certificates for local development
+-   `yarn docker:prod`: builds production docker images
 -   `yarn docker:deploy`: add your docker context for easy deployment
 -   `yarn docs`: outputs backend (Nest) documentation to `./docs`
 -   `yarn jenkins`: spin up Jenkins (must install Jenkins, `brew install jenkins`)
