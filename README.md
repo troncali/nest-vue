@@ -1,13 +1,13 @@
 # nest-vue
 
-Fullstack typescript monorepo for [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
+[Nx](https://nx.dev) monorepo sensibly configured with [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) and [Cypress](https://cypress.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
 
 Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp), and powered by [Docker](https://www.docker.com) with [NGINX](https://www.nginx.com) + [Node.js](https://nodejs.dev) under the hood, [certbot](https://certbot.eff.org) SSL, and [Jenkins](https://www.jenkins.io) CI/CD.
 
 #### Get Started
 
 ```bash
-git clone https://github.com/troncali/nest-vue your-project
+git clone --depth 1 https://github.com/troncali/nest-vue your-project
 cd your-project
 yarn install
 ```
@@ -22,7 +22,7 @@ Some minimal setup is required (environment variables, certificates, etc). [Foll
 
 ## The Stack (VxNN)
 
-Here's what this boilerplate template is meant to help you easily deploy, so you can jump straight to substance:
+Here's what this sensibly configured monorepo is meant to help you easily deploy, so you can jump straight to substance:
 
 -   **Vue 3**
 -   **x (Database)** - [PostgreSQL](https://www.postgresql.org) and [MongoDB](https://www.mongodb.com) setups included, but configure and use any database you want.
