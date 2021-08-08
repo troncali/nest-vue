@@ -7,7 +7,7 @@
 	},
 	"include": [
 		"**/*.e2e.[jt]s",
-		"../../src/backend/*.[jt]s",
+		"../../src/backend/**/*.[jt]s",
 		"../../libs/**/*.[jt]s"
 	]
 }

@@ -7,7 +7,7 @@ import {
 	Session,
 	UseGuards
 } from "@nestjs/common";
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import * as secureSession from "fastify-secure-session";
 
 import { AppConfigService } from "../config/app/config.service";
@@ -15,6 +15,8 @@ import { SessionService } from "../models/session/providers/session.service";
 
 import { EmailAuthGuard } from "./guards/email.auth.guard";
 import { SessionGuard } from "./guards/session.guard";
+
+import { AuthRequest } from "./auth.interface";
 
 /** Base authentication-related routing, prefixed with
  * `/{BACKEND_BASE_PATH}/` */
@@ -41,7 +43,7 @@ export class AuthController {
 	@Post("login")
 	async login(
 		@Res({ passthrough: true }) response: FastifyReply,
-		@Req() req: FastifyRequest,
+		@Req() req: AuthRequest,
 		@Session() session: secureSession.Session
 	) {
 		// TODO: If there is an existing session cookie, use it to authenticate
