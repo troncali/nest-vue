@@ -1,5 +1,5 @@
 # Reduce image bloat with a prebuild to gather production files and dependencies
-FROM node:16.5-alpine AS prebuild
+FROM node:alpine AS prebuild
 	WORKDIR /tmp
 	# Use built files resulting from Jenkins pipeline
 	COPY ./builds/backend ./builds/backend
@@ -16,7 +16,7 @@ FROM node:16.5-alpine AS prebuild
 		# More notes below about the yarn plugin and alternative approaches
 
 # Build the production image
-FROM node:16.5-alpine AS production
+FROM node:alpine AS production
 	RUN mkdir -p /home/node/app/builds && chown -R node:node /home/node/app
 	WORKDIR /home/node/app
 	USER node
@@ -53,7 +53,7 @@ FROM node:16.5-alpine AS production
 	#      (no fetch required), including dev, and only rebuild executables.
 	#    - Results in a higher image size (couple hundred megabytes), depending
 	#      on your setup.
-	# 2. 'yarn workspaces focus --all --production', and add
+	# 2. 'yarn workspaces focus --all --production', and include
 	# './.yarn/cache install-state.gz' in the first line of the RUN command as
 	# an additional folder and file to remove.
 	#    - Will result in a fresh fetch and install limited to non-dev
