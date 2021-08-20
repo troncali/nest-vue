@@ -16,9 +16,9 @@
     - `yarn run secure-session-gen-key > ./src/docker/secrets/BACKEND_SESSION_KEY_1`
 4. Run `yarn nx build backend` and `yarn nx build frontend` to generate initial builds.
 5. Generate a self-signed SSL certificate for local development.
-    - If you would like to edit the local domain to be something other than `localhost`, edit `./src/nginx/dev-certs/dev-domains.ext` and change `DNS.1`, etc.
+    - If you would like to edit the local domain to be something other than `localhost`, edit `./src/docker/nginx/dev-certs/dev-domains.ext` and change `DNS.1`, etc.
     - `yarn docker:dev-cert`
-    - Add the certificate (saved to `./src/nginx/dev-certs/fullchain.pem`) to your trusted certificates.
+    - Add the certificate (saved to `./src/docker/nginx/dev-certs/fullchain.pem`) to your trusted certificates.
 6. Run `yarn docker:dev`, `yarn nx serve backend`, and `yarn nx serve frontend`
     - `nx` will automatically update `frontend` and `backend` on saved file changes
     - The backend will be available at https://localhost:3001/v1/, proxied through `nginx` with changes reflected on refresh

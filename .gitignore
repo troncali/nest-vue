@@ -5,8 +5,8 @@ src/docker/secrets/*
 !src/docker/secrets/EXAMPLE_SECRET
 
 # Development certificates
-src/nginx/dev-certs/*
-!src/nginx/dev-certs/dev-domain.ext
+src/docker/nginx/dev-certs/*
+!src/docker/nginx/dev-certs/dev-domains.ext
 
 # Generated Files
 /src/backend/schema.gql

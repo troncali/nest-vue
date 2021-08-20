@@ -3,8 +3,7 @@ version: "3"
 services:
     db:
         ports:
-            - ${DB_PORT}:${DB_PORT}
-        # command: ["postgres", "-d", "2"]
+            - ${DB_PORT}:${DB_PORT} # For local connections during development
         command: [
                 "postgres",
                 # Set runtime parameters
@@ -14,8 +13,12 @@ services:
 
     nginx:
         volumes:
-            - ./src/nginx/dev-certs:/etc/letsencrypt/live/localhost
+            - ./src/docker/nginx/dev-certs:/etc/letsencrypt/live/localhost
             - ./builds/frontend:/etc/nginx/html
         environment:
             - APP_DOMAIN=localhost
             - BACKEND_SERVICE_NAME=host.docker.internal # localhost on host matchine
+
+    certbot:
+        environment:
+            - CERTBOT_MODE=local
