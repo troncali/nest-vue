@@ -8,3 +8,11 @@ services:
         depends_on:
             - backend
             - db
+    certbot:
+        depends_on:
+            - nginx
+
+    worker:
+        depends_on:
+            - nginx
+            - certbot

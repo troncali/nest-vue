@@ -1,7 +1,7 @@
 FROM certbot/certbot
 
-COPY ["./src/nginx/certbot-entrypoint.sh", "./src/nginx/dev-certs/dev-domains.ext", "./"]
+COPY ["./src/docker/certbot/*", "./src/docker/nginx/dev-certs/dev-domains.ext", "./"]
 
-RUN chmod +x certbot-entrypoint.sh
+RUN chmod +x entrypoint.sh deploy-hook.sh
 
-ENTRYPOINT ["./certbot-entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]

@@ -1,3 +1,5 @@
+# Convert to swarm
+
 version: "3"
 services:
     db:
@@ -8,7 +10,7 @@ services:
         container_name: db
         deploy:
             mode: global
-        restart: unless-stopped
+        restart: always
         volumes:
             - db-data:/var/lib/postgresql/data
             #- db-data:/data/db
@@ -22,7 +24,7 @@ services:
             # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/DB_USERNAME
             # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
-            - app_network
+            - backend_network
         ### Use `app_nework` so database is privately exposed only to these
         ### Docker services. Use ports instead of networks if public exposure
         ### is needed for external services.
@@ -37,7 +39,7 @@ services:
         deploy:
             mode: replicated
             replicas: 1
-        restart: unless-stopped
+        restart: always
         secrets:
             - DB_USERNAME
             - DB_PASSWORD
@@ -54,7 +56,8 @@ services:
             - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
             - GRAPHQL_PATH=${GRAPHQL_PATH}
         networks:
-            - app_network
+            - frontend_network
+            - backend_network
         ### Use `app_nework` so service is not publicly exposed to ensure
         ### routing through nginx. Use ports instead of networks if public
         ### exposure is needed for external services.
@@ -72,23 +75,23 @@ services:
         container_name: nginx
         deploy:
             mode: global
-        restart: unless-stopped
+        restart: always
         volumes:
             - certbot-html:/etc/nginx/html/certbot
             - certbot-etc:/etc/letsencrypt
             - certbot-var:/var/lib/letsencrypt
             - dhparam:/etc/ssl/certs
         ports:
-            - "80:80"
-            - "443:443"
+            - "80:8080"
+            - "443:8443"
         networks:
-            - app_network
+            - frontend_network
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
             - BACKEND_SERVICE_NAME=backend
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
             - BACKEND_PORT=${BACKEND_PORT}
-            - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in `nginx.conf`
+            - NGINX_DH_BITS=${NGINX_DH_BITS}
             # Important: `nginx.conf` location after template interpolation
             - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
 
@@ -97,11 +100,14 @@ services:
             context: .
             dockerfile: ./src/docker/certbot.Dockerfile
         container_name: certbot
+        deploy:
+            mode: global
         command:
             [
                 "certonly",
                 "--webroot",
                 "--webroot-path=/var/www/html",
+                "--keep-until-expiring",
                 "--agree-tos",
                 "--no-eff-email",
                 "--email=${CERTBOT_EMAIL}",
@@ -109,18 +115,32 @@ services:
                 "-d=www.${APP_DOMAIN}"
             ]
         volumes:
-            - ./src/nginx/dev-certs:/opt/certbot/dev-certs
+            - ./src/docker/nginx/dev-certs:/opt/certbot/dev-certs
             - certbot-etc:/etc/letsencrypt
             - certbot-var:/var/lib/letsencrypt
             - certbot-html:/var/www/html
-        depends_on:
-            - nginx
+            - worker-flags:/opt/certbot/flags
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - CERT_ENV=${CERT_ENV}
             - CERTBOT_EMAIL=${CERTBOT_EMAIL}
             - NGINX_GID=${NGINX_GID}
             - NGINX_UID=${NGINX_UID}
+
+    worker:
+        build:
+            context: .
+            dockerfile: ./src/docker/worker.Dockerfile
+            network: none
+        container_name: worker
+        restart: always
+        deploy:
+            mode: global
+        volumes:
+            - worker-flags:/app/flags
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            - NGINX_CONTAINER_NAME=nginx
+            - CERTBOT_CONTAINER_NAME=certbot
 
 volumes:
     certbot-etc:
@@ -128,9 +148,12 @@ volumes:
     certbot-var:
     db-data:
     dhparam:
+    worker-flags:
 
 networks:
-    app_network:
+    frontend_network:
+        driver: bridge
+    backend_network:
         driver: bridge
 
 secrets:

@@ -1,5 +1,5 @@
 # Reduce image bloat with a prebuild to gather production files and dependencies
-FROM node:alpine AS prebuild
+FROM node:alpine3.14 AS prebuild
 	WORKDIR /tmp
 	# Use built files resulting from Jenkins pipeline
 	COPY ./builds/backend ./builds/backend
@@ -16,7 +16,7 @@ FROM node:alpine AS prebuild
 		# More notes below about the yarn plugin and alternative approaches
 
 # Build the production image
-FROM node:alpine AS production
+FROM node:alpine3.14 AS production
 	RUN mkdir -p /home/node/app/builds && chown -R node:node /home/node/app
 	WORKDIR /home/node/app
 	USER node
