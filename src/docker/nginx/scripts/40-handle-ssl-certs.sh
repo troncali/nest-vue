@@ -15,12 +15,12 @@ if [ ! -f "$CERT_FILE" ] ; then
 
 	if [ ! "${CERTBOT_MODE}" == "local" ]; then
 		echo >&3 "$ME: Certificate not found; starting nginx with temporary http configuration"
-		nginx -c /etc/nginx/certbot.conf
+		nginx -c /etc/nginx/confs/certbot.conf
 
 		wait_for_certbot
 
 		echo >&3 "$ME: Stopping temporary configuration"
-		nginx -c /etc/nginx/certbot.conf -s quit
+		nginx -c /etc/nginx/confs/certbot.conf -s quit
 	else
 		wait_for_certbot
 	fi

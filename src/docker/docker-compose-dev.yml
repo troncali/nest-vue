@@ -13,11 +13,12 @@ services:
 
     nginx:
         volumes:
-            - ./src/docker/nginx/dev-certs:/etc/letsencrypt/live/localhost
-            - ./builds/frontend:/etc/nginx/html
+            - ./src/docker/nginx/dev-certs:/etc/letsencrypt/live/localhost:ro
+            - ./builds/frontend:/usr/share/nginx/html/blue:ro
         environment:
             - APP_DOMAIN=localhost
-            - BACKEND_SERVICE_NAME=host.docker.internal # localhost on host matchine
+            - BACKEND_BLUE_NAME=host.docker.internal # localhost on host matchine
+            - BACKEND_GREEN_NAME=host.docker.internal
 
     certbot:
         environment:
