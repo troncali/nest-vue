@@ -4,10 +4,15 @@ services:
     backend:
         depends_on:
             - db
+
     nginx:
         depends_on:
             - backend
+            - placeholder
             - db
+        volumes:
+            - certbot-etc:/etc/letsencrypt:ro
+
     certbot:
         depends_on:
             - nginx
