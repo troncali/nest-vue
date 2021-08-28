@@ -10,9 +10,11 @@ FROM node:alpine3.14 AS prebuild
 	# 2. Temporarily install required build tools - explanation in notes below
 	# 3. Use yarn plugin to remove dev dependencies and rebuild executables
 	# 4. Delete build tools because they are not needed in production image
-	RUN rm -rf ./.yarn/unplugged && \
-		apk add --no-cache --virtual build-deps python3 alpine-sdk autoconf libtool automake && \
-		yarn prune-prod && apk del build-deps
+	RUN rm -rf ./.yarn/unplugged \
+		&& apk add --no-cache --virtual build-deps python3 alpine-sdk autoconf \
+		   libtool automake \
+		&& yarn prune-prod \
+		&& apk del build-deps
 		# More notes below about the yarn plugin and alternative approaches
 
 # Build the production image
@@ -44,8 +46,8 @@ FROM node:alpine3.14 AS production
 	# to 'yarn install --production' in Yarn 1 (omits devDependencies) but does
 	# not prune the cache. The 'prune-prod' plugin first uses the cache to
 	# "install" production dependencies and modify .pnp.cjs like the 'focus'
-	# command, then clears the takes the additional step of clearing the cache
-	# of dev dependencies.
+	# command, then takes the additional step of clearing the cache of dev
+	# dependencies.
 	#
 	# Alternative approaches: replace 'yarn prune-prod' with
 	# 1. 'yarn rebuild'

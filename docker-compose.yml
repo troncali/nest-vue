@@ -1,5 +1,3 @@
-# Convert to swarm
-
 version: "3"
 services:
     db:
@@ -21,10 +19,11 @@ services:
             - POSTGRES_USER_FILE=/run/secrets/DB_USERNAME
             - POSTGRES_PASSWORD_FILE=/run/secrets/DB_PASSWORD
             - POSTGRES_DB=${DB_DATABASE_NAME}
+            - TZ=${APP_TIMEZONE}
             # - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/DB_USERNAME
             # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
-            - backend_network
+            - backend-network
         ### Use `app_nework` so database is privately exposed only to these
         ### Docker services. Use ports instead of networks if public exposure
         ### is needed for external services.
@@ -35,7 +34,7 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/backend.Dockerfile
-        container_name: backend
+        container_name: backend-blue
         deploy:
             mode: replicated
             replicas: 1
@@ -49,20 +48,29 @@ services:
             - DOCKER_ENV=true
             - BACKEND_PORT=${BACKEND_PORT}
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
+            - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
+            - DB_DATABASE_NAME=${DB_DATABASE_NAME}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
-            - DB_DATABASE_NAME=${DB_DATABASE_NAME}
             - DB_SCHEMA=${DB_SCHEMA}
-            - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
             - GRAPHQL_PATH=${GRAPHQL_PATH}
+            - TZ=${APP_TIMEZONE}
         networks:
-            - frontend_network
-            - backend_network
+            - backend-network
+            - frontend-network
         ### Use `app_nework` so service is not publicly exposed to ensure
         ### routing through nginx. Use ports instead of networks if public
         ### exposure is needed for external services.
         # ports:
         #     - "${BACKEND_PORT}:${BACKEND_PORT}"
+
+    placeholder:
+        build:
+            context: .
+            dockerfile: ./src/docker/placeholder.Dockerfile
+        container_name: backend-green
+        networks:
+            - frontend-network
 
     nginx:
         build:
@@ -76,24 +84,40 @@ services:
         deploy:
             mode: global
         restart: always
+        read_only: true
+        secrets:
+            - NGINX_STAGING_AUTH
         volumes:
-            - certbot-html:/etc/nginx/html/certbot
-            - certbot-etc:/etc/letsencrypt
-            - certbot-var:/var/lib/letsencrypt
-            - dhparam:/etc/ssl/certs
+            - certbot-html:/usr/share/nginx/html/certbot:ro
+            - certbot-var:/var/lib/letsencrypt:ro
+            - dhparam:/var/certs:ro
+            - frontend-blue:/usr/share/nginx/html/blue:ro
+            - frontend-green:/usr/share/nginx/html/green:ro
+            - worker-flags:/opt/flags:ro
+            - nginx-writeable:/tmp
+            - nginx-confs:/tmp/confs
+            # Set up a read-only volume for consuming generated .conf files
+            - type: volume
+              source: nginx-confs
+              target: /etc/nginx/confs
+              read_only: true
         ports:
             - "80:8080"
             - "443:8443"
         networks:
-            - frontend_network
+            - frontend-network
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
-            - BACKEND_SERVICE_NAME=backend
+            - BACKEND_BLUE_NAME=backend-blue
+            - BACKEND_GREEN_NAME=backend-green
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
             - BACKEND_PORT=${BACKEND_PORT}
             - NGINX_DH_BITS=${NGINX_DH_BITS}
+            - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
+            - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
             # Important: `nginx.conf` location after template interpolation
-            - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+            - NGINX_ENVSUBST_OUTPUT_DIR=/tmp/confs
+            - TZ=${APP_TIMEZONE}
 
     certbot:
         build:
@@ -112,7 +136,8 @@ services:
                 "--no-eff-email",
                 "--email=${CERTBOT_EMAIL}",
                 "-d=${APP_DOMAIN}",
-                "-d=www.${APP_DOMAIN}"
+                "-d=www.${APP_DOMAIN}",
+                "-d=staging.${APP_DOMAIN}"
             ]
         volumes:
             - ./src/docker/nginx/dev-certs:/opt/certbot/dev-certs
@@ -139,8 +164,9 @@ services:
             - worker-flags:/app/flags
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
-            - NGINX_CONTAINER_NAME=nginx
             - CERTBOT_CONTAINER_NAME=certbot
+            - NGINX_CONTAINER_NAME=nginx
+            - TZ=${APP_TIMEZONE}
 
 volumes:
     certbot-etc:
@@ -148,12 +174,16 @@ volumes:
     certbot-var:
     db-data:
     dhparam:
+    frontend-blue:
+    frontend-green:
+    nginx-confs:
+    nginx-writeable:
     worker-flags:
 
 networks:
-    frontend_network:
+    frontend-network:
         driver: bridge
-    backend_network:
+    backend-network:
         driver: bridge
 
 secrets:
@@ -163,3 +193,6 @@ secrets:
         file: ./src/docker/secrets/DB_PASSWORD
     BACKEND_SESSION_KEY_1:
         file: ./src/docker/secrets/BACKEND_SESSION_KEY_1
+    NGINX_STAGING_AUTH:
+        file: ./src/docker/secrets/NGINX_STAGING_AUTH
+# TODO: convert other services to run in read-only mode?
