@@ -2785,6 +2785,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/devkit@npm:*":
+  version: 12.8.0
+  resolution: "@nrwl/devkit@npm:12.8.0"
+  dependencies:
+    "@nrwl/tao": 12.8.0
+    ejs: ^3.1.5
+    ignore: ^5.0.4
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tslib: ^2.0.0
+  checksum: efee28a5bd4b7704ce664b2dfb73faf3a953d14a30f6821cd06bdceac25cff0c9cba0ed479988e8311c15fc8029483f6172c28e26debc9b02d6dc751575fec8c
+  languageName: node
+  linkType: hard
+
 "@nrwl/devkit@npm:12.6.5":
   version: 12.6.5
   resolution: "@nrwl/devkit@npm:12.6.5"
@@ -2904,6 +2918,26 @@ __metadata:
   bin:
     tao: index.js
   checksum: ec8a375c9f9742e842c90b164188463b39a523bd072ed1de21c8ef0cdce1b4fb57613deb451ec08a2aa4a7c7f2fd73bb5945e0c8c0156ddb96d3def7b7b26521
+  languageName: node
+  linkType: hard
+
+"@nrwl/tao@npm:12.8.0":
+  version: 12.8.0
+  resolution: "@nrwl/tao@npm:12.8.0"
+  dependencies:
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    fs-extra: ^9.1.0
+    jsonc-parser: 3.0.0
+    rxjs: ^6.5.4
+    rxjs-for-await: 0.0.2
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tslib: ^2.0.0
+    yargs-parser: 20.0.0
+  bin:
+    tao: index.js
+  checksum: cc60aab5a33f8dff68cc9eb96fd41b1cbc876f455d0dc04821b64c7a5cf6aa91acd1ceea83bb6f7f12a86d581b67a8a53b369997a60dbd72b5d30573c96a860f
   languageName: node
   linkType: hard
 
@@ -14278,6 +14312,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"jest-junit@npm:^12.2.0":
+  version: 12.2.0
+  resolution: "jest-junit@npm:12.2.0"
+  dependencies:
+    mkdirp: ^1.0.4
+    strip-ansi: ^5.2.0
+    uuid: ^8.3.2
+    xml: ^1.0.1
+  checksum: 6a666b017eac77fd549a64ec68fda858d078e016405318684361392eac4c4d189a42f8dd9d9d1266ceab2245b1d9c7c63ea76827cd6429705ccdc1675b049d7d
+  languageName: node
+  linkType: hard
+
 "jest-leak-detector@npm:^24.9.0":
   version: 24.9.0
   resolution: "jest-leak-detector@npm:24.9.0"
@@ -16902,6 +16948,7 @@ fsevents@^1.2.7:
     graphql-tools: ^8.1.0
     jest: 27.0.6
     jest-environment-jsdom-fifteen: ^1.0.2
+    jest-junit: ^12.2.0
     jest-serializer-vue: ^2.0.2
     jest-transform-stub: ^2.0.0
     joi: ^17.4.2
@@ -24508,6 +24555,13 @@ typescript@4.1.4:
     sax: ">=0.6.0"
     xmlbuilder: ~11.0.0
   checksum: ca0cf2dfbf6deeaae878a891c8fbc0db6fd04398087084edf143cdc83d0509ad0fe199b890f62f39c4415cf60268a27a6aed0d343f0658f8779bd7add690fa98
+  languageName: node
+  linkType: hard
+
+"xml@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "xml@npm:1.0.1"
+  checksum: 11b5545ef3f8fec3fa29ce251f50ad7b6c97c103ed4d851306ec23366f5fa4699dd6a942262df52313a0cd1840ab26256da253c023bad3309d8ce46fe6020ca0
   languageName: node
   linkType: hard
 

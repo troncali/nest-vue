@@ -17,5 +17,16 @@ module.exports = {
 	},
 	moduleFileExtensions: ["ts", "tsx", "vue", "js", "json"],
 	coverageDirectory: "../../builds/coverage/frontend",
-	snapshotSerializers: ["jest-serializer-vue"]
+	snapshotSerializers: ["jest-serializer-vue"],
+	reporters: [
+		"default",
+		[
+			"jest-junit",
+			{
+				suiteName: "Backend Unit Tests",
+				outputDirectory: "./builds",
+				outputName: "junit-frontend-unit.xml"
+			}
+		]
+	]
 };
