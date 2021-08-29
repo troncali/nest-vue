@@ -59,7 +59,6 @@
 					"outputs": ["builds/coverage/backend"],
 					"options": {
 						"jestConfig": "e2e/backend/jest.config.js",
-						"tsConfig": "e2e/backend/tsconfig.test.json",
 						"passWithNoTests": false
 					}
 				}

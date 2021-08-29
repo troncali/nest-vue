@@ -8,5 +8,10 @@
 	"video": false,
 	"videosFolder": "../../builds/frontend-e2e/videos",
 	"screenshotsFolder": "../../builds/frontend-e2e/screenshots",
-	"chromeWebSecurity": false
+	"chromeWebSecurity": false,
+	"reporter": "junit",
+	"reporterOptions": {
+		"mochaFile": "../../builds/junit-frontend-e2e-[hash].xml",
+		"toConsole": true
+	}
 }

@@ -110,6 +110,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.1.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.0.6"],
             ["jest-environment-jsdom-fifteen", "npm:1.0.2"],
+            ["jest-junit", "npm:12.2.0"],
             ["jest-serializer-vue", "npm:2.0.2"],
             ["jest-transform-stub", "npm:2.0.0"],
             ["joi", "npm:17.4.2"],
@@ -4478,6 +4479,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:2.3.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:12.8.0", {
+          "packageLocation": "./.yarn/cache/@nrwl-devkit-npm-12.8.0-37f679970b-efee28a5bd.zip/node_modules/@nrwl/devkit/",
+          "packageDependencies": [
+            ["@nrwl/devkit", "npm:12.8.0"],
+            ["@nrwl/tao", "npm:12.8.0"],
+            ["ejs", "npm:3.1.6"],
+            ["ignore", "npm:5.1.8"],
+            ["rxjs", "npm:6.6.7"],
+            ["semver", "npm:7.3.4"],
+            ["tslib", "npm:2.3.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@nrwl/eslint-plugin-nx", [
@@ -4592,6 +4606,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@nrwl-tao-npm-12.6.5-57f1bd8a57-ec8a375c9f.zip/node_modules/@nrwl/tao/",
           "packageDependencies": [
             ["@nrwl/tao", "npm:12.6.5"],
+            ["@angular-devkit/architect", "npm:0.1200.3"],
+            ["@angular-devkit/core", "npm:12.1.4"],
+            ["@angular-devkit/schematics", "npm:12.1.4"],
+            ["chalk", "npm:4.1.0"],
+            ["enquirer", "npm:2.3.6"],
+            ["fs-extra", "npm:9.1.0"],
+            ["jsonc-parser", "npm:3.0.0"],
+            ["rxjs", "npm:6.6.7"],
+            ["rxjs-for-await", "virtual:57f1bd8a5729520d86029e4247fa50d66764535db428077af1275e83a6180270b79f80c7d252b2e082d826f32f9db88d5da0e9121ec6f34df535687df0d38143#npm:0.0.2"],
+            ["semver", "npm:7.3.4"],
+            ["tmp", "npm:0.2.1"],
+            ["tslib", "npm:2.3.0"],
+            ["yargs-parser", "npm:20.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:12.8.0", {
+          "packageLocation": "./.yarn/cache/@nrwl-tao-npm-12.8.0-eb1abe4623-cc60aab5a3.zip/node_modules/@nrwl/tao/",
+          "packageDependencies": [
+            ["@nrwl/tao", "npm:12.8.0"],
             ["@angular-devkit/architect", "npm:0.1200.3"],
             ["@angular-devkit/core", "npm:12.1.4"],
             ["@angular-devkit/schematics", "npm:12.1.4"],
@@ -4727,6 +4761,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular-devkit/core", "npm:12.0.0"],
             ["@angular-devkit/schematics", "npm:12.0.0"],
             ["@nrwl/cypress", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:12.6.5"],
+            ["@nrwl/devkit", "npm:12.8.0"],
             ["@nrwl/jest", "npm:12.6.5"],
             ["@nrwl/linter", "npm:12.6.5"],
             ["@nrwl/workspace", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#patch:@nrwl/workspace@npm%3A12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch::version=12.6.5&hash=7e24ff&locator=nest-vue%40workspace%3A."],
@@ -18602,6 +18637,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["jest-junit", [
+        ["npm:12.2.0", {
+          "packageLocation": "./.yarn/cache/jest-junit-npm-12.2.0-0c23823ec4-6a666b017e.zip/node_modules/jest-junit/",
+          "packageDependencies": [
+            ["jest-junit", "npm:12.2.0"],
+            ["mkdirp", "npm:1.0.4"],
+            ["strip-ansi", "npm:5.2.0"],
+            ["uuid", "npm:8.3.2"],
+            ["xml", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["jest-leak-detector", [
         ["npm:24.9.0", {
           "packageLocation": "./.yarn/cache/jest-leak-detector-npm-24.9.0-bc64a3940e-ab54f8ca8f.zip/node_modules/jest-leak-detector/",
@@ -21486,6 +21534,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.1.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.0.6"],
             ["jest-environment-jsdom-fifteen", "npm:1.0.2"],
+            ["jest-junit", "npm:12.2.0"],
             ["jest-serializer-vue", "npm:2.0.2"],
             ["jest-transform-stub", "npm:2.0.0"],
             ["joi", "npm:17.4.2"],
@@ -30241,6 +30290,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/xdg-basedir-npm-4.0.0-ed08d380e2-0073d5b59a.zip/node_modules/xdg-basedir/",
           "packageDependencies": [
             ["xdg-basedir", "npm:4.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["xml", [
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/xml-npm-1.0.1-f50a7aeb8e-11b5545ef3.zip/node_modules/xml/",
+          "packageDependencies": [
+            ["xml", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }]
