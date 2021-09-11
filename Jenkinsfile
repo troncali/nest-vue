@@ -2,6 +2,8 @@ pipeline {
     agent any
 
 	environment {
+		JENKINS_REPO_URL = 'git@github.com:troncali/nest-vue.git'
+		JENKINS_REPO_CREDENTIALS_ID = 'jenkins-generated-ssh-key'
 		EMAIL_RECIPIENTS = ''
 	}
 
@@ -13,6 +15,7 @@ pipeline {
 
         stage("Setup") {
             steps {
+				sh "node --version; docker version"
 				// Wipe workspace and start with a fresh, shallow clone
 				checkout([
 					$class: 'GitSCM',
@@ -21,64 +24,105 @@ pipeline {
 						[$class: 'WipeWorkspace'],
 						[$class: 'CloneOption', noTags: false, shallow: true]
 					],
-					userRemoteConfigs: [
-						// TODO: change to variables in jenkins?
-				        [credentialsId: 'jenkins-generated-ssh-key', url: 'git@github.com:troncali/nest-vue.git']
-				    ]
+					userRemoteConfigs: [ [
+				        credentialsId: "${JENKINS_REPO_CREDENTIALS_ID}",
+						url: "${JENKINS_REPO_URL}"
+					] ]
 				])
-				// Install dependencies
-                sh "yarn install --immutable --immutable-cache"
+				// Install dependencies; fail if yarn.lock would change
+                sh "yarn install --immutable"
             }
         }
 
         stage("Test: Units") {
             steps { sh "yarn nx run-many --target=test --all" }
-			post { success { junit 'builds/junit-*-unit.xml' } }
+			post {
+				success {
+					junit testResults: 'builds/junit-*-unit.xml',
+						skipPublishingChecks: true
+				}
+			}
         }
 
         stage("Build Code") {
-            steps {
-                sh "yarn nx run-many --target=build --all"
-            }
+            steps { sh "yarn nx run-many --target=build --all" }
 			post {
-				always {
-					archiveArtifacts artifacts: 'builds/**/*', excludes: 'builds/out-tsc/**/*', fingerprint: true
+				success {
+					archiveArtifacts artifacts: 'builds/**/*',
+						excludes: 'builds/out-tsc/**/*',
+						fingerprint: true
 				}
 			}
         }
 
 		stage("Build Images") {
             steps {
-                echo "build docker images..."
-            }
-			// post {
-			// 	always {
-			// 		archiveArtifacts artifacts: 'builds/**/*', excludes: 'builds/out-tsc/**/*', fingerprint: true
-			// 	}
-			// }
-        }
+				// Use .env from local project root (where 'yarn jenkins' ran)
+                sh "cp ${INIT_CWD}/.env .env"
 
-		// Cleanup stage?
+				// Alt: create .env from a secret file in Jenkins credentials
+				// withCredentials([file(credentialsId: 'projectEnvFile', variable: 'projectEnv')]) {
+                //     writeFile file: '.env', text: readFile(projectEnv)
+                // }
+
+				// build each image that's needed (but limit to only what's needed?)
+				sh "docker compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml build --no-cache"
+			}
+        }
 
 		stage("Migrate: Local") {
 			steps {
-				echo "Running migrations..."
-			}
-		}
+				// Use .env file variables
+				withEnv(readFile('.env').replaceAll(/(#.+\n+)|(\s+#.+)/, '').split('\n') as List) {
 
-		stage("Seed: Local") {
-			steps {
-				echo "Seeding data..."
+					// Copy secrets // TODO: update to use swarm secrets
+					sh "cp ${INIT_CWD}/src/docker/secrets/* src/docker/secrets"
+
+					// Stop and remove db container if it already exists
+					sh "docker compose rm -fs ${DB_HOST}"
+
+					// Pull copy of db from production
+					// https://inedo.com/support/kb/1145/accessing-a-postgresql-database-in-a-docker-container
+					sh "ssh do 'docker exec ${DB_HOST} \
+						pg_dump -d ${DB_DATABASE_NAME} -U keeper' | \
+						xz -3 > db-backup.sql.xz"
+
+					// Start the db container
+					sh "docker compose -f docker-compose.yml \
+						-f ./src/docker/docker-compose-dev.yml up -d ${DB_HOST}"
+
+					// Load production data into local db
+					sh "xz -dc db-backup.sql.xz | docker exec -i ${DB_HOST} \
+						psql -h localhost -p ${DB_PORT} -d ${DB_DATABASE_NAME} -U keeper \
+						--set ON_ERROR_STOP=on --single-transaction"
+
+					sh "cp -f ${INIT_CWD}/docker-compose.yml docker-compose.yml"
+					// Run migrations and seed data
+					sh "docker compose -f docker-compose.yml \
+						-f ./src/docker/docker-compose-dev.yml up migrator"
+				}
 			}
 		}
 
 		stage("Test: Integration") {
 			steps {
 				echo "Integration Testing..."
+
+				// Start other containers
+
+				// Run tests
+
+				// Stop db
 			}
 		}
 
-		// Migrate and Seed Staging (copy DB from prod first)
+		// Migrate and Seed Production DB
+		stage("Migrate: Production") {
+			steps {
+				echo "Migrating production..."
+				// sh "xz -dc db-backup.sql.xz | ssh do 'docker exec -i db psql -d main -U keeper --set ON_ERROR_STOP=on --single-transaction'"
+			}
+		}
 
 		stage("Deploy: Staging") {
 			steps {
@@ -97,7 +141,7 @@ pipeline {
 			// 	branch 'production'
 			// }
 
-            // no agent, so executors are not used up when waiting for approvals
+            // No agent, so executors are not blocked when waiting for approvals
             agent none
             steps {
                 // script {
@@ -108,13 +152,16 @@ pipeline {
             }
         }
 
-		// Migrate and Seed Production DB
 
         stage("Deploy: Production") {
             steps {
                 echo "Deploying..."
             }
         }
+
+		// Rebase and commit new version to repo
+
+		// Cleanup: remove .env, stop and prune containers on remote, archive?
     }
 }
 
@@ -139,42 +186,27 @@ pipeline {
 
 
 // https://github.com/silveimar/jenkins-pipeline-example/blob/master/Jenkinsfile
-pipeline {
-    agent any
-    tools {
-        nodejs 'node-8.1.3'
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'nodejs --version'
-                sh 'npm install'
-                sh 'gulp lint'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'nodejs --version'
-                sh 'gulp test'
-            }
-        }
-    }
-    post {
-        always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
-        }
-        success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-        }
-        changed {
-            echo 'Things were different before...'
-        }
-    }
-}
+// pipeline {
+//     agent any
+//     tools {
+//         nodejs 'node-8.1.3'
+//     }
+//     post {
+//         always {
+//             echo 'One way or another, I have finished'
+//             deleteDir() /* clean up our workspace */
+//         }
+//         success {
+//             echo 'I succeeeded!'
+//         }
+//         unstable {
+//             echo 'I am unstable :/'
+//         }
+//         failure {
+//             echo 'I failed :('
+//         }
+//         changed {
+//             echo 'Things were different before...'
+//         }
+//     }
+// }

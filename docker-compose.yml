@@ -151,6 +151,21 @@ services:
             - NGINX_GID=${NGINX_GID}
             - NGINX_UID=${NGINX_UID}
 
+    migrator:
+        extends:
+            file: docker-compose.yml
+            service: backend
+        container_name: migrator
+        command:
+            [
+                "sh",
+                "-c",
+                "node -r ./.pnp.cjs builds/backend/migrate.js; node -r ./.pnp.cjs builds/backend/seed.js"
+            ]
+        restart: "no"
+        deploy:
+            mode: global
+
     worker:
         build:
             context: .
