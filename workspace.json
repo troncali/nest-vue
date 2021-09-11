@@ -18,7 +18,17 @@
 						"main": "src/backend/main.ts",
 						"tsConfig": "src/backend/tsconfig.app.json",
 						"assets": ["src/backend/static"],
-						"webpackConfig": "src/backend/webpack.config.js"
+						"webpackConfig": "src/backend/webpack.config.js",
+						"additionalEntryPoints": [
+							{
+								"entryName": "migrate",
+								"entryPath": "src/backend/migrate.ts"
+							},
+							{
+								"entryName": "seed",
+								"entryPath": "src/backend/seed.ts"
+							}
+						]
 					},
 					"configurations": {
 						"production": {
@@ -44,7 +54,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["src/backend/**/*.ts"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
@@ -104,7 +115,8 @@
 					"executor": "@nrwl/linter:eslint",
 					"options": {
 						"lintFilePatterns": ["src/frontend/**/*.{ts,tsx,vue}"]
-					}
+					},
+					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
