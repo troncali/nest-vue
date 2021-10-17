@@ -21,3 +21,13 @@ services:
         depends_on:
             - nginx
             - certbot
+
+secrets:
+    DB_USERNAME:
+        file: /srv/vxnn/secrets/DB_USERNAME
+    DB_PASSWORD:
+        file: /srv/vxnn/secrets/DB_PASSWORD
+    BACKEND_SESSION_KEY_1:
+        file: /srv/vxnn/secrets/BACKEND_SESSION_KEY_1
+    NGINX_STAGING_AUTH:
+        file: /srv/vxnn/secrets/NGINX_STAGING_AUTH

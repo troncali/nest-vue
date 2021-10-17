@@ -5,6 +5,7 @@ services:
             context: .
             dockerfile: ./src/docker/db-postgres.Dockerfile
             # dockerfile: ./src/docker/db-mongo.Dockerfile
+        image: vxnn/db
         container_name: db
         deploy:
             mode: global
@@ -34,6 +35,7 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/backend.Dockerfile
+        image: vxnn/backend
         container_name: backend-blue
         deploy:
             mode: replicated
@@ -58,16 +60,12 @@ services:
         networks:
             - backend-network
             - frontend-network
-        ### Use `app_nework` so service is not publicly exposed to ensure
-        ### routing through nginx. Use ports instead of networks if public
-        ### exposure is needed for external services.
-        # ports:
-        #     - "${BACKEND_PORT}:${BACKEND_PORT}"
 
     placeholder:
         build:
             context: .
             dockerfile: ./src/docker/placeholder.Dockerfile
+        image: vxnn/placeholder
         container_name: backend-green
         networks:
             - frontend-network
@@ -80,6 +78,7 @@ services:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
                 - NGINX_GID=${NGINX_GID}
                 - NGINX_UID=${NGINX_UID}
+        image: vxnn/nginx
         container_name: nginx
         deploy:
             mode: global
@@ -123,6 +122,7 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/certbot.Dockerfile
+        image: vxnn/certbot
         container_name: certbot
         deploy:
             mode: global
@@ -156,11 +156,11 @@ services:
             file: docker-compose.yml
             service: backend
         container_name: migrator
-        command:
-            [
+        command: [
                 "sh",
                 "-c",
-                "node -r ./.pnp.cjs builds/backend/migrate.js; node -r ./.pnp.cjs builds/backend/seed.js"
+                "node -r ./.pnp.cjs builds/backend/migrate.js; \
+                node -r ./.pnp.cjs builds/backend/seed.js"
             ]
         restart: "no"
         deploy:
@@ -171,6 +171,7 @@ services:
             context: .
             dockerfile: ./src/docker/worker.Dockerfile
             network: none
+        image: vxnn/worker
         container_name: worker
         restart: always
         deploy:
