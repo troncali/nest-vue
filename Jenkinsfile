@@ -1,11 +1,23 @@
+// Create object to store variables used across stages
+class VxnnEnvVars {
+	def emailRecipients = ''
+	def projectName = 'vxnn'
+	def repoUrl = 'git@github.com:troncali/nest-vue.git'
+	def repoCredentialsId = 'jenkins-generated-ssh-key'
+	def stagingCredentialsId = 'staging-credentials'
+
+	// Variables set dynamically in scripts
+	def dbHost
+	def dbName
+	def dbPort
+	def dbUser
+	def stagingColor
+	def stagingDomain
+}
+def vxnn = new VxnnEnvVars();
+
 pipeline {
     agent any
-
-	environment {
-		JENKINS_REPO_URL = 'git@github.com:troncali/nest-vue.git'
-		JENKINS_REPO_CREDENTIALS_ID = 'jenkins-generated-ssh-key'
-		EMAIL_RECIPIENTS = ''
-	}
 
 	options {
 		skipDefaultCheckout()
@@ -16,6 +28,7 @@ pipeline {
         stage("Setup") {
             steps {
 				sh "node --version; docker version"
+
 				// Wipe workspace and start with a fresh, shallow clone
 				checkout([
 					$class: 'GitSCM',
@@ -25,10 +38,49 @@ pipeline {
 						[$class: 'CloneOption', noTags: false, shallow: true]
 					],
 					userRemoteConfigs: [ [
-				        credentialsId: "${JENKINS_REPO_CREDENTIALS_ID}",
-						url: "${JENKINS_REPO_URL}"
+				        credentialsId: "${vxnn.repoCredentialsId}",
+						url: "${vxnn.repoUrl}"
 					] ]
 				])
+
+				// Use secrets from project root (where 'yarn jenkins' invoked)
+				sh "cp ${INIT_CWD}/src/docker/secrets/* src/docker/secrets"
+
+				// Use .env from project root (where 'yarn jenkins' invoked)
+                sh "cp ${INIT_CWD}/.env .env"
+				// OR create .env from a secret file in Jenkins credentials
+				// withCredentials([file(credentialsId: 'projectEnvFile', variable: 'projectEnv')]) {
+                //     writeFile file: '.env', text: readFile(projectEnv)
+                // }
+
+				// Set variables used across stages
+				withEnv(readFile('.env').replaceAll(/(#.+\n+)|(\s+#.+)/, '').split('\n') as List) {					
+					script {
+						vxnn.dbHost = "${DB_HOST}"
+						vxnn.dbName = "${DB_DATABASE_NAME}"
+						vxnn.dbPort = "${DB_PORT}"
+						vxnn.dbUser = readFile("src/docker/secrets/DB_USERNAME")
+						vxnn.stagingDomain = "${STAGING_SUBDOMAIN}.${APP_DOMAIN}"
+					}
+				}
+
+				// Determine current staging target
+				withCredentials([
+					usernameColonPassword(
+						credentialsId: "${vxnn.stagingCredentialsId}",
+						variable: 'credentials'
+					)
+				]) {
+					script {
+						vxnn.stagingColor = sh(
+							script: 'curl -s -u $credentials ' + 
+								"https://${vxnn.stagingDomain}/id",
+							returnStdout: true
+						).trim()
+					}
+				}
+				echo "deploymentId: ${vxnn.stagingColor}"
+
 				// Install dependencies; fail if yarn.lock would change
                 sh "yarn install --immutable"
             }
@@ -44,8 +96,67 @@ pipeline {
 			}
         }
 
-        stage("Build Code") {
-            steps { sh "yarn nx run-many --target=build --all" }
+		stage("Migrate: Local") {
+			steps {
+				// Stop and remove containers if they already exist
+				sh "docker compose -p ${vxnn.projectName} rm -fs"
+
+				// Pull copy of db from production
+				// https://inedo.com/support/kb/1145/accessing-a-postgresql-database-in-a-docker-container
+				sh "ssh do 'docker exec ${vxnn.dbHost} \
+					pg_dump -c -d ${vxnn.dbName} -U ${vxnn.dbUser}' | \
+					xz -3 > db-backup.sql.xz"
+
+				// Start the db container
+				sh "docker compose -p ${vxnn.projectName} \
+					-f docker-compose.yml \
+					-f ./src/docker/docker-compose-dev.yml up -d ${vxnn.dbHost}"
+
+				// Test if db is ready for connections
+				timeout(5) {
+					waitUntil {
+						script {
+							def r = sh(
+								script: "docker exec -i ${vxnn.dbHost} \
+									pg_isready -h localhost -p ${vxnn.dbPort} \
+									-d ${vxnn.dbName} -U ${vxnn.dbUser}",
+								returnStatus: true
+							)
+							return (r == 0);
+						}
+					}
+				}
+
+				// Load production data into local db
+				sh "xz -dc db-backup.sql.xz | docker exec -i ${vxnn.dbHost} \
+					psql -h localhost -p ${vxnn.dbPort} -d ${vxnn.dbName} \
+					-U ${vxnn.dbUser} --set ON_ERROR_STOP=on \
+					--single-transaction"
+
+				// Run migrations and seed data
+				sh "yarn migration:run; yarn seed"
+			}
+		}
+
+		stage("Test: Integration") {
+			steps {
+				// Run tests // TODO: Update integration test structure
+				sh "NODE_ENV=testing yarn nx e2e backend"
+			}
+			post {
+				success {
+					junit testResults: 'builds/junit-*-e2e.xml',
+						skipPublishingChecks: true
+				}
+				always {
+					// Stop all local containers
+					sh "docker compose -p ${vxnn.projectName} rm -fs"
+				}
+			}
+		}
+
+		stage("Build Code") {
+            steps { sh "yarn nx run-many --target=build --all --prod" }
 			post {
 				success {
 					archiveArtifacts artifacts: 'builds/**/*',
@@ -55,78 +166,64 @@ pipeline {
 			}
         }
 
-		stage("Build Images") {
-            steps {
-				// Use .env from local project root (where 'yarn jenkins' ran)
-                sh "cp ${INIT_CWD}/.env .env"
-
-				// Alt: create .env from a secret file in Jenkins credentials
-				// withCredentials([file(credentialsId: 'projectEnvFile', variable: 'projectEnv')]) {
-                //     writeFile file: '.env', text: readFile(projectEnv)
-                // }
-
-				// build each image that's needed (but limit to only what's needed?)
-				sh "docker compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml build --no-cache"
+		stage("Build Images: Core") {
+			when { branch 'core' }
+			steps {
+				sh "docker compose -p ${vxnn.projectName} \
+					-f docker-compose.yml \
+					-f ./src/docker/docker-compose-prod.yml \
+					build nginx db placeholder certbot worker --no-cache"
+				// send images to remote
+				// sh "docker save nginx db placeholder certbot worker | ssh do 'docker load'"
 			}
         }
 
-		stage("Migrate: Local") {
+		stage("Build Images: Services") {
+			when { not { branch 'core' } }
 			steps {
-				// Use .env file variables
-				withEnv(readFile('.env').replaceAll(/(#.+\n+)|(\s+#.+)/, '').split('\n') as List) {
-
-					// Copy secrets // TODO: update to use swarm secrets
-					sh "cp ${INIT_CWD}/src/docker/secrets/* src/docker/secrets"
-
-					// Stop and remove db container if it already exists
-					sh "docker compose rm -fs ${DB_HOST}"
-
-					// Pull copy of db from production
-					// https://inedo.com/support/kb/1145/accessing-a-postgresql-database-in-a-docker-container
-					sh "ssh do 'docker exec ${DB_HOST} \
-						pg_dump -d ${DB_DATABASE_NAME} -U keeper' | \
-						xz -3 > db-backup.sql.xz"
-
-					// Start the db container
-					sh "docker compose -f docker-compose.yml \
-						-f ./src/docker/docker-compose-dev.yml up -d ${DB_HOST}"
-
-					// Load production data into local db
-					sh "xz -dc db-backup.sql.xz | docker exec -i ${DB_HOST} \
-						psql -h localhost -p ${DB_PORT} -d ${DB_DATABASE_NAME} -U keeper \
-						--set ON_ERROR_STOP=on --single-transaction"
-
-					sh "cp -f ${INIT_CWD}/docker-compose.yml docker-compose.yml"
-					// Run migrations and seed data
-					sh "docker compose -f docker-compose.yml \
-						-f ./src/docker/docker-compose-dev.yml up migrator"
-				}
-			}
-		}
-
-		stage("Test: Integration") {
-			steps {
-				echo "Integration Testing..."
-
-				// Start other containers
-
-				// Run tests
-
-				// Stop db
+				sh "docker compose -p ${vxnn.projectName} \
+					-f docker-compose.yml \
+					-f ./src/docker/docker-compose-prod.yml \
+					build backend --no-cache"
+				// send images to remote
+				// sh "docker save backend | ssh do 'docker load'"
 			}
 		}
 
 		// Migrate and Seed Production DB
 		stage("Migrate: Production") {
 			steps {
-				echo "Migrating production..."
-				// sh "xz -dc db-backup.sql.xz | ssh do 'docker exec -i db psql -d main -U keeper --set ON_ERROR_STOP=on --single-transaction'"
+				// Run migrations and seed data only if db is up
+				sh(returnStdout: true, script: """
+					if [ ! "$(docker --context DO ps -a | grep db)" ]; then
+						echo "DB container not running.  Skipping migration."
+					else
+						docker --context DO compose -p ${vxnn.projectName} \
+							rm -f migrator; \
+						docker --context DO compose -p ${vxnn.projectName} \
+							-f docker-compose.yml \
+							-f ./src/docker/docker-compose-prod.yml \
+							up -d migrator
+					fi
+				""".stripIndent())
 			}
 		}
 
 		stage("Deploy: Staging") {
-			steps {
-				echo "Deploying to development environment"
+			steps {					
+				// Clear then copy frontend files
+				sh "ssh do 'rm -rf /var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data/{..?*,.[!.]*,*}'"
+				sh "scp -r ./builds/frontend/* do:/var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data"
+
+				// Stop current backend container if it's running
+				sh "docker --context DO rm -f backend-${vxnn.stagingColor}"
+
+				// Start backend container
+				sh "docker --context DO compose -p ${vxnn.projectName} \
+					-f docker-compose.yml \
+					-f ./src/docker/docker-compose-prod.yml \
+					-f ./src/docker/docker-deploy-colors.yml \
+					up -d backend-${vxnn.stagingColor}"
 			}
 		}
 
@@ -137,10 +234,6 @@ pipeline {
         }
 
 		stage('UAT') {
-			// when {
-			// 	branch 'production'
-			// }
-
             // No agent, so executors are not blocked when waiting for approvals
             agent none
             steps {
@@ -155,7 +248,25 @@ pipeline {
 
         stage("Deploy: Production") {
             steps {
-                echo "Deploying..."
+				// remove existing color flag
+				// sh(returnStdout: true, script: '''
+				// 	ssh do 'if [ $STAGING_COLOR = "blue" ]; then
+				// 		rm /var/lib/docker/volumes/nest-vue_worker-flags/_data/blue
+				// 	else
+				// 		rm /var/lib/docker/volumes/nest-vue_worker-flags/_data/green
+				// 	fi'
+				// '''.stripIndent())
+
+				// remove existing color flag
+				sh "ssh do 'rm /var/lib/docker/volumes/${vxnn.projectName}_nginx-confs/_data/upstreams'"
+				sh "docker --context DO exec nginx ln -s \
+					/etc/nginx/confs/${vxnn.stagingColor}.conf \
+					/tmp/confs/upstreams"
+
+				// set flags for nginx deployment color and restart
+				// sh "ssh do 'touch /var/lib/docker/volumes/nest-vue_worker-flags/_data/${STAGING_COLOR}; \
+				sh "ssh do 'touch /var/lib/docker/volumes/${vxnn.projectName}_worker-flags/_data/restart_nginx; \
+					docker restart worker'"
             }
         }
 
