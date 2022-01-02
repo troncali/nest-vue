@@ -6,7 +6,7 @@ import * as Joi from "joi";
  */
 export default Joi.object({
 	NODE_ENV: Joi.string()
-		.valid("development", "production", "testing")
+		.valid("development", "production", "test")
 		.default("development"),
 	BACKEND_PORT: Joi.number().required().default(3001),
 	BACKEND_BASE_ROUTE: Joi.string().required()

@@ -7,7 +7,7 @@
 	"author": "<7217131+troncali@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
-		"docker:deploy": "docker --context DO compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml up",
+		"docker:deploy": "docker --context DO compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml up -d",
 		"docker:dev": "docker compose -f docker-compose.yml -f ./src/docker/docker-compose-dev.yml up nginx db",
 		"docker:dev-certs": "docker compose -f docker-compose.yml -f ./src/docker/docker-compose-dev.yml run certbot",
 		"docker:prod": "nx build backend && nx build frontend && docker compose -f docker-compose.yml -f ./src/docker/docker-compose-prod.yml build --no-cache",
@@ -22,7 +22,7 @@
 		"build": "nx build",
 		"test": "nx test",
 		"lint": "nx workspace-lint && nx lint",
-		"e2e": "NODE_ENV=testing nx e2e",
+		"e2e": "nx e2e",
 		"affected:apps": "nx affected:apps",
 		"affected:libs": "nx affected:libs",
 		"affected:build": "nx affected:build",
@@ -87,11 +87,13 @@
 		"@nestjs/testing": "^8.0.0",
 		"@nrwl/cli": "12.9.0",
 		"@nrwl/cypress": "12.9.0",
+		"@nrwl/devkit": "13.4.1",
 		"@nrwl/eslint-plugin-nx": "12.9.0",
 		"@nrwl/jest": "12.9.0",
 		"@nrwl/linter": "12.9.0",
 		"@nrwl/nest": "12.9.0",
 		"@nrwl/node": "12.9.0",
+		"@nrwl/nx-cloud": "13.0.1",
 		"@nrwl/tao": "12.9.0",
 		"@nrwl/workspace": "patch:@nrwl/workspace@12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch",
 		"@nx-plus/vue": "12.0.0",
@@ -155,5 +157,5 @@
 	"resolutions": {
 		"tar": "6.1.4"
 	},
-	"packageManager": "yarn@3.0.0"
+	"packageManager": "yarn@3.1.1"
 }
