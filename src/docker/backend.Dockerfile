@@ -1,8 +1,6 @@
 # Reduce image bloat with a prebuild to gather production files and dependencies
-FROM node:alpine3.14 AS prebuild
+FROM node:16.13.1-alpine3.14 AS prebuild
 	WORKDIR /tmp
-	# Use built files resulting from Jenkins pipeline
-	COPY ./builds/backend ./builds/backend
 	COPY [".pnp.cjs", ".yarnrc.yml", "package.json", "yarn.lock", "./"]
 	COPY ./.yarn ./.yarn
 	# Rebuild dependency executables specific to container platform
@@ -18,13 +16,15 @@ FROM node:alpine3.14 AS prebuild
 		# More notes below about the yarn plugin and alternative approaches
 
 # Build the production image
-FROM node:alpine3.14 AS production
+FROM node:16.13.1-alpine3.14 AS production
 	RUN mkdir -p /home/node/app/builds && chown -R node:node /home/node/app
 	WORKDIR /home/node/app
 	USER node
+	EXPOSE ${BACKEND_PORT}
 	# Leverage Yarn's Zero-Install feature for production files and dependencies
 	COPY --chown=node:node --from=prebuild /tmp .
-	EXPOSE ${BACKEND_PORT}
+	# Use built files resulting from Jenkins pipeline
+	COPY --chown=node:node ./builds/backend ./builds/backend
 	# Require .pnp.cjs for Yarn PnP's dependency resolution
 	CMD ["node", "-r", "./.pnp.cjs", "builds/backend/main.js"]
 

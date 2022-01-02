@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:1.21.5-alpine
 
 WORKDIR /etc/nginx
 
@@ -11,9 +11,6 @@ COPY ./src/docker/nginx/confs ./templates
 
 # Configuration scripts to run before each nginx start
 COPY ./src/docker/nginx/scripts /docker-entrypoint.d
-
-# Frontend and static files
-COPY ./builds/frontend /usr/share/nginx/html
 
 RUN chmod +x /docker-entrypoint.d/*.sh \
 	# Add .template extension to all .conf files for variable interpolation
@@ -38,5 +35,3 @@ RUN chmod +x /docker-entrypoint.d/*.sh \
 USER ${NGINX_UID}:${NGINX_GID}
 
 CMD ["nginx", "-g", "daemon off;"]
-
-# TODO: use bunkerized-nginx, or integrate some features? Performance tradeoff?
