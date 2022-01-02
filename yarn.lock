@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 4
+  version: 5
   cacheKey: 8
 
 "@aduh95/viz.js@npm:^3.1.0":
@@ -273,7 +273,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.15.0, @babel/core@npm:^7.0.1, @babel/core@npm:^7.1.0, @babel/core@npm:^7.11.0, @babel/core@npm:^7.12.16, @babel/core@npm:^7.12.9, @babel/core@npm:^7.14.6, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5":
+"@babel/core@npm:^7.0.1, @babel/core@npm:^7.1.0, @babel/core@npm:^7.11.0, @babel/core@npm:^7.12.16, @babel/core@npm:^7.12.9, @babel/core@npm:^7.14.6, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5":
   version: 7.15.0
   resolution: "@babel/core@npm:7.15.0"
   dependencies:
@@ -2777,6 +2777,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/cli@npm:13.4.1":
+  version: 13.4.1
+  resolution: "@nrwl/cli@npm:13.4.1"
+  dependencies:
+    "@nrwl/tao": 13.4.1
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    v8-compile-cache: 2.3.0
+    yargs: 15.4.1
+    yargs-parser: 20.0.0
+  bin:
+    nx: bin/nx.js
+  checksum: 0d27da2d5187e7aaca550fe71bb2d660c45c286bc37abee5a7897129f2817de1d44c54b0b5d6a877125d8402d8038d795cccbdd3cfbd0ab18bac02c2f4c5cad9
+  languageName: node
+  linkType: hard
+
 "@nrwl/cypress@npm:12.9.0":
   version: 12.9.0
   resolution: "@nrwl/cypress@npm:12.9.0"
@@ -2838,6 +2854,20 @@ __metadata:
     semver: 7.3.4
     tslib: ^2.0.0
   checksum: 36f3256cae8e7ed1b293ccaa09c6462652534efe35181893c0787371b27d5ab0237978a35789d4b5eb53a29448d90e7bb7a13c4bd4ee78fc119d834c1ad4c9b2
+  languageName: node
+  linkType: hard
+
+"@nrwl/devkit@npm:13.4.1":
+  version: 13.4.1
+  resolution: "@nrwl/devkit@npm:13.4.1"
+  dependencies:
+    "@nrwl/tao": 13.4.1
+    ejs: ^3.1.5
+    ignore: ^5.0.4
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tslib: ^2.3.0
+  checksum: 7012bd3deac00cf8763e4878ed59a8532f6f47ccff92542503c0d058b405b8343581b60cf4a264bc7b8853d8c6d861eda409184615ecbcc4c45c205077e50924
   languageName: node
   linkType: hard
 
@@ -2963,6 +2993,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/nx-cloud@npm:13.0.1":
+  version: 13.0.1
+  resolution: "@nrwl/nx-cloud@npm:13.0.1"
+  dependencies:
+    axios: ^0.21.1
+    chalk: 4.1.0
+    node-machine-id: ^1.1.12
+    rxjs: 6.5.5
+    strip-json-comments: ^3.1.1
+    tar: 6.1.11
+  bin:
+    nx-cloud: bin/nx-cloud.js
+  checksum: 51d2c8dccaec6ef0116fd1c5ea561c277b3f896dfdc90cd20adc40ee3de8a67570bd7617d928eabebe9ccc1eb99fcd88c206254e9a8b2e15ed308282c81f074e
+  languageName: node
+  linkType: hard
+
 "@nrwl/tao@npm:12.6.5":
   version: 12.6.5
   resolution: "@nrwl/tao@npm:12.6.5"
@@ -3021,6 +3067,29 @@ __metadata:
   bin:
     tao: index.js
   checksum: 2b622822639e445385cfab1a4eb13d5b0098d03f49d095bc1a7364433309ddfd34954663b8bb1a26fab800cf9c70a0f5ccc284cd4ebab5c349ce368d720461ff
+  languageName: node
+  linkType: hard
+
+"@nrwl/tao@npm:13.4.1":
+  version: 13.4.1
+  resolution: "@nrwl/tao@npm:13.4.1"
+  dependencies:
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    fs-extra: ^9.1.0
+    ignore: ^5.0.4
+    jsonc-parser: 3.0.0
+    nx: 13.4.1
+    rxjs: ^6.5.4
+    rxjs-for-await: 0.0.2
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+    yargs-parser: 20.0.0
+  bin:
+    tao: index.js
+  checksum: 00594db8bbe085f37c6d28216f03ec1c6aea066a714e401e12adf4c3ba7a6f028d62d9672491be2e269062c77b951d45d3ba7a42d19b763f7ed96919dc1eca8d
   languageName: node
   linkType: hard
 
@@ -3090,7 +3159,7 @@ __metadata:
 
 "@nrwl/workspace@patch:@nrwl/workspace@12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch::locator=nest-vue%40workspace%3A.":
   version: 12.6.5
-  resolution: "@nrwl/workspace@patch:@nrwl/workspace@npm%3A12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch::version=12.6.5&hash=7e24ff&locator=nest-vue%40workspace%3A."
+  resolution: "@nrwl/workspace@patch:@nrwl/workspace@npm%3A12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch::version=12.6.5&hash=917346&locator=nest-vue%40workspace%3A."
   dependencies:
     "@nrwl/cli": 12.6.5
     "@nrwl/devkit": 12.6.5
@@ -3116,7 +3185,7 @@ __metadata:
     yargs-parser: 20.0.0
   peerDependencies:
     prettier: ^2.3.0
-  checksum: f1ac69d73bcefa57bcd3c3164338d728868724d316b21ca9e92e3583f02dfb7e027a99b37d2208072a6c4a1e94c8331f824bb7a42e908c7ec56fd0f71f3f6b43
+  checksum: 6cb0bcd17c4ab8e2aa53d2b31da15b035f6b782a81e1ae5315f21963568851d65b68648eb98687cc63757b4e16cb090fb75f8030dc95f8ce955d4b323f0f9cb1
   languageName: node
   linkType: hard
 
@@ -6570,6 +6639,15 @@ __metadata:
   dependencies:
     follow-redirects: ^1.10.0
   checksum: c87915fa0b18c15c63350112b6b3563a3e2ae524d7707de0a73d2e065e0d30c5d3da8563037bc29d4cc1b7424b5a350cb7274fa52525c6c04a615fe561c6ab11
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.21.1":
+  version: 0.21.4
+  resolution: "axios@npm:0.21.4"
+  dependencies:
+    follow-redirects: ^1.14.0
+  checksum: 44245f24ac971e7458f3120c92f9d66d1fc695e8b97019139de5b0cc65d9b8104647db01e5f46917728edfc0cfd88eb30fc4c55e6053eef4ace76768ce95ff3c
   languageName: node
   linkType: hard
 
@@ -11132,6 +11210,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-glob@npm:3.2.7, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.4, fast-glob@npm:^3.2.5":
+  version: 3.2.7
+  resolution: "fast-glob@npm:3.2.7"
+  dependencies:
+    "@nodelib/fs.stat": ^2.0.2
+    "@nodelib/fs.walk": ^1.2.3
+    glob-parent: ^5.1.2
+    merge2: ^1.3.0
+    micromatch: ^4.0.4
+  checksum: 2f4708ff112d2b451888129fdd9a0938db88b105b0ddfd043c064e3c4d3e20eed8d7c7615f7565fee660db34ddcf08a2db1bf0ab3c00b87608e4719694642d78
+  languageName: node
+  linkType: hard
+
 "fast-glob@npm:^2.2.6":
   version: 2.2.7
   resolution: "fast-glob@npm:2.2.7"
@@ -11143,19 +11234,6 @@ __metadata:
     merge2: ^1.2.3
     micromatch: ^3.1.10
   checksum: 304ccff1d437fcc44ae0168b0c3899054b92e0fd6af6ad7c3ccc82ab4ddd210b99c7c739d60ee3686da2aa165cd1a31810b31fd91f7c2a575d297342a9fc0534
-  languageName: node
-  linkType: hard
-
-"fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.4, fast-glob@npm:^3.2.5":
-  version: 3.2.7
-  resolution: "fast-glob@npm:3.2.7"
-  dependencies:
-    "@nodelib/fs.stat": ^2.0.2
-    "@nodelib/fs.walk": ^1.2.3
-    glob-parent: ^5.1.2
-    merge2: ^1.3.0
-    micromatch: ^4.0.4
-  checksum: 2f4708ff112d2b451888129fdd9a0938db88b105b0ddfd043c064e3c4d3e20eed8d7c7615f7565fee660db34ddcf08a2db1bf0ab3c00b87608e4719694642d78
   languageName: node
   linkType: hard
 
@@ -11603,6 +11681,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.0":
+  version: 1.14.6
+  resolution: "follow-redirects@npm:1.14.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 7fcdb089a733d2aa39041880790e9f772df009fcd0b243fee7e10acf0e14a8dab5208cf79eb1de35b9cc6033d4dde7f95becadfaa360c50d460b4c730b375e80
+  languageName: node
+  linkType: hard
+
 "fontkit@npm:^1.8.1":
   version: 1.8.1
   resolution: "fontkit@npm:1.8.1"
@@ -11874,6 +11962,7 @@ fsevents@^1.2.7:
     bindings: ^1.5.0
     nan: ^2.12.1
   checksum: ae855aa737aaa2f9167e9f70417cf6e45a5cd11918e1fee9923709a0149be52416d765433b4aeff56c789b1152e718cd1b13ddec6043b78cdda68260d86383c1
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -11883,25 +11972,26 @@ fsevents@^1.2.7:
   dependencies:
     node-gyp: latest
   checksum: 97ade64e75091afee5265e6956cb72ba34db7819b4c3e94c431d4be2b19b8bb7a2d4116da417950c3425f17c8fe693d25e20212cac583ac1521ad066b77ae31f
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=1cc4b2"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
-  checksum: b264407498db2cfdcc2a05287334a4160c985a88e4a989e2f2f8dcc6afc8b04a4fcd82c797266442452e11c1fb07d7747d138b078fe4bb1f8f4fd2a6f2484d7e
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=1cc4b2"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
-  checksum: 78db9daf1f6526a49cefee3917cc988f62dc7f25b5dd80ad6de4ffc4af7f0cab7491ac737626ff53e482a111bc53aac9e411fe3602458eca36f6a003ecf69c16
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -14583,19 +14673,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest-resolve@npm:24.9.0, jest-resolve@npm:^24.9.0":
-  version: 24.9.0
-  resolution: "jest-resolve@npm:24.9.0"
-  dependencies:
-    "@jest/types": ^24.9.0
-    browser-resolve: ^1.11.3
-    chalk: ^2.0.1
-    jest-pnp-resolver: ^1.2.1
-    realpath-native: ^1.1.0
-  checksum: 60a84cbd75d5cdab1ad29c8ed62e43fbc374c906e5a0f166fae5170f91c863ee9372aaab7dbdb3a06a38b0362131fa7c907c114be76a8bc1aeac47013ec308e4
-  languageName: node
-  linkType: hard
-
 "jest-resolve@npm:27.0.6, jest-resolve@npm:^27.0.6":
   version: 27.0.6
   resolution: "jest-resolve@npm:27.0.6"
@@ -14610,6 +14687,19 @@ fsevents@^1.2.7:
     resolve: ^1.20.0
     slash: ^3.0.0
   checksum: edfb7479a390b55da1ca4daf3e4c29c62ffd6178f74f92f4777a1b723670be20673296c9259fecc8b51dbfe1ba2202aa4e0c07757bc5e8709a726be7c000268b
+  languageName: node
+  linkType: hard
+
+"jest-resolve@npm:^24.9.0":
+  version: 24.9.0
+  resolution: "jest-resolve@npm:24.9.0"
+  dependencies:
+    "@jest/types": ^24.9.0
+    browser-resolve: ^1.11.3
+    chalk: ^2.0.1
+    jest-pnp-resolver: ^1.2.1
+    realpath-native: ^1.1.0
+  checksum: 60a84cbd75d5cdab1ad29c8ed62e43fbc374c906e5a0f166fae5170f91c863ee9372aaab7dbdb3a06a38b0362131fa7c907c114be76a8bc1aeac47013ec308e4
   languageName: node
   linkType: hard
 
@@ -17005,11 +17095,13 @@ fsevents@^1.2.7:
     "@nestjs/typeorm": ^8.0.2
     "@nrwl/cli": 12.9.0
     "@nrwl/cypress": 12.9.0
+    "@nrwl/devkit": 13.4.1
     "@nrwl/eslint-plugin-nx": 12.9.0
     "@nrwl/jest": 12.9.0
     "@nrwl/linter": 12.9.0
     "@nrwl/nest": 12.9.0
     "@nrwl/node": 12.9.0
+    "@nrwl/nx-cloud": 13.0.1
     "@nrwl/tao": 12.9.0
     "@nrwl/workspace": "patch:@nrwl/workspace@12.6.5#./.yarn/patches/@nrwl/workspace/project-graph/typescript-import-locator.patch"
     "@nx-plus/vue": 12.0.0
@@ -17264,6 +17356,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"node-machine-id@npm:^1.1.12":
+  version: 1.1.12
+  resolution: "node-machine-id@npm:1.1.12"
+  checksum: e23088a0fb4a77a1d6484b7f09a22992fd3e0054d4f2e427692b4c7081e6cf30118ba07b6113b6c89f1ce46fd26ec5ab1d76dcaf6c10317717889124511283a5
+  languageName: node
+  linkType: hard
+
 "node-modules-regexp@npm:^1.0.0":
   version: 1.0.0
   resolution: "node-modules-regexp@npm:1.0.0"
@@ -17478,6 +17577,17 @@ fsevents@^1.2.7:
   bin:
     nx: bin/nx.js
   checksum: 7b090bdad35d4aed4f66f18ecae1ada7da178b721c14604e90f57b9217df0314e012c858f68aade9e847def6ecba69a1b135c2c102447bea1921ce861968ae26
+  languageName: node
+  linkType: hard
+
+"nx@npm:13.4.1":
+  version: 13.4.1
+  resolution: "nx@npm:13.4.1"
+  dependencies:
+    "@nrwl/cli": 13.4.1
+  bin:
+    nx: bin/nx.js
+  checksum: 03aca79141fbbba2c801b94a04a9ccf4af4bc87574c23db2fdf1c986123e3d5896e29b767d4ba5924760ac5a454ab9b9207fc7d0421f60c1780d80e4bc5fd069
   languageName: node
   linkType: hard
 
@@ -20100,18 +20210,18 @@ resolve@1.1.7:
 
 "resolve@patch:resolve@1.1.7#~builtin<compat/resolve>":
   version: 1.1.7
-  resolution: "resolve@patch:resolve@npm%3A1.1.7#~builtin<compat/resolve>::version=1.1.7&hash=00b1ff"
-  checksum: 3477c7e1cb7c0588764f1c2dbdd84d1f4e98d0ad138485ff280c210ddc252c86735f9e6113cbe9491e24cf3205058fce8a7a1dd1f50370707656dbd895bd3826
+  resolution: "resolve@patch:resolve@npm%3A1.1.7#~builtin<compat/resolve>::version=1.1.7&hash=07638b"
+  checksum: e9dbca78600ae56835c43a09f1276876c883e4b4bbd43e2683fa140671519d2bdebeb1c1576ca87c8c508ae2987b3ec481645ac5d3054b0f23254cfc1ce49942
   languageName: node
   linkType: hard
 
 "resolve@patch:resolve@1.x#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.5#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
-  checksum: bed00be983cd20a8af0e7840664f655c4b269786dbd9595c5f156cd9d8a0050e65cdbbbdafc30ee9b6245b230c78a2c8ab6447a52545b582f476c29adb188cc5
+  checksum: a0dd7d16a8e47af23afa9386df2dff10e3e0debb2c7299a42e581d9d9b04d7ad5d2c53f24f1e043f7b3c250cbdc71150063e53d0b6559683d37f790b7c8c3cd5
   languageName: node
   linkType: hard
 
@@ -23339,21 +23449,21 @@ typescript@4.1.4:
 
 "typescript@patch:typescript@4.1.4#~builtin<compat/typescript>":
   version: 4.1.4
-  resolution: "typescript@patch:typescript@npm%3A4.1.4#~builtin<compat/typescript>::version=4.1.4&hash=d8b4e7"
+  resolution: "typescript@patch:typescript@npm%3A4.1.4#~builtin<compat/typescript>::version=4.1.4&hash=493e53"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e0c0e39ddea16b8c900dba53fc14e0439aa5890f29eb9b464d926234378a489345f056d73b6f33a69cc3d21a0375adea01d06850b923be435c77dd56c86d6cf4
+  checksum: bf4eb9a271799de1c19634c94c7f770859b0df93dd1d29b99f3d021a618f5c4b30977b6fe60e6ac83c259490c919b6a9acc68b577a2b7f4c2866b25e5f6c6547
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@4.3.5#~builtin<compat/typescript>, typescript@patch:typescript@^4.0.3#~builtin<compat/typescript>":
   version: 4.3.5
-  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=d8b4e7"
+  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=493e53"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bc2c4fdf0f1557fdafe4ef74848c72ebd9c8c60829568248f869121aea2bb20e16649a252431d0acb185ec118143be22bed73d08f64379557810d82756afedde
+  checksum: 61fc1a2ca5037420de5bbe17c6ddc4cbcc0d52301ed94f0a7b5821c55ff9eb96307f0816f745ca8f0fc87ed92f3951cde6d97cd6fd6bc6920c02ea63b5b26259
   languageName: node
   linkType: hard
 
