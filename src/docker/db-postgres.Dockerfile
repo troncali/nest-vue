@@ -1,4 +1,4 @@
-FROM postgres:alpine
+FROM postgres:14.1-alpine3.15
 
 # Configuration scripts to run for initial db startup
 COPY ./src/docker/db /docker-entrypoint-initdb.d
