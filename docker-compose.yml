@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
     db:
         build:
@@ -25,7 +25,7 @@ services:
             # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
             - backend-network
-        ### Use `app_nework` so database is privately exposed only to these
+        ### Use `backend-nework` so database is privately exposed only to these
         ### Docker services. Use ports instead of networks if public exposure
         ### is needed for external services.
         # ports:
@@ -100,13 +100,11 @@ services:
               source: nginx-confs
               target: /etc/nginx/confs
               read_only: true
-        ports:
-            - "80:8080"
-            - "443:8443"
         networks:
             - frontend-network
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
+            - STAGING_DOMAIN=${STAGING_DOMAIN}
             - BACKEND_BLUE_NAME=backend-blue
             - BACKEND_GREEN_NAME=backend-green
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
@@ -137,7 +135,7 @@ services:
                 "--email=${CERTBOT_EMAIL}",
                 "-d=${APP_DOMAIN}",
                 "-d=www.${APP_DOMAIN}",
-                "-d=staging.${APP_DOMAIN}"
+                "-d=${STAGING_DOMAIN}"
             ]
         volumes:
             - ./src/docker/nginx/dev-certs:/opt/certbot/dev-certs
@@ -170,7 +168,6 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/worker.Dockerfile
-            network: none
         image: vxnn/worker
         container_name: worker
         restart: always

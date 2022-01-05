@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
     db:
@@ -19,6 +19,9 @@ services:
             - APP_DOMAIN=localhost
             - BACKEND_BLUE_NAME=host.docker.internal # localhost on host matchine
             - BACKEND_GREEN_NAME=host.docker.internal
+        ports:
+            - "80:80"
+            - "443:443"
 
     certbot:
         environment:
