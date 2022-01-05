@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
     backend:
@@ -12,6 +12,20 @@ services:
             - db
         volumes:
             - certbot-etc:/etc/letsencrypt:ro
+        # USE 1. ports if mapping the nginx service directly to host ports
+        ports:
+            - "80:80"
+            - "443:443"
+        # OR 2. settings below if using a proxy in front of the nginx service
+        # networks:
+        #     - proxy-network
+        # environment:
+        #     - VIRTUAL_HOST=${APP_DOMAIN},www.${APP_DOMAIN},${STAGING_DOMAIN}
+        #     - VIRTUAL_PROTO=https
+        #     - VIRTUAL_PORT=443
+        # expose:
+        #     - 80
+        #     - 443
 
     certbot:
         depends_on:
@@ -31,3 +45,7 @@ secrets:
         file: /srv/vxnn/secrets/BACKEND_SESSION_KEY_1
     NGINX_STAGING_AUTH:
         file: /srv/vxnn/secrets/NGINX_STAGING_AUTH
+# networks:
+#     proxy-network:
+#         name: proxy-network
+#         external: true
