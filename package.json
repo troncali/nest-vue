@@ -1,5 +1,5 @@
 {
-	"name": "nest-vue",
+	"name": "vxnn-demo",
 	"version": "0.6.0",
 	"description": "Nx monorepo sensibly configured with dockerized NestJS backend, Vue frontend, NGINX, Jest & Cypress testing, Jenkins CI/CD, and agnostic data via TypeORM + GraphQL.",
 	"main": "builds/backend/main.js",
