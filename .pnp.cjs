@@ -95,6 +95,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["class-validator", "npm:0.13.2"],
             ["copy-webpack-plugin", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:5.1.2"],
             ["core-js", "npm:3.16.0"],
+            ["cross-env", "npm:7.0.3"],
             ["cross-var", "npm:1.1.0"],
             ["cypress", "npm:8.2.0"],
             ["dotenv", "npm:10.0.0"],
@@ -109,7 +110,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fastify", "npm:3.20.1"],
             ["fastify-cookie", "npm:5.3.1"],
             ["fastify-secure-session", "npm:2.3.1"],
-            ["fastify-static", "npm:4.2.3"],
             ["graphql", "npm:15.5.1"],
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.1.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.0.6"],
@@ -13164,6 +13164,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["cross-env", [
+        ["npm:7.0.3", {
+          "packageLocation": "./.yarn/cache/cross-env-npm-7.0.3-96d81820f4-26f2f3ea2a.zip/node_modules/cross-env/",
+          "packageDependencies": [
+            ["cross-env", "npm:7.0.3"],
+            ["cross-spawn", "npm:7.0.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["cross-spawn", [
         ["npm:5.1.0", {
           "packageLocation": "./.yarn/cache/cross-spawn-npm-5.1.0-a3e220603e-726939c995.zip/node_modules/cross-spawn/",
@@ -14717,15 +14727,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["encoding-negotiator", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/encoding-negotiator-npm-2.0.1-452b98424f-3a9226dc47.zip/node_modules/encoding-negotiator/",
-          "packageDependencies": [
-            ["encoding-negotiator", "npm:2.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["end-of-stream", [
         ["npm:1.1.0", {
           "packageLocation": "./.yarn/cache/end-of-stream-npm-1.1.0-318d442be5-9fa637e259.zip/node_modules/end-of-stream/",
@@ -16102,21 +16103,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fastify-cookie", "npm:5.3.1"],
             ["fastify-plugin", "npm:3.0.0"],
             ["sodium-native", "npm:3.2.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["fastify-static", [
-        ["npm:4.2.3", {
-          "packageLocation": "./.yarn/cache/fastify-static-npm-4.2.3-5a0d6a9290-196abf8d2f.zip/node_modules/fastify-static/",
-          "packageDependencies": [
-            ["fastify-static", "npm:4.2.3"],
-            ["content-disposition", "npm:0.5.3"],
-            ["encoding-negotiator", "npm:2.0.1"],
-            ["fastify-plugin", "npm:3.0.0"],
-            ["glob", "npm:7.1.7"],
-            ["readable-stream", "npm:3.6.0"],
-            ["send", "npm:0.17.1"]
           ],
           "linkType": "HARD",
         }]
@@ -22653,6 +22639,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["class-validator", "npm:0.13.2"],
             ["copy-webpack-plugin", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:5.1.2"],
             ["core-js", "npm:3.16.0"],
+            ["cross-env", "npm:7.0.3"],
             ["cross-var", "npm:1.1.0"],
             ["cypress", "npm:8.2.0"],
             ["dotenv", "npm:10.0.0"],
@@ -22667,7 +22654,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fastify", "npm:3.20.1"],
             ["fastify-cookie", "npm:5.3.1"],
             ["fastify-secure-session", "npm:2.3.1"],
-            ["fastify-static", "npm:4.2.3"],
             ["graphql", "npm:15.5.1"],
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.1.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.0.6"],
