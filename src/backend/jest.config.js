@@ -11,5 +11,16 @@ module.exports = {
 	},
 	moduleFileExtensions: ["ts", "js", "html"],
 	coverageDirectory: "../../builds/coverage/backend",
-	testEnvironment: "node"
+	testEnvironment: "node",
+	reporters: [
+		"default",
+		[
+			"jest-junit",
+			{
+				suiteName: "Backend Unit Tests",
+				outputDirectory: "./builds",
+				outputName: "junit-backend-unit.xml"
+			}
+		]
+	]
 };

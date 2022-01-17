@@ -11,5 +11,16 @@ module.exports = {
 		"^.+\\.[tj]s$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "js", "html", "json"],
-	coverageDirectory: "../../builds/coverage/backend"
+	coverageDirectory: "../../builds/coverage/backend",
+	reporters: [
+		"default",
+		[
+			"jest-junit",
+			{
+				suiteName: "Backend E2E Tests",
+				outputDirectory: "./builds",
+				outputName: "junit-backend-e2e.xml"
+			}
+		]
+	]
 };

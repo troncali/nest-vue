@@ -1,10 +1,11 @@
-version: "3"
+version: "3.8"
 services:
     db:
         build:
             context: .
             dockerfile: ./src/docker/db-postgres.Dockerfile
             # dockerfile: ./src/docker/db-mongo.Dockerfile
+        image: vxnn/db
         container_name: db
         deploy:
             mode: global
@@ -24,7 +25,7 @@ services:
             # - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
         networks:
             - backend-network
-        ### Use `app_nework` so database is privately exposed only to these
+        ### Use `backend-nework` so database is privately exposed only to these
         ### Docker services. Use ports instead of networks if public exposure
         ### is needed for external services.
         # ports:
@@ -34,6 +35,7 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/backend.Dockerfile
+        image: vxnn/backend
         container_name: backend-blue
         deploy:
             mode: replicated
@@ -58,16 +60,12 @@ services:
         networks:
             - backend-network
             - frontend-network
-        ### Use `app_nework` so service is not publicly exposed to ensure
-        ### routing through nginx. Use ports instead of networks if public
-        ### exposure is needed for external services.
-        # ports:
-        #     - "${BACKEND_PORT}:${BACKEND_PORT}"
 
     placeholder:
         build:
             context: .
             dockerfile: ./src/docker/placeholder.Dockerfile
+        image: vxnn/placeholder
         container_name: backend-green
         networks:
             - frontend-network
@@ -80,6 +78,7 @@ services:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
                 - NGINX_GID=${NGINX_GID}
                 - NGINX_UID=${NGINX_UID}
+        image: vxnn/nginx
         container_name: nginx
         deploy:
             mode: global
@@ -101,13 +100,11 @@ services:
               source: nginx-confs
               target: /etc/nginx/confs
               read_only: true
-        ports:
-            - "80:8080"
-            - "443:8443"
         networks:
             - frontend-network
         environment:
             - APP_DOMAIN=${APP_DOMAIN}
+            - STAGING_DOMAIN=${STAGING_DOMAIN}
             - BACKEND_BLUE_NAME=backend-blue
             - BACKEND_GREEN_NAME=backend-green
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
@@ -123,6 +120,7 @@ services:
         build:
             context: .
             dockerfile: ./src/docker/certbot.Dockerfile
+        image: vxnn/certbot
         container_name: certbot
         deploy:
             mode: global
@@ -137,7 +135,7 @@ services:
                 "--email=${CERTBOT_EMAIL}",
                 "-d=${APP_DOMAIN}",
                 "-d=www.${APP_DOMAIN}",
-                "-d=staging.${APP_DOMAIN}"
+                "-d=${STAGING_DOMAIN}"
             ]
         volumes:
             - ./src/docker/nginx/dev-certs:/opt/certbot/dev-certs
@@ -151,11 +149,26 @@ services:
             - NGINX_GID=${NGINX_GID}
             - NGINX_UID=${NGINX_UID}
 
+    migrator:
+        extends:
+            file: docker-compose.yml
+            service: backend
+        container_name: migrator
+        command: [
+                "sh",
+                "-c",
+                "node -r ./.pnp.cjs builds/backend/migrate.js; \
+                node -r ./.pnp.cjs builds/backend/seed.js"
+            ]
+        restart: "no"
+        deploy:
+            mode: global
+
     worker:
         build:
             context: .
             dockerfile: ./src/docker/worker.Dockerfile
-            network: none
+        image: vxnn/worker
         container_name: worker
         restart: always
         deploy:

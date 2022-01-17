@@ -1,17 +1,29 @@
 {
-	"search.exclude": {
-		"**/.yarn": true,
-		"**/.pnp.*": true
-	},
 	"eslint.nodePath": ".yarn/sdks",
 	"prettier.prettierPath": ".yarn/sdks/prettier/index.js",
 	"typescript.tsdk": ".yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"js/ts.implicitProjectConfig.experimentalDecorators": true,
 	"eslint.workingDirectories": [
-		{ "directory": "src/backend", "changeProcessCWD": true },
-		{ "directory": "src/frontend", "changeProcessCWD": true },
-		{ "directory": "e2e/backend", "changeProcessCWD": true },
-		{ "directory": "e2e/frontend", "changeProcessCWD": true }
-	]
+		{
+			"directory": "src/backend",
+			"changeProcessCWD": true
+		},
+		{
+			"directory": "src/frontend",
+			"changeProcessCWD": true
+		},
+		{
+			"directory": "e2e/backend",
+			"changeProcessCWD": true
+		},
+		{
+			"directory": "e2e/frontend",
+			"changeProcessCWD": true
+		}
+	],
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true
+	}
 }
