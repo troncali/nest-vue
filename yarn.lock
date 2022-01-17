@@ -9315,7 +9315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-disposition@npm:0.5.3, content-disposition@npm:^0.5.3":
+"content-disposition@npm:0.5.3":
   version: 0.5.3
   resolution: "content-disposition@npm:0.5.3"
   dependencies:
@@ -9587,6 +9587,18 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
+  languageName: node
+  linkType: hard
+
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
   languageName: node
   linkType: hard
 
@@ -10905,13 +10917,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding-negotiator@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "encoding-negotiator@npm:2.0.1"
-  checksum: 3a9226dc47a327796c7c01d06eff0bf9a614ef9b8cbe3a7539d0c506ae92e603582c4fc5b5a61d093ff14a5d71b1b332d28a7dad73eda798a08ed73c08531c41
-  languageName: node
-  linkType: hard
-
 "encoding@npm:^0.1.12":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
@@ -12112,20 +12117,6 @@ __metadata:
   bin:
     secure-session-gen-key: genkey.js
   checksum: f61bbabf3e90949ee804ee4b85dab26112e073ed10c5e5bc454f349472bdaa09aad2ee4176d81574a7ef88efb9755dca0c9e9fa3798dff70f61652a9c01e435d
-  languageName: node
-  linkType: hard
-
-"fastify-static@npm:^4.2.3":
-  version: 4.2.3
-  resolution: "fastify-static@npm:4.2.3"
-  dependencies:
-    content-disposition: ^0.5.3
-    encoding-negotiator: ^2.0.1
-    fastify-plugin: ^3.0.0
-    glob: ^7.1.4
-    readable-stream: ^3.4.0
-    send: ^0.17.1
-  checksum: 196abf8d2f2547feacf5959a104e6d431b1428149574a995adc1f596d559a33c1fbcfb931bc94dd930a5ec88323e71c6f0f46fdc24ce6c5d0acea7b6bf292a9e
   languageName: node
   linkType: hard
 
@@ -17926,6 +17917,7 @@ fsevents@^1.2.7:
     class-validator: ^0.13.1
     copy-webpack-plugin: 5.1.2
     core-js: ^3.16.0
+    cross-env: ^7.0.3
     cross-var: 1.1.0
     cypress: ^8.2.0
     dotenv: 10.0.0
@@ -17940,7 +17932,6 @@ fsevents@^1.2.7:
     fastify: ^3.20.1
     fastify-cookie: ^5.3.1
     fastify-secure-session: ^2.3.1
-    fastify-static: ^4.2.3
     graphql: ^15.5.1
     graphql-tools: ^8.1.0
     jest: 27.0.6
@@ -21581,7 +21572,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"send@npm:0.17.1, send@npm:^0.17.1, send@npm:latest":
+"send@npm:0.17.1, send@npm:latest":
   version: 0.17.1
   resolution: "send@npm:0.17.1"
   dependencies:
