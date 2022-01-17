@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+    backend-blue:
+        extends:
+            file: docker-compose.yml
+            service: backend
+        container_name: backend-blue
+
+    backend-green:
+        extends:
+            file: docker-compose.yml
+            service: backend
+        container_name: backend-green

@@ -14,7 +14,7 @@ if [ ! -e /tmp/confs/upstreams ]; then
 		DEPLOY_COLOR="green";
 		rm /opt/flags/green
 	else
-		echo "No flag set (using default)";
+		echo "$ME: No flag set (using default)";
 	fi
 
 	ln -s /etc/nginx/confs/${DEPLOY_COLOR}.conf /tmp/confs/upstreams

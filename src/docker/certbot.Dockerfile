@@ -1,4 +1,4 @@
-FROM certbot/certbot
+FROM certbot/certbot:v1.22.0
 
 COPY ["./src/docker/certbot/*", "./src/docker/nginx/dev-certs/dev-domains.ext", "./"]
 
