@@ -6,11 +6,11 @@
 	"js/ts.implicitProjectConfig.experimentalDecorators": true,
 	"eslint.workingDirectories": [
 		{
-			"directory": "src/backend",
+			"directory": "apps/backend",
 			"changeProcessCWD": true
 		},
 		{
-			"directory": "src/frontend",
+			"directory": "apps/frontend",
 			"changeProcessCWD": true
 		},
 		{

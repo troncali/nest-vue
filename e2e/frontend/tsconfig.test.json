@@ -2,14 +2,14 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"sourceMap": false,
-		"outDir": "../../builds/out-tsc",
+		"outDir": "../../dist/out-tsc",
 		"allowJs": true,
 		"types": ["cypress", "node"]
 	},
 	"include": [
 		"**/*.e2e.[jt]s",
-		"../../src/frontend/**/*.[jt]s",
-		"../../src/frontend/**/*.vue",
+		"../../apps/frontend/**/*.[jt]s",
+		"../../apps/frontend/**/*.vue",
 		"../../libs/**/*.[jt]s"
 	]
 }

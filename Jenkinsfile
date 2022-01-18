@@ -25,7 +25,7 @@ pipeline {
 						vxnn.dbHost = "${DB_HOST}"
 						vxnn.dbName = "${DB_DATABASE_NAME}"
 						vxnn.dbPort = "${DB_PORT}"
-						vxnn.dbUser = readFile("src/docker/secrets/DB_USERNAME")
+						vxnn.dbUser = readFile("apps/docker/secrets/DB_USERNAME")
 						vxnn.deploymentApprovers = "${JENKINS_DEPLOYMENT_APPROVERS}"
 						vxnn.dockerContext = "${DOCKER_REMOTE_CONTEXT}"
 						vxnn.emailRecipients = "${JENKINS_EMAIL_RECIPIENTS}"
@@ -82,7 +82,7 @@ pipeline {
             steps { sh "yarn nx run-many --target=test --runner=local --all" }
 			post {
 				success {
-					junit testResults: 'builds/junit-*-unit.xml',
+					junit testResults: 'dist/junit-*-unit.xml',
 						skipPublishingChecks: true,
 						allowEmptyResults: true
 				}
@@ -104,7 +104,7 @@ pipeline {
 				// Start the local db container
 				sh "docker compose -p ${vxnn.projectName} \
 					-f docker-compose.yml \
-					-f ./src/docker/docker-compose-dev.yml up -d ${vxnn.dbHost}"
+					-f ./apps/docker/docker-compose-dev.yml up -d ${vxnn.dbHost}"
 
 				// Test if db is ready for connections
 				timeout(5) {
@@ -137,7 +137,7 @@ pipeline {
 			steps { sh "yarn nx e2e backend --runner=local" }
 			post {
 				success {
-					junit testResults: 'builds/junit-*-e2e.xml',
+					junit testResults: 'dist/junit-*-e2e.xml',
 						skipPublishingChecks: true,
 						allowEmptyResults: true
 				}
@@ -154,8 +154,8 @@ pipeline {
             steps { sh "yarn nx run-many --target=build --all --prod --runner=local" }
 			post {
 				success {
-					archiveArtifacts artifacts: 'builds/**/*',
-						excludes: 'builds/out-tsc/**/*',
+					archiveArtifacts artifacts: 'dist/**/*',
+						excludes: 'dist/out-tsc/**/*',
 						fingerprint: true
 				}
 			}
@@ -166,7 +166,7 @@ pipeline {
 			steps {
 				sh "docker --context ${vxnn.dockerContext} compose \
 					-p ${vxnn.projectName} -f docker-compose.yml \
-					-f ./src/docker/docker-compose-prod.yml \
+					-f ./apps/docker/docker-compose-prod.yml \
 					build nginx db placeholder certbot worker"
 				// send images to remote
 				// sh "docker save vxnn/nginx vxnn/db vxnn/placeholder vxnn/certbot vxnn/worker | ssh do 'docker load'"
@@ -186,7 +186,7 @@ pipeline {
 			steps {
 				sh "docker --context ${vxnn.dockerContext} compose \
 					-p ${vxnn.projectName} -f docker-compose.yml \
-					-f ./src/docker/docker-compose-prod.yml \
+					-f ./apps/docker/docker-compose-prod.yml \
 					build backend"
 			}
 		}
@@ -206,7 +206,7 @@ pipeline {
 					else
 						docker --context ${vxnn.dockerContext} compose \
 							-p ${vxnn.projectName} -f docker-compose.yml \
-							-f ./src/docker/docker-compose-prod.yml \
+							-f ./apps/docker/docker-compose-prod.yml \
 							up -d --force-recreate migrator
 					fi
 				""".stripIndent())
@@ -224,7 +224,7 @@ pipeline {
 
 				// Clear then copy frontend files
 				// sh "ssh ${vxnn.sshHostAlias} 'rm -rf /var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data/{..?*,.[!.]*,*}'"
-				// sh "scp -r ./builds/frontend/* ${vxnn.sshHostAlias}:/var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data"
+				// sh "scp -r ./dist/frontend/* ${vxnn.sshHostAlias}:/var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data"
 
 				// Stop current backend container if it's running
 				// sh "docker --context ${vxnn.dockerContext} stop \
@@ -235,8 +235,8 @@ pipeline {
 				// Start backend container
 				// sh "docker --context ${vxnn.dockerContext} compose \
 				// 	-p ${vxnn.projectName} -f docker-compose.yml \
-				// 	-f ./src/docker/docker-compose-prod.yml \
-				// 	-f ./src/docker/docker-deploy-colors.yml \
+				// 	-f ./apps/docker/docker-compose-prod.yml \
+				// 	-f ./apps/docker/docker-deploy-colors.yml \
 				// 	up -d backend-${vxnn.stagingColor}"
 			}
 		}
@@ -290,7 +290,7 @@ pipeline {
 				// Rebase and commit new version to repo
 
 				// Cleanup: remove .env/secrets, stop and prune containers on remote, archive?
-				sh "rm -rf ./.env ./src/docker/secrets/*"
+				sh "rm -rf ./.env ./apps/docker/secrets/*"
 			}
 		}
 
@@ -317,8 +317,8 @@ class VxnnEnvVars {
 
 def copyEnvFiles() {
 	// Use secrets from project root (where 'yarn jenkins' invoked)
-	sh "mkdir -p ./src/docker/secrets && \
-		cp ${INIT_CWD}/src/docker/secrets/* src/docker/secrets"
+	sh "mkdir -p ./apps/docker/secrets && \
+		cp ${INIT_CWD}/apps/docker/secrets/* apps/docker/secrets"
 
 	// Use .env from project root (where 'yarn jenkins' invoked)
 	sh "cp ${INIT_CWD}/.env .env"

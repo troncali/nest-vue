@@ -74,7 +74,7 @@ These steps contemplate a DigitalOcean droplet, but you can subsitute any machin
             ```
 2. If you plan to deploy multiple projects on one host, set up a proxy to listen on ports 80 and 443 of the host
     - One solution is the [`nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) docker image. Deploy it first and dynamically update routing based on environment variables of the other docker containers you deploy.
-    - In this scenario, edit `src/docker/docker-compose-prod.yml` to comment out the port configuration on lines 16-18 and uncomment the proxy configuration on lines 20-28 and 48-51
+    - In this scenario, edit `apps/docker/docker-compose-prod.yml` to comment out the port configuration on lines 16-18 and uncomment the proxy configuration on lines 20-28 and 48-51
         - By default, the `nginx` container will attempt to bind itself to ports 80 and 443 of the host machine, which would create a conflict if another instance is deployed because the ports can only be bound once
         - A proxy allows multiple deployments because the `nginx` containers will each be privately exposed to the proxy instead of attempting to bind to the host's public ports
         - Make sure your proxy and project share a mutual network so they can communicate (like lines 48-51)

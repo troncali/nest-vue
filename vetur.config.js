@@ -7,7 +7,7 @@ module.exports = {
 	},
 	projects: [
 		{
-			root: "./src/frontend",
+			root: "./apps/frontend",
 			package: "../../package.json",
 			tsconfig: "tsconfig.app.json"
 		}

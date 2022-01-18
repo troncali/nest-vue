@@ -1,10 +1,10 @@
 {
-	"npmScope": "nest-vue",
+	"npmScope": "vxnn",
 	"affected": {
 		"defaultBase": "main"
 	},
 	"workspaceLayout": {
-		"appsDir": "src",
+		"appsDir": "apps",
 		"libsDir": "libs"
 	},
 	"implicitDependencies": {

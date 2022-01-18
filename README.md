@@ -66,7 +66,7 @@ Scripts run from the project root and must be called with `yarn` to resolve depe
     -   `backend` served at http://localhost:3001/; also https if nginx container is running
     -   `frontend` served at http://localhost:8080/
 -   `yarn nx [command]`: run any normal `nx` command
--   `yarn build [app]`: outputs compiled app to `./builds/[project]`
+-   `yarn build [app]`: outputs compiled app to `./dist/[project]`
 -   `yarn build:prod`: outputs compiled app optimized for production
 -   `yarn migration:[create|run|undo]`: create, run, or undo a database migration
 -   `yarn seed`: seed the database

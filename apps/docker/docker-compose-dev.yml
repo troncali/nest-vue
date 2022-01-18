@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+    db:
+        ports:
+            - ${DB_PORT}:${DB_PORT} # For local connections during development
+        command: [
+                "postgres",
+                # Set runtime parameters
+                "-c",
+                "log_statement=all" # Which SQL statements to log
+            ]
+
+    nginx:
+        volumes:
+            - ./apps/docker/src/nginx/dev-certs:/etc/letsencrypt/live/localhost:ro
+            - ./dist/frontend:/usr/share/nginx/html/blue:ro
+        environment:
+            - APP_DOMAIN=localhost
+            - BACKEND_BLUE_NAME=host.docker.internal # localhost on host matchine
+            - BACKEND_GREEN_NAME=host.docker.internal
+        ports:
+            - "80:80"
+            - "443:443"
+
+    certbot:
+        environment:
+            - CERTBOT_MODE=local

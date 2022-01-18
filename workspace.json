@@ -2,27 +2,27 @@
 	"version": 2,
 	"projects": {
 		"backend": {
-			"root": "src/backend",
-			"sourceRoot": "src/backend/",
+			"root": "apps/backend",
+			"sourceRoot": "apps/backend/src",
 			"projectType": "application",
 			"targets": {
 				"build": {
 					"executor": "@nrwl/node:build",
 					"outputs": ["{options.outputPath}"],
 					"options": {
-						"outputPath": "builds/backend",
-						"main": "src/backend/main.ts",
-						"tsConfig": "src/backend/tsconfig.app.json",
-						"assets": ["src/backend/static"],
-						"webpackConfig": "src/backend/webpack.config.js",
+						"outputPath": "dist/apps/backend",
+						"main": "apps/backend/src/main.ts",
+						"tsConfig": "apps/backend/tsconfig.app.json",
+						"assets": ["apps/backend/src/static"],
+						"webpackConfig": "apps/backend/webpack.config.js",
 						"additionalEntryPoints": [
 							{
 								"entryName": "migrate",
-								"entryPath": "src/backend/migrate.ts"
+								"entryPath": "apps/backend/src/migrate.ts"
 							},
 							{
 								"entryName": "seed",
-								"entryPath": "src/backend/seed.ts"
+								"entryPath": "apps/backend/src/seed.ts"
 							}
 						]
 					},
@@ -33,8 +33,8 @@
 							"inspect": false,
 							"fileReplacements": [
 								{
-									"replace": "src/backend/environments/environment.ts",
-									"with": "src/backend/environments/environment.prod.ts"
+									"replace": "apps/backend/environments/environment.ts",
+									"with": "apps/backend/environments/environment.prod.ts"
 								}
 							]
 						}
@@ -49,41 +49,89 @@
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"options": {
-						"lintFilePatterns": ["src/backend/**/*.ts"]
+						"lintFilePatterns": ["apps/backend/**/*.ts"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["builds/coverage/backend"],
+					"outputs": ["dist/coverage/backend"],
 					"options": {
-						"jestConfig": "src/backend/jest.config.js",
+						"jestConfig": "apps/backend/jest.config.js",
 						"passWithNoTests": true
 					}
 				},
 				"e2e": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["builds/coverage/backend"],
+					"outputs": ["dist/coverage/backend"],
 					"options": {
 						"jestConfig": "e2e/backend/jest.config.js",
 						"passWithNoTests": false
 					}
 				}
 			},
-			"tags": []
+			"tags": ["backend", "nest"]
+		},
+		"BaseModel": {
+			"root": "libs/nest/models/base-model",
+			"sourceRoot": "libs/nest/models/base-model/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/models/base-model/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/models/base-model"],
+					"options": {
+						"jestConfig": "libs/nest/models/base-model/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"DockerHandler": {
+			"root": "libs/docker-handler",
+			"sourceRoot": "libs/docker-handler/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/docker-handler/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/docker-handler"],
+					"options": {
+						"jestConfig": "libs/docker-handler/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
 		},
 		"frontend": {
-			"root": "src/frontend",
-			"sourceRoot": "src/frontend",
+			"root": "apps/frontend",
+			"sourceRoot": "apps/frontend",
 			"projectType": "application",
 			"targets": {
 				"build": {
 					"executor": "@nx-plus/vue:browser",
 					"options": {
-						"dest": "builds/frontend",
-						"index": "src/frontend/static/index.html",
-						"main": "src/frontend/main.ts",
-						"tsConfig": "src/frontend/tsconfig.app.json"
+						"dest": "dist/frontend",
+						"index": "apps/frontend/static/index.html",
+						"main": "apps/frontend/main.ts",
+						"tsConfig": "apps/frontend/tsconfig.app.json"
 					},
 					"configurations": {
 						"production": {
@@ -111,15 +159,15 @@
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"options": {
-						"lintFilePatterns": ["src/frontend/**/*.{ts,tsx,vue}"]
+						"lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,vue}"]
 					},
 					"outputs": ["{options.outputFile}"]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["builds/coverage/frontend"],
+					"outputs": ["dist/coverage/frontend"],
 					"options": {
-						"jestConfig": "src/frontend/jest.config.js",
+						"jestConfig": "apps/frontend/jest.config.js",
 						"passWithNoTests": false
 					}
 				},
@@ -137,7 +185,293 @@
 					}
 				}
 			},
-			"tags": []
+			"tags": ["frontend", "vue"]
+		},
+		"ModelIndex": {
+			"root": "libs/nest/models/model-index",
+			"sourceRoot": "libs/nest/models/model-index/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/models/model-index/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/model-index"],
+					"options": {
+						"jestConfig": "libs/nest/models/model-index/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"AuthModule": {
+			"root": "libs/nest/auth",
+			"sourceRoot": "libs/nest/auth/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/auth/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/auth"],
+					"options": {
+						"jestConfig": "libs/nest/auth/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"AppConfigModule": {
+			"root": "libs/nest/config/app",
+			"sourceRoot": "libs/nest/config/app/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/config/app/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/config/app"],
+					"options": {
+						"jestConfig": "libs/nest/config/app/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"DbConfigModule": {
+			"root": "libs/nest/config/db",
+			"sourceRoot": "libs/nest/config/db/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/config/db/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/config/db"],
+					"options": {
+						"jestConfig": "libs/nest/config/db/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"GqlConfigModule": {
+			"root": "libs/nest/config/graphql",
+			"sourceRoot": "libs/nest/config/graphql/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/config/graphql/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/config/graphql"],
+					"options": {
+						"jestConfig": "libs/nest/config/graphql/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"CipherProvider": {
+			"root": "libs/nest/providers/cipher",
+			"sourceRoot": "libs/nest/providers/cipher/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/providers/cipher/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/providers/cipher"],
+					"options": {
+						"jestConfig": "libs/nest/providers/cipher/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"DatabaseProvider": {
+			"root": "libs/nest/providers/db",
+			"sourceRoot": "libs/nest/providers/db/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/providers/db/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/providers/db"],
+					"options": {
+						"jestConfig": "libs/nest/providers/db/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"GraphQLProvider": {
+			"root": "libs/nest/providers/graphql",
+			"sourceRoot": "libs/nest/providers/graphql/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/providers/graphql/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/providers/graphql"],
+					"options": {
+						"jestConfig": "libs/nest/providers/graphql/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"MigrationProvider": {
+			"root": "libs/nest/providers/migrator",
+			"sourceRoot": "libs/nest/providers/migrator/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/providers/migrator/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/providers/migrator"],
+					"options": {
+						"jestConfig": "libs/nest/providers/migrator/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"SeedProvider": {
+			"root": "libs/nest/providers/seeders",
+			"sourceRoot": "libs/nest/providers/seeders/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/providers/seeders/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/providers/seeders"],
+					"options": {
+						"jestConfig": "libs/nest/providers/seeders/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"Session": {
+			"root": "libs/nest/models/session",
+			"sourceRoot": "libs/nest/models/session/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/models/session/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/models/session"],
+					"options": {
+						"jestConfig": "libs/nest/models/session/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"User": {
+			"root": "libs/nest/models/user",
+			"sourceRoot": "libs/nest/models/user/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/models/user/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/models/user"],
+					"options": {
+						"jestConfig": "libs/nest/models/user/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
 		}
 	}
 }

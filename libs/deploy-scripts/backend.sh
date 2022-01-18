@@ -12,5 +12,5 @@ docker --context ${DOCKER_REMOTE_CONTEXT} rm -f backend-${DEPLOY_COLOR}
 
 # Start backend container
 docker --context ${DOCKER_REMOTE_CONTEXT} compose -p ${DOCKER_PROJECT_NAME} \
-	-f docker-compose.yml -f ./src/docker/docker-compose-prod.yml \
-	-f ./src/docker/docker-deploy-colors.yml up -d backend-${DEPLOY_COLOR}
+	-f docker-compose.yml -f ./apps/docker/docker-compose-prod.yml \
+	-f ./apps/docker/docker-deploy-colors.yml up -d backend-${DEPLOY_COLOR}

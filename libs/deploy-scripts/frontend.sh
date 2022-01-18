@@ -10,4 +10,4 @@ echo "Deploying frontend to ${DEPLOY_COLOR}"
 ssh ${SSH_HOST_ALIAS} "rm -rf /var/lib/docker/volumes/${DOCKER_PROJECT_NAME}_frontend-${DEPLOY_COLOR}/_data/{..?*,.[!.]*,*}"
 
 # Copy frontend files
-scp -r ./builds/frontend/* ${SSH_HOST_ALIAS}:/var/lib/docker/volumes/${DOCKER_PROJECT_NAME}_frontend-${DEPLOY_COLOR}/_data
+scp -r ./dist/frontend/* ${SSH_HOST_ALIAS}:/var/lib/docker/volumes/${DOCKER_PROJECT_NAME}_frontend-${DEPLOY_COLOR}/_data

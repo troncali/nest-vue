@@ -1,17 +1,17 @@
 {
 	"fileServerFolder": ".",
-	"fixturesFolder": "./fixtures",
-	"integrationFolder": "./integration",
+	"fixturesFolder": "./src/fixtures",
+	"integrationFolder": "./src/integration",
 	"modifyObstructiveCode": false,
-	"pluginsFile": "./plugins/index",
-	"supportFile": "./support/index.ts",
+	"pluginsFile": "./src/plugins/index",
+	"supportFile": "./src/support/index.ts",
 	"video": false,
-	"videosFolder": "../../builds/frontend-e2e/videos",
-	"screenshotsFolder": "../../builds/frontend-e2e/screenshots",
+	"videosFolder": "../../dist/e2e/frontend/videos",
+	"screenshotsFolder": "../../dist/e2e/frontend/screenshots",
 	"chromeWebSecurity": false,
 	"reporter": "junit",
 	"reporterOptions": {
-		"mochaFile": "../../builds/junit-frontend-e2e-[hash].xml",
+		"mochaFile": "../../dist/junit-frontend-e2e-[hash].xml",
 		"toConsole": true
 	}
 }

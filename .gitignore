@@ -1,16 +1,15 @@
 # protected files
 .env
 .htpasswd
-src/docker/secrets/*
-!src/docker/secrets/EXAMPLE_SECRET
+apps/docker/secrets/*
+!apps/docker/secrets/EXAMPLE_SECRET
 
 # Development certificates
-src/docker/nginx/dev-certs/*
-!src/docker/nginx/dev-certs/dev-domains.ext
+apps/docker/src/nginx/dev-certs/*
+!apps/docker/src/nginx/dev-certs/dev-domains.ext
 
 # Generated Files
-/src/backend/schema.gql
-/builds
+/apps/backend/schema.gql
 /dist
 /docs
 /public

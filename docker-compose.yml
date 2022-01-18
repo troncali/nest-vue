@@ -3,8 +3,8 @@ services:
     db:
         build:
             context: .
-            dockerfile: ./src/docker/db-postgres.Dockerfile
-            # dockerfile: ./src/docker/db-mongo.Dockerfile
+            dockerfile: ./apps/docker/src/db-postgres.Dockerfile
+            # dockerfile: ./apps/docker/src/db-mongo.Dockerfile
         image: vxnn/db
         container_name: db
         deploy:
@@ -34,7 +34,7 @@ services:
     backend:
         build:
             context: .
-            dockerfile: ./src/docker/backend.Dockerfile
+            dockerfile: ./apps/docker/src/backend.Dockerfile
         image: vxnn/backend
         container_name: backend-blue
         deploy:
@@ -64,7 +64,7 @@ services:
     placeholder:
         build:
             context: .
-            dockerfile: ./src/docker/placeholder.Dockerfile
+            dockerfile: ./apps/docker/src/placeholder.Dockerfile
         image: vxnn/placeholder
         container_name: backend-green
         networks:
@@ -73,7 +73,7 @@ services:
     nginx:
         build:
             context: .
-            dockerfile: ./src/docker/nginx.Dockerfile
+            dockerfile: ./apps/docker/src/nginx.Dockerfile
             args:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
                 - NGINX_GID=${NGINX_GID}
@@ -119,7 +119,7 @@ services:
     certbot:
         build:
             context: .
-            dockerfile: ./src/docker/certbot.Dockerfile
+            dockerfile: ./apps/docker/src/certbot.Dockerfile
         image: vxnn/certbot
         container_name: certbot
         deploy:
@@ -138,7 +138,7 @@ services:
                 "-d=${STAGING_DOMAIN}"
             ]
         volumes:
-            - ./src/docker/nginx/dev-certs:/opt/certbot/dev-certs
+            - ./apps/docker/src/nginx/dev-certs:/opt/certbot/dev-certs
             - certbot-etc:/etc/letsencrypt
             - certbot-var:/var/lib/letsencrypt
             - certbot-html:/var/www/html
@@ -157,8 +157,8 @@ services:
         command: [
                 "sh",
                 "-c",
-                "node -r ./.pnp.cjs builds/backend/migrate.js; \
-                node -r ./.pnp.cjs builds/backend/seed.js"
+                "node -r ./.pnp.cjs dist/apps/backend/migrate.js; \
+                node -r ./.pnp.cjs dist/apps/backend/seed.js"
             ]
         restart: "no"
         deploy:
@@ -167,7 +167,7 @@ services:
     worker:
         build:
             context: .
-            dockerfile: ./src/docker/worker.Dockerfile
+            dockerfile: ./apps/docker/src/worker.Dockerfile
         image: vxnn/worker
         container_name: worker
         restart: always
@@ -201,11 +201,11 @@ networks:
 
 secrets:
     DB_USERNAME:
-        file: ./src/docker/secrets/DB_USERNAME
+        file: ./apps/docker/secrets/DB_USERNAME
     DB_PASSWORD:
-        file: ./src/docker/secrets/DB_PASSWORD
+        file: ./apps/docker/secrets/DB_PASSWORD
     BACKEND_SESSION_KEY_1:
-        file: ./src/docker/secrets/BACKEND_SESSION_KEY_1
+        file: ./apps/docker/secrets/BACKEND_SESSION_KEY_1
     NGINX_STAGING_AUTH:
-        file: ./src/docker/secrets/NGINX_STAGING_AUTH
+        file: ./apps/docker/secrets/NGINX_STAGING_AUTH
 # TODO: convert other services to run in read-only mode?
