@@ -9,7 +9,10 @@
 	},
 	"implicitDependencies": {
 		"workspace.json": "*",
-		"package.json": { "dependencies": "*", "devDependencies": "*" },
+		"package.json": {
+			"dependencies": "*",
+			"devDependencies": "*"
+		},
 		"tsconfig.base.json": "*",
 		".eslintrc.json": "*",
 		"nx.json": "*"
@@ -19,7 +22,8 @@
 			"runner": "@nrwl/nx-cloud",
 			"options": {
 				"cacheableOperations": ["build", "lint", "test", "e2e"],
-				"accessToken": "MDIxYzFkN2MtYzQwOC00NTE0LWJlNGYtOTg1Y2NkNzdkMjJhfHJlYWQtd3JpdGU="
+				"accessToken": "MDIxYzFkN2MtYzQwOC00NTE0LWJlNGYtOTg1Y2NkNzdkMjJhfHJlYWQtd3JpdGU=",
+				"parallel": 1
 			}
 		},
 		"local": {
@@ -29,10 +33,6 @@
 			}
 		}
 	},
-	"projects": {
-		"backend": { "tags": [] },
-		"frontend": { "tags": [] }
-	},
 	"targetDependencies": {
 		"build": [
 			{
@@ -40,5 +40,9 @@
 				"projects": "dependencies"
 			}
 		]
-	}
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/nest"
+	},
+	"defaultProject": "backend"
 }

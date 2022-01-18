@@ -1,9 +1,5 @@
 {
 	"version": 2,
-	"cli": {
-		"defaultCollection": "@nrwl/nest"
-	},
-	"defaultProject": "backend",
 	"projects": {
 		"backend": {
 			"root": "src/backend",
@@ -73,7 +69,8 @@
 						"passWithNoTests": false
 					}
 				}
-			}
+			},
+			"tags": []
 		},
 		"frontend": {
 			"root": "src/frontend",
@@ -139,7 +136,8 @@
 						}
 					}
 				}
-			}
+			},
+			"tags": []
 		}
 	}
 }
