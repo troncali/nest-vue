@@ -37,7 +37,7 @@ Here's what this monorepo is meant to help you easily deploy, so you can jump st
 
 These core services are supported by the following:
 
--   **Nx v12** - extensible build framework with computation caching to rebuild only what is necessary; includes Nest and Vue plugins that expose their CLI generators, etc.
+-   **Nx v13** - extensible build framework with computation caching to rebuild only what is necessary; includes Nest and Vue plugins that expose their CLI generators, etc.
 -   **Yarn v3** - slim dependency management using [Plug'N'Play](https://yarnpkg.com/features/pnp) for smaller repositories.
 -   **Docker** - spin up your database, backend, and frontend with consistent environments both locally and on remote hosts.
 -   **Certbot** - SSL certificate generation for both local development and remote hosts.
