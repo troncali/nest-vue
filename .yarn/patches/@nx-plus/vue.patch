@@ -1,0 +1,344 @@
+diff --git a/src/builders/browser/schema.d.ts b/src/builders/browser/schema.d.ts
+index 85420eb437cdf3da4bdbd488fd303b0cb41e7c6d..abb0fff925df0c31a240404fcf5d8ef3bc34de5c 100644
+--- a/src/builders/browser/schema.d.ts
++++ b/src/builders/browser/schema.d.ts
+@@ -1,4 +1,4 @@
+-import { JsonObject } from '@angular-devkit/core';
++import { JsonObject } from "@angular-devkit/core";
+
+ export interface BrowserBuilderSchema extends JsonObject {
+   mode: string;
+@@ -15,7 +15,6 @@ export interface BrowserBuilderSchema extends JsonObject {
+   filenameHashing: boolean;
+   productionSourceMap: boolean;
+   css: {
+-    requireModuleExtension: boolean;
+     // eslint-disable-next-line @typescript-eslint/ban-types
+     extract: boolean | object;
+     sourceMap: boolean;
+diff --git a/src/builders/browser/schema.json b/src/builders/browser/schema.json
+index 37829929f1645bb6062f37fc55480116feb2e0bf..4aed65fbb93b344737462acdd55d7d9231c03ef4 100644
+--- a/src/builders/browser/schema.json
++++ b/src/builders/browser/schema.json
+@@ -72,11 +72,6 @@
+     "css": {
+       "type": "object",
+       "properties": {
+-        "requireModuleExtension": {
+-          "type": "boolean",
+-          "description": "By default, only files that ends in *.module.[ext] are treated as CSS modules. Setting this to false will allow you to drop .module in the filenames and treat all *.(css|scss|sass|less|styl(us)?) files as CSS modules.",
+-          "default": true
+-        },
+         "extract": {
+           "description": "Whether to extract CSS in your components into a standalone CSS files (instead of inlined in JavaScript and injected dynamically).",
+           "oneOf": [
+diff --git a/src/builders/dev-server/builder.js b/src/builders/dev-server/builder.js
+index 5cb397a1a7757195b774c6feab848f16025397a6..295adafd3df60a8836b7d819c134947edbc87efa 100644
+--- a/src/builders/dev-server/builder.js
++++ b/src/builders/dev-server/builder.js
+@@ -9,113 +9,136 @@ const operators_1 = require("rxjs/operators");
+ const utils_1 = require("../../utils");
+ const webpack_1 = require("../../webpack");
+ // eslint-disable-next-line @typescript-eslint/no-var-requires
+-const Service = require('@vue/cli-service/lib/Service');
++const Service = require("@vue/cli-service/lib/Service");
+ // eslint-disable-next-line @typescript-eslint/no-var-requires
+-const { resolvePkg } = require('@vue/cli-shared-utils/lib/pkg');
++const { resolvePkg } = require("@vue/cli-shared-utils/lib/pkg");
+ const devServerBuilderOverriddenKeys = [
+-    'mode',
+-    'skipPlugins',
+-    'publicPath',
+-    'css',
+-    'stdin',
++  "mode",
++  "skipPlugins",
++  "publicPath",
++  "css",
++  "stdin",
+ ];
+ function runBuilder(options, context) {
+-    // The `css` option must be `undefined` in order for the
+-    // browser builder option to serve as the default. JSON
+-    // Schema does not support setting a default value of
+-    // `undefined`.
+-    // TODO: Handle this less obtrusively.
+-    if (options.css.requireModuleExtension === undefined &&
+-        options.css.extract === undefined &&
+-        options.css.sourceMap === undefined &&
+-        !Object.keys(options.css.loaderOptions).length) {
+-        options.css = undefined;
+-    }
+-    // https://github.com/angular/angular-cli/blob/v9.1.0/packages/angular_devkit/build_angular/src/dev-server/index.ts#L133
+-    function setup() {
+-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+-            const browserTarget = architect_1.targetFromTargetString(options.browserTarget);
+-            const rawBrowserOptions = yield context.getTargetOptions(browserTarget);
+-            const overrides = Object.keys(options)
+-                .filter((key) => options[key] !== undefined &&
+-                devServerBuilderOverriddenKeys.includes(key))
+-                .reduce((previous, key) => (Object.assign(Object.assign({}, previous), { [key]: options[key] })), {});
+-            const browserName = yield context.getBuilderNameForTarget(browserTarget);
+-            const browserOptions = yield context.validateOptions(Object.assign(Object.assign({}, rawBrowserOptions), overrides), browserName);
+-            const projectRoot = yield utils_1.getProjectRoot(context);
+-            const babelConfig = utils_1.getBabelConfig(projectRoot);
+-            const inlineOptions = {
+-                chainWebpack: (config) => {
+-                    webpack_1.modifyIndexHtmlPath(config, browserOptions, context);
+-                    webpack_1.modifyEntryPoint(config, browserOptions, context);
+-                    webpack_1.modifyTsConfigPaths(config, browserOptions, context);
+-                    webpack_1.modifyCachePaths(config, context);
+-                    webpack_1.modifyTypescriptAliases(config, browserOptions, context);
+-                    if (babelConfig) {
+-                        webpack_1.modifyBabelLoader(config, babelConfig, context);
+-                    }
+-                    if (!options.watch) {
+-                        // There is no option to disable file watching in `webpack-dev-server`,
+-                        // but webpack's file watcher can be overriden.
+-                        config.plugin('vue-cli').use({
+-                            apply: (compiler) => {
+-                                compiler.hooks.afterEnvironment.tap('vue-cli', () => {
+-                                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+-                                    compiler.watchFileSystem = { watch: () => { } };
+-                                });
+-                            },
+-                        });
+-                    }
+-                },
+-                publicPath: browserOptions.publicPath,
+-                filenameHashing: browserOptions.filenameHashing,
+-                css: browserOptions.css,
+-                configureWebpack: utils_1.resolveConfigureWebpack(projectRoot),
+-                devServer: options.devServer,
+-                transpileDependencies: options.transpileDependencies,
+-            };
+-            return {
+-                projectRoot,
+-                browserOptions,
+-                inlineOptions,
+-            };
+-        });
+-    }
+-    // The vue-cli build command is not suitable for an nx project.
+-    // We spy on chalk to intercept the console output and replace
+-    // it with a nx command.
+-    // TODO: Find a better way to rewrite vue-cli console output
+-    const buildRegex = /([p]?npm run|yarn) build/;
+-    utils_1.modifyChalkOutput('cyan', (arg) => {
+-        if (buildRegex.test(arg)) {
+-            return arg.replace(buildRegex, `nx build ${context.target.project} --prod`);
+-        }
+-        return arg;
++  // The `css` option must be `undefined` in order for the
++  // browser builder option to serve as the default. JSON
++  // Schema does not support setting a default value of
++  // `undefined`.
++  // TODO: Handle this less obtrusively.
++  if (
++    options.css.extract === undefined &&
++    options.css.sourceMap === undefined &&
++    !Object.keys(options.css.loaderOptions).length
++  ) {
++    options.css = undefined;
++  }
++  // https://github.com/angular/angular-cli/blob/v9.1.0/packages/angular_devkit/build_angular/src/dev-server/index.ts#L133
++  function setup() {
++    return tslib_1.__awaiter(this, void 0, void 0, function* () {
++      const browserTarget = architect_1.targetFromTargetString(
++        options.browserTarget
++      );
++      const rawBrowserOptions = yield context.getTargetOptions(browserTarget);
++      const overrides = Object.keys(options)
++        .filter(
++          (key) =>
++            options[key] !== undefined &&
++            devServerBuilderOverriddenKeys.includes(key)
++        )
++        .reduce(
++          (previous, key) =>
++            Object.assign(Object.assign({}, previous), { [key]: options[key] }),
++          {}
++        );
++      const browserName = yield context.getBuilderNameForTarget(browserTarget);
++      const browserOptions = yield context.validateOptions(
++        Object.assign(Object.assign({}, rawBrowserOptions), overrides),
++        browserName
++      );
++      const projectRoot = yield utils_1.getProjectRoot(context);
++      const babelConfig = utils_1.getBabelConfig(projectRoot);
++      const inlineOptions = {
++        chainWebpack: (config) => {
++          webpack_1.modifyIndexHtmlPath(config, browserOptions, context);
++          webpack_1.modifyEntryPoint(config, browserOptions, context);
++          webpack_1.modifyTsConfigPaths(config, browserOptions, context);
++          webpack_1.modifyCachePaths(config, context);
++          webpack_1.modifyTypescriptAliases(config, browserOptions, context);
++          if (babelConfig) {
++            webpack_1.modifyBabelLoader(config, babelConfig, context);
++          }
++          if (!options.watch) {
++            // There is no option to disable file watching in `webpack-dev-server`,
++            // but webpack's file watcher can be overriden.
++            config.plugin("vue-cli").use({
++              apply: (compiler) => {
++                compiler.hooks.afterEnvironment.tap("vue-cli", () => {
++                  // eslint-disable-next-line @typescript-eslint/no-empty-function
++                  compiler.watchFileSystem = { watch: () => {} };
++                });
++              },
++            });
++          }
++        },
++        publicPath: browserOptions.publicPath,
++        filenameHashing: browserOptions.filenameHashing,
++        css: browserOptions.css,
++        configureWebpack: utils_1.resolveConfigureWebpack(projectRoot),
++        devServer: options.devServer,
++        transpileDependencies: options.transpileDependencies,
++      };
++      return {
++        projectRoot,
++        browserOptions,
++        inlineOptions,
++      };
+     });
+-    return rxjs_1.from(setup()).pipe(operators_1.switchMap(({ projectRoot, browserOptions, inlineOptions }) => {
+-        utils_1.checkUnsupportedConfig(context, projectRoot);
+-        const service = new Service(core_1.getSystemPath(projectRoot), {
+-            pkg: resolvePkg(context.workspaceRoot),
+-            inlineOptions,
+-        });
+-        return new rxjs_1.Observable((obs) => {
+-            service
+-                .run('serve', {
+-                open: options.open,
+-                copy: options.copy,
+-                stdin: options.stdin,
+-                mode: browserOptions.mode,
+-                host: options.host,
+-                port: options.port,
+-                https: options.https,
+-                public: options.public,
+-                transpileDependencies: options.transpileDependencies,
+-                'skip-plugins': browserOptions.skipPlugins,
+-            }, ['serve'])
+-                .then((success) => obs.next(success))
+-                .catch((err) => obs.error(err));
+-        });
+-    }), operators_1.map(({ url }) => ({ success: true, baseUrl: url })));
++  }
++  // The vue-cli build command is not suitable for an nx project.
++  // We spy on chalk to intercept the console output and replace
++  // it with a nx command.
++  // TODO: Find a better way to rewrite vue-cli console output
++  const buildRegex = /([p]?npm run|yarn) build/;
++  utils_1.modifyChalkOutput("cyan", (arg) => {
++    if (buildRegex.test(arg)) {
++      return arg.replace(
++        buildRegex,
++        `nx build ${context.target.project} --prod`
++      );
++    }
++    return arg;
++  });
++  return rxjs_1.from(setup()).pipe(
++    operators_1.switchMap(({ projectRoot, browserOptions, inlineOptions }) => {
++      utils_1.checkUnsupportedConfig(context, projectRoot);
++      const service = new Service(core_1.getSystemPath(projectRoot), {
++        pkg: resolvePkg(context.workspaceRoot),
++        inlineOptions,
++      });
++      return new rxjs_1.Observable((obs) => {
++        service
++          .run(
++            "serve",
++            {
++              open: options.open,
++              copy: options.copy,
++              stdin: options.stdin,
++              mode: browserOptions.mode,
++              host: options.host,
++              port: options.port,
++              https: options.https,
++              public: options.public,
++              transpileDependencies: options.transpileDependencies,
++              "skip-plugins": browserOptions.skipPlugins,
++            },
++            ["serve"]
++          )
++          .then((success) => obs.next(success))
++          .catch((err) => obs.error(err));
++      });
++    }),
++    operators_1.map(({ url }) => ({ success: true, baseUrl: url }))
++  );
+ }
+ exports.runBuilder = runBuilder;
+ exports.default = architect_1.createBuilder(runBuilder);
+diff --git a/src/builders/dev-server/schema.d.ts b/src/builders/dev-server/schema.d.ts
+index 7a820bae52cba11682bad9c8195d323635418a55..736aab087f5c2fbff1c4051915903612a0df4217 100644
+--- a/src/builders/dev-server/schema.d.ts
++++ b/src/builders/dev-server/schema.d.ts
+@@ -1,4 +1,4 @@
+-import { JsonObject } from '@angular-devkit/core';
++import { JsonObject } from "@angular-devkit/core";
+
+ export interface DevServerBuilderSchema extends JsonObject {
+   open: boolean;
+@@ -14,7 +14,6 @@ export interface DevServerBuilderSchema extends JsonObject {
+   watch: boolean;
+   publicPath?: string;
+   css: {
+-    requireModuleExtension?: boolean;
+     // eslint-disable-next-line @typescript-eslint/ban-types
+     extract?: boolean | object;
+     sourceMap?: boolean;
+diff --git a/src/builders/dev-server/schema.json b/src/builders/dev-server/schema.json
+index d777c264e54c0f20cef1c0a93a16c53a16c0b7b5..d5c0cf6989f1a39311e09548bc5c047b7fdf6f92 100644
+--- a/src/builders/dev-server/schema.json
++++ b/src/builders/dev-server/schema.json
+@@ -62,10 +62,6 @@
+     "css": {
+       "type": "object",
+       "properties": {
+-        "requireModuleExtension": {
+-          "type": "boolean",
+-          "description": "By default, only files that ends in *.module.[ext] are treated as CSS modules. Setting this to false will allow you to drop .module in the filenames and treat all *.(css|scss|sass|less|styl(us)?) files as CSS modules."
+-        },
+         "extract": {
+           "description": "Whether to extract CSS in your components into a standalone CSS files (instead of inlined in JavaScript and injected dynamically).",
+           "oneOf": [
+diff --git a/src/builders/library/schema.d.ts b/src/builders/library/schema.d.ts
+index 3320c0ebc82ddc7ff738f35510a37442c7edc25a..73801fe9ea019c0f0bd2e0df1ed7a00261dc479d 100644
+--- a/src/builders/library/schema.d.ts
++++ b/src/builders/library/schema.d.ts
+@@ -1,4 +1,4 @@
+-import { JsonObject } from '@angular-devkit/core';
++import { JsonObject } from "@angular-devkit/core";
+
+ export interface LibraryBuilderSchema extends JsonObject {
+   dest: string;
+@@ -11,7 +11,6 @@ export interface LibraryBuilderSchema extends JsonObject {
+   tsConfig: string;
+   inlineVue: boolean;
+   css: {
+-    requireModuleExtension: boolean;
+     // eslint-disable-next-line @typescript-eslint/ban-types
+     extract: boolean | object;
+     sourceMap: boolean;
+diff --git a/src/builders/library/schema.json b/src/builders/library/schema.json
+index 649b82cc395e74afc82a301468f4712a81325c8a..6095053cfffdeba0e0cfac35225f7aeff1b8caa8 100644
+--- a/src/builders/library/schema.json
++++ b/src/builders/library/schema.json
+@@ -61,11 +61,6 @@
+     "css": {
+       "type": "object",
+       "properties": {
+-        "requireModuleExtension": {
+-          "type": "boolean",
+-          "description": "By default, only files that ends in *.module.[ext] are treated as CSS modules. Setting this to false will allow you to drop .module in the filenames and treat all *.(css|scss|sass|less|styl(us)?) files as CSS modules.",
+-          "default": true
+-        },
+         "extract": {
+           "description": "Whether to extract CSS in your components into a standalone CSS files (instead of inlined in JavaScript and injected dynamically).",
+           "oneOf": [

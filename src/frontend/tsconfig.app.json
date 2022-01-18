@@ -4,6 +4,11 @@
 		"outDir": "../../builds/out-tsc",
 		"types": ["webpack-env", "node"]
 	},
-	"exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
+	"exclude": [
+		"**/*.spec.ts",
+		"**/*.test.ts",
+		"**/*.spec.tsx",
+		"**/*.test.tsx"
+	],
 	"include": ["**/*.ts", "**/*.tsx", "**/*.vue"]
 }
