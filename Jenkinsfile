@@ -82,7 +82,7 @@ pipeline {
             steps { sh "yarn nx run-many --target=test --runner=local --all" }
 			post {
 				success {
-					junit testResults: 'dist/junit-*-unit.xml',
+					junit testResults: 'dist/tests/junit-*-unit.xml',
 						skipPublishingChecks: true,
 						allowEmptyResults: true
 				}
@@ -137,7 +137,7 @@ pipeline {
 			steps { sh "yarn nx e2e backend --runner=local" }
 			post {
 				success {
-					junit testResults: 'dist/junit-*-e2e.xml',
+					junit testResults: 'dist/tests/junit-*-e2e.xml',
 						skipPublishingChecks: true,
 						allowEmptyResults: true
 				}

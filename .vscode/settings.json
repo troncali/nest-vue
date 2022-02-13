@@ -22,8 +22,35 @@
 			"changeProcessCWD": true
 		}
 	],
+	"files.exclude": {
+		"**/.babelrc": false,
+		"**/.editorconfig": false,
+		"**/.eslintrc.json": false,
+		"**/.gitignore": false,
+		"**/.pnp.*": false,
+		"**/.prettier*": false,
+		"**/.snyk": false,
+		"**/.vscode": false,
+		"**/.yarn": false,
+		"**/.yarnrc.yml": false,
+		"**/docs/.vuepress/.cache": false,
+		"**/docs/.vuepress/.temp": false,
+		"**/jest.config.js": false,
+		"**/jest.preset.js": false,
+		"**/LICENSE": false,
+		"**/nest-cli.json": false,
+		"**/node_modules": false,
+		"**/nx.json": false,
+		"**/tsconfig.json": false,
+		"**/tsconfig.*.json": false,
+		"**/webpack.config.js": false,
+		"**/workspace.json": false,
+		"**/yarn.lock": false
+	},
 	"search.exclude": {
+		"**/.pnp.*": true,
 		"**/.yarn": true,
-		"**/.pnp.*": true
+		"**/yarn.lock": true,
+		"**/node_modules": true
 	}
 }

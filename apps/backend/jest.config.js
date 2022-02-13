@@ -18,7 +18,7 @@ module.exports = {
 			"jest-junit",
 			{
 				suiteName: "Backend Unit Tests",
-				outputDirectory: "./dist",
+				outputDirectory: "./dist/tests",
 				outputName: "junit-backend-unit.xml"
 			}
 		]

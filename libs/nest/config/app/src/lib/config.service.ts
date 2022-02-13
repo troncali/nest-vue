@@ -28,7 +28,7 @@ export class AppConfigService {
 
 	/**
 	 * Global route prefix for the application.  Used for NGINX proxy routing.
-	 * @example basePath=v1 : NestJS routes will begin with https://localhost/v1/
+	 * @example basePath=api : NestJS routes will begin with https://localhost/api/
 	 */
 	get baseRoute(): string | undefined {
 		return this.configService.get("app.baseRoute");
