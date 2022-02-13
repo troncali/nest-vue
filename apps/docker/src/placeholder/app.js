@@ -3,7 +3,7 @@ var process = require("process");
 
 const server = http
 	.createServer(function (request, response) {
-		if (request.url == "/v1" && request.method == "GET") {
+		if (request.url == "/api" && request.method == "GET") {
 			response.writeHead(200, { "Content-Type": "text/plain" });
 			response.write("Placeholder");
 			response.end();

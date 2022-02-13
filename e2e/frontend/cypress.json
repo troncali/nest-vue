@@ -11,7 +11,7 @@
 	"chromeWebSecurity": false,
 	"reporter": "junit",
 	"reporterOptions": {
-		"mochaFile": "../../dist/junit-frontend-e2e-[hash].xml",
+		"mochaFile": "../../dist/tests/junit-frontend-e2e-[hash].xml",
 		"toConsole": true
 	}
 }

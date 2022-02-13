@@ -1,3 +1,3 @@
-# Resources
+# Frontend
 
 In progress.

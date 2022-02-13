@@ -6,3 +6,4 @@ import store from "./store";
 createApp(App).use(store).use(router).mount("#app");
 
 // TODO: ionicons for UI icons?
+// TODO: vue recommends Pinia instead of Veux now

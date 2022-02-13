@@ -22,6 +22,7 @@
 			"runner": "@nrwl/nx-cloud",
 			"options": {
 				"cacheableOperations": ["build", "lint", "test", "e2e"],
+				"cacheDirectory": ".yarn/cache/nx",
 				"accessToken": "MDIxYzFkN2MtYzQwOC00NTE0LWJlNGYtOTg1Y2NkNzdkMjJhfHJlYWQtd3JpdGU=",
 				"parallel": 1
 			}
@@ -29,7 +30,8 @@
 		"local": {
 			"runner": "@nrwl/workspace/tasks-runners/default",
 			"options": {
-				"cacheableOperations": ["build", "lint", "test", "e2e"]
+				"cacheableOperations": ["build", "lint", "test", "e2e"],
+				"cacheDirectory": ".yarn/cache/nx"
 			}
 		}
 	},

@@ -11,10 +11,11 @@ apps/docker/src/nginx/dev-certs/*
 # Generated Files
 /apps/backend/schema.gql
 /dist
-/docs
 /public
 /tmp
 /out-tsc
+/docs/.vuepress/.cache
+/docs/.vuepress/.temp
 
 # Dependency directories
 /node_modules

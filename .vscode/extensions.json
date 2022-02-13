@@ -4,6 +4,8 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"nrwl.angular-console",
-		"firsttris.vscode-jest-runner"
+		"firsttris.vscode-jest-runner",
+		"johnsoncodehk.volar",
+		"adrianwilczynski.toggle-hidden"
 	]
 }
