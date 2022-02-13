@@ -62,7 +62,6 @@
 		"apollo-server-fastify": "^3.1.2",
 		"argon2": "^0.28.2",
 		"class-transformer": "^0.4.0",
-		"class-validator": "^0.13.1",
 		"core-js": "^3.16.0",
 		"faker": "^5.5.3",
 		"fast-json-stringify": "^2.7.8",
@@ -167,7 +166,6 @@
 		"jest-serializer-vue": "^2.0.2",
 		"jest-transform-stub": "^2.0.0",
 		"nprogress": "^0.2.0",
-		"pnp-webpack-plugin": "^1.6.4",
 		"prettier": "2.3.2",
 		"sass": "^1.49.4",
 		"sass-loader": "^12.4.0",
@@ -184,13 +182,13 @@
 		"vue-template-compiler": "^2.6.12",
 		"vue3-jest": "^27.0.0-alpha.1",
 		"vuepress": "next",
-		"webpack": "^4.44.0",
+		"webpack": "latest",
 		"webpack-bundle-analyzer": "^4.5.0",
 		"webpack-pnp-externals": "^1.1.0"
 	},
 	"resolutions": {
-		"ansi-regex": "^5.0.0",
-		"tar": "6.1.9"
+		"glob-parent": "^5.1.2",
+		"postcss": "^8.2.13"
 	},
 	"packageManager": "yarn@3.1.1"
 }

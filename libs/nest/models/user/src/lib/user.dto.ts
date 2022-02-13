@@ -1,14 +1,15 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Expose } from "class-transformer";
-import { IsEmail, IsNotEmpty } from "class-validator";
 import { SessionDto } from "@vxnn/models/session";
+
+// TODO: Implement data validation (removed class-validator, which wasn't hooked up and has an unresolved vulnerability)
 
 /** Unsafe DTO to server with user email and password to create a new user. */
 export class CreateUserDto {
 	/** User's email. */
-	@IsNotEmpty() @IsEmail() email!: string;
+	email!: string;
 	/** User's initial, unencrypted password from registration form. */
-	@IsNotEmpty() password!: string;
+	password!: string;
 }
 
 /** DTO for transfering basic user details. */
@@ -34,7 +35,7 @@ export class UserDto extends BasicUserDto {
 /** DTO to server with asserted user email and password for login. */
 export class LoginUserDto {
 	/** The asserted `User` email from login form. */
-	@IsNotEmpty() readonly email!: string;
+	readonly email!: string;
 	/** The asserted `User` password from login form. */
-	@IsNotEmpty() readonly password!: string;
+	readonly password!: string;
 }
