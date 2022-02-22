@@ -4,6 +4,7 @@ import { CipherProvider } from "@vxnn/nest/providers/cipher";
 import { SessionService } from "@vxnn/models/session";
 import { UserService } from "@vxnn/models/user";
 import { UserSession } from "@vxnn/models/session";
+import { AuthCredentials } from "../auth.interface";
 
 /**
  * Verifies authentication.
@@ -29,23 +30,21 @@ export class AuthService {
 	 * database, and creates a session if authentication succeeds.
 	 *
 	 * @example
-	 * const session = await this.authService.authenticate(email, password);
+	 * const session = await this.authService.authenticate({ email, password });
 	 *
-	 * @param email The email asserted for authentication.
-	 * @param password The password asserted for authentication.
+	 * @param asserted The credentials asserted for authentication.
 	 *
 	 * @returns A `UserSession`, if successful, or `false`.
 	 */
 	async authenticate(
-		email: string,
-		password: string
+		asserted: AuthCredentials
 	): Promise<UserSession | false> {
-		const user = await this.userService.getUserForAuth(email);
+		const user = await this.userService.getUserForAuth(asserted.email);
 
 		if (user?.password) {
 			const attempt = await this.cipherProvider.verifyHash(
 				user.password,
-				password
+				asserted.password
 			);
 			delete user.password;
 			return attempt ? await this.sessionService.create(user) : false;

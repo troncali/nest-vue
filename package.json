@@ -66,8 +66,8 @@
 		"faker": "^5.5.3",
 		"fast-json-stringify": "^2.7.8",
 		"fastify": "^3.20.1",
-		"fastify-cookie": "^5.3.1",
-		"fastify-secure-session": "^2.3.1",
+		"fastify-cookie": "5.5.0",
+		"fastify-secure-session": "3.0.0",
 		"graphql": "^15.5.1",
 		"graphql-tools": "^8.1.0",
 		"joi": "^17.4.2",
@@ -187,6 +187,7 @@
 		"webpack-pnp-externals": "^1.1.0"
 	},
 	"resolutions": {
+		"ansi-regex": "^5.0.0",
 		"glob-parent": "^5.1.2",
 		"postcss": "^8.2.13"
 	},

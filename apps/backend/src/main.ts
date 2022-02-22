@@ -1,12 +1,13 @@
 import { NestFactory } from "@nestjs/core";
+import { VersioningType } from "@nestjs/common";
 import {
 	FastifyAdapter,
 	NestFastifyApplication
 } from "@nestjs/platform-fastify";
 
-import { AppModule } from "./app/app.module";
 import { AppConfigService } from "@vxnn/nest/config/app";
 import { DockerHandler } from "@vxnn/docker-handler";
+import { AppModule } from "./app/app.module";
 
 /** Start NestJS server. */
 async function bootstrap() {
@@ -35,10 +36,17 @@ async function bootstrap() {
 			})
 		],
 		cookieName: appConfig.sessionCookieName,
-		cookie: { httpOnly: true, sameSite: true, secure: true }
+		cookie: {
+			httpOnly: true,
+			maxAge: 60 * 60 * 24, // expiration in seconds (24 hours)
+			sameSite: true,
+			secure: true
+		}
 	});
 
 	app.setGlobalPrefix(`${appConfig.baseRoute}`);
+	app.enableVersioning({ type: VersioningType.URI });
+
 	// Docker requires 0.0.0.0 for host instead of default 'localhost'
 	await app.listen(appConfig.port, "0.0.0.0");
 
