@@ -3,11 +3,6 @@ import type { FastifyRequest } from "fastify";
 import { BaseStrategy } from "./base";
 import { UserSession } from "@vxnn/models/session";
 
-export type SessionValidator = (
-	request: FastifyRequest,
-	callback: (err: any, user: any, info: any) => Promise<void>
-) => Promise<UserSession>;
-
 /**
  * Authenticates requests based on the existence of a valid, encrypted
  * `fastify-secure-session` cookie containing a `UserSession` object with an
@@ -70,26 +65,20 @@ export class FastifySessionStrategy extends BaseStrategy {
 			);
 		}
 
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const self = this;
-
-		async function done(err: any, user: any, info: any) {
-			if (err) return self.error(err);
-			if (!user) return self.fail(info);
-			self.success(user, info);
-		}
+		const done: SessionValidatorCallback = async (user) => {
+			if (!user) return this.fail();
+			return this.success(user);
+		};
 
 		await this._validate(request, done).catch((e) => this.error(e));
-
-		// const userSession = await this._validate(request, done).catch((e) =>
-		// 	this.error(e)
-		// );
-
-		// if (userSession) {
-		// 	request["user"] = userSession;
-		// 	this.pass();
-		// } else {
-		// 	this.pass();
-		// }
 	}
 }
+
+export type SessionValidator = (
+	request: FastifyRequest,
+	callback: SessionValidatorCallback
+) => Promise<UserSession>;
+
+export type SessionValidatorCallback = (
+	user: UserSession | false
+) => Promise<void>;

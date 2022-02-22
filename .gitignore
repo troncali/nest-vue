@@ -16,6 +16,7 @@ apps/docker/src/nginx/dev-certs/*
 /out-tsc
 /docs/.vuepress/.cache
 /docs/.vuepress/.temp
+docs/.vuepress/public/backend
 
 # Dependency directories
 /node_modules

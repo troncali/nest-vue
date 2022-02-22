@@ -7,7 +7,8 @@ import {
 	Req,
 	Res,
 	Session,
-	UseGuards
+	UseGuards,
+	VERSION_NEUTRAL
 } from "@nestjs/common";
 import { FastifyReply } from "fastify";
 import * as secureSession from "fastify-secure-session";
@@ -22,7 +23,7 @@ import { AuthRequest } from "./auth.interface";
 
 /** Base authentication-related routing, prefixed with
  * `/{BACKEND_BASE_PATH}/` */
-@Controller()
+@Controller({ version: VERSION_NEUTRAL })
 export class AuthController {
 	/**
 	 * Initialize controller dependencies.
@@ -37,27 +38,25 @@ export class AuthController {
 
 	/**
 	 * Authenticate a `User`: `/login`
-	 * @param response The pending response.
-	 * @param req The authorized request.
+	 * @param reply The pending response.
+	 * @param request The authorized request.
 	 * @param session The current user session.
 	 * @returns `UserSession`
 	 */
 	@UseGuards(EmailAuthGuard)
 	@Post("login")
 	async login(
-		@Res({ passthrough: true }) response: FastifyReply,
-		@Req() req: AuthRequest,
+		@Res({ passthrough: true }) reply: FastifyReply,
+		@Req() request: AuthRequest,
 		@Session() session: secureSession.Session
 	) {
-		// TODO: If there is an existing session cookie, use it to authenticate
-
-		session.set(this.appConfig.sessionUserProperty, req.user);
-		response.setCookie("abilities", "placeholder", {
+		session.set(this.appConfig.sessionUserProperty, request.user);
+		reply.setCookie("abilities", "placeholder", {
 			httpOnly: true,
 			sameSite: true,
 			secure: true
 		});
-		return req.user;
+		return request.user;
 	}
 
 	/**
@@ -72,13 +71,13 @@ export class AuthController {
 
 	/**
 	 * Log out a `User`: `/logout`
-	 * @param response The pending response.
+	 * @param reply The pending response.
 	 * @param session The current user session.
 	 * @returns String
 	 */
 	@Get("logout")
 	async logout(
-		@Res({ passthrough: true }) response: FastifyReply,
+		@Res({ passthrough: true }) reply: FastifyReply,
 		@Session() session: secureSession.Session
 	) {
 		const user = session.get(this.appConfig.sessionUserProperty);
@@ -88,7 +87,7 @@ export class AuthController {
 		}
 
 		// Delete abilities cookie
-		response.setCookie("abilities", "", { maxAge: 0 });
+		reply.setCookie("abilities", "", { maxAge: 0 });
 
 		return "Logged out.";
 	}

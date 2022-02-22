@@ -1,10 +1,16 @@
+_This project is still a work in progress, but feel free to poke around, get some ideas, or use it as a starting point._
+
 # nest-vue
 
 [Nx](https://nx.dev) monorepo with [NestJS](https://docs.nestjs.com) + [Fastify](https://docs.nestjs.com/techniques/performance) backend, [Vue](https://v3.vuejs.org) frontend, [Jest](https://jestjs.io) and [Cypress](https://cypress.io) testing, and agnostic data via [TypeORM](https://typeorm.io/#/) + [GraphQL](https://graphql.org).
 
 Managed by [Yarn](https://yarnpkg.com/getting-started/qa) with [PnP enabled](https://yarnpkg.com/features/pnp), and powered by [Docker](https://www.docker.com) with [NGINX](https://www.nginx.com) + [Node.js](https://nodejs.dev) under the hood, [certbot](https://certbot.eff.org) SSL, and [Jenkins](https://www.jenkins.io) CI/CD.
 
-#### Get Started
+## Demo
+
+An implementation of this monorepo running on a basic DigitalOcean droplet (1vCPU, 1GB memory, 25GB SSD) is available at [https://vxnn.troncali.com](https://vxnn.troncali.com).
+
+## Get Started
 
 [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repository, then clone a local copy to build out the project.
 
