@@ -1,6 +1,6 @@
 # Demo
 
-This site is a working implementation of the monorepo running on a basic DigitalOcean droplet with 1vCPU, 1GB memory, and 25GB SSD. ([Except traffic is first routed through `nginx-proxy`](../reference/proxy.md).)
+This site is an implementation of the monorepo running on a basic DigitalOcean droplet with 1vCPU, 1GB memory, and 25GB SSD. ([Except traffic is first routed through `nginx-proxy`](../reference/proxy.md).)
 
 -   The `frontend` (Vue/Vuepress) is served through `nginx`, which also proxies to initial `backend` (Nest) paths, like [https://vxnn.troncali.com/api/](https://vxnn.troncali.com/api/).
     -   A future update for this page will include frontend components that interact with the backend.

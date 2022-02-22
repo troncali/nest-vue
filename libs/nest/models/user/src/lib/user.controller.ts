@@ -5,12 +5,14 @@ import {
 	HttpException,
 	HttpStatus,
 	Param,
-	Post
+	Post,
+	Version
 } from "@nestjs/common";
 
+import { LoginUserDto } from "./user.dto";
 import { UserService } from "./providers/user.service";
 
-/** User-related routing, prefixed with `/{BACKEND_BASE_PATH}/user/` */
+/** User-related routing, prefixed with `/{BACKEND_BASE_PATH}/{version}/user/` */
 @Controller("user")
 export class UserController {
 	/**
@@ -24,6 +26,7 @@ export class UserController {
 	 * @param id The User's UUID.
 	 */
 	@Get("/:id")
+	@Version("1")
 	async get(@Param("id") id: string) {
 		return await this.userService.getByIds(id);
 	}
@@ -34,7 +37,8 @@ export class UserController {
 	 * @returns A `User` record.
 	 */
 	@Post("/create")
-	async create(@Body() body: any) {
+	@Version("1")
+	async create(@Body() body: LoginUserDto) {
 		return await this.userService
 			.create(body.email, body.password)
 			.catch(({ message, detail }) => {

@@ -128,7 +128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-json-stringify", "npm:2.7.13"],
             ["fastify", "npm:3.27.1"],
             ["fastify-cookie", "npm:5.5.0"],
-            ["fastify-secure-session", "npm:2.3.1"],
+            ["fastify-secure-session", "npm:3.0.0"],
             ["graphql", "npm:15.8.0"],
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.2.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.2.3"],
@@ -8378,38 +8378,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ansi-regex", [
-        ["npm:2.1.1", {
-          "packageLocation": "./.yarn/cache/ansi-regex-npm-2.1.1-ddd24d102b-190abd03e4.zip/node_modules/ansi-regex/",
-          "packageDependencies": [
-            ["ansi-regex", "npm:2.1.1"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:3.0.0", {
-          "packageLocation": "./.yarn/cache/ansi-regex-npm-3.0.0-be0b845911-2ad11c416f.zip/node_modules/ansi-regex/",
-          "packageDependencies": [
-            ["ansi-regex", "npm:3.0.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:4.1.0", {
-          "packageLocation": "./.yarn/cache/ansi-regex-npm-4.1.0-4a7d8413fe-97aa465953.zip/node_modules/ansi-regex/",
-          "packageDependencies": [
-            ["ansi-regex", "npm:4.1.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:5.0.1", {
           "packageLocation": "./.yarn/cache/ansi-regex-npm-5.0.1-c963a48615-2aa4bb54ca.zip/node_modules/ansi-regex/",
           "packageDependencies": [
             ["ansi-regex", "npm:5.0.1"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:6.0.1", {
-          "packageLocation": "./.yarn/cache/ansi-regex-npm-6.0.1-8d663a607d-1ff8b7667c.zip/node_modules/ansi-regex/",
-          "packageDependencies": [
-            ["ansi-regex", "npm:6.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -15094,10 +15066,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["fastify-secure-session", [
-        ["npm:2.3.1", {
-          "packageLocation": "./.yarn/cache/fastify-secure-session-npm-2.3.1-0db192af5d-f61bbabf3e.zip/node_modules/fastify-secure-session/",
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/fastify-secure-session-npm-3.0.0-a1738445df-1e70922cb2.zip/node_modules/fastify-secure-session/",
           "packageDependencies": [
-            ["fastify-secure-session", "npm:2.3.1"],
+            ["fastify-secure-session", "npm:3.0.0"],
             ["fastify-cookie", "npm:5.5.0"],
             ["fastify-plugin", "npm:3.0.1"],
             ["sodium-native", "npm:3.3.0"]
@@ -16240,7 +16212,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/has-ansi-npm-2.0.0-9bf0cff2af-1b51daa021.zip/node_modules/has-ansi/",
           "packageDependencies": [
             ["has-ansi", "npm:2.0.0"],
-            ["ansi-regex", "npm:2.1.1"]
+            ["ansi-regex", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -20299,7 +20271,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-json-stringify", "npm:2.7.13"],
             ["fastify", "npm:3.27.1"],
             ["fastify-cookie", "npm:5.5.0"],
-            ["fastify-secure-session", "npm:2.3.1"],
+            ["fastify-secure-session", "npm:3.0.0"],
             ["graphql", "npm:15.8.0"],
             ["graphql-tools", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:8.2.0"],
             ["jest", "virtual:9194850f1f91dc26a3f08d0b5ce435e401ebfb30e9c041af1e7e6231c5caad7b09cfd5d46e2d1bb073e740413d5995b7c97399502d69ac4f585af4db2051b191#npm:27.2.3"],
@@ -24933,7 +24905,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-ansi-npm-3.0.1-6aec1365b9-9b974de611.zip/node_modules/strip-ansi/",
           "packageDependencies": [
             ["strip-ansi", "npm:3.0.1"],
-            ["ansi-regex", "npm:2.1.1"]
+            ["ansi-regex", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }],
@@ -24941,7 +24913,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-ansi-npm-4.0.0-d4de985014-d9186e6c0c.zip/node_modules/strip-ansi/",
           "packageDependencies": [
             ["strip-ansi", "npm:4.0.0"],
-            ["ansi-regex", "npm:3.0.0"]
+            ["ansi-regex", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }],
@@ -24949,7 +24921,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-ansi-npm-5.2.0-275214c316-bdb5f76ade.zip/node_modules/strip-ansi/",
           "packageDependencies": [
             ["strip-ansi", "npm:5.2.0"],
-            ["ansi-regex", "npm:4.1.0"]
+            ["ansi-regex", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }],
@@ -24973,7 +24945,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-ansi-npm-7.0.1-668c121204-257f78fa43.zip/node_modules/strip-ansi/",
           "packageDependencies": [
             ["strip-ansi", "npm:7.0.1"],
-            ["ansi-regex", "npm:6.0.1"]
+            ["ansi-regex", "npm:5.0.1"]
           ],
           "linkType": "HARD",
         }]
