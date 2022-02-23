@@ -4,6 +4,8 @@
 
 -   Node: `brew install node` or [other method](https://nodejs.org/en/download/package-manager/)
 -   Docker: `brew install --cask docker` or [other method](https://docs.docker.com/get-docker/)
+-   Optional
+    -   Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` or [other method](https://forge.rust-lang.org/infra/other-installation-methods.html)
 
 ## Get Started
 
@@ -22,6 +24,10 @@ To benefit from future updates, [configure the fork to sync with this repository
 Yarn has a [guide for working with PnP packages in Visual Studio Code](https://yarnpkg.com/getting-started/editor-sdks).
 
 TLDR: `yarn dlx @yarnpkg/sdks vscode`.
+
+:::tip
+Declutter files that are rarely changed by installing the recommended `Peek Hidden Files` extension. Open the command palette (⌘⇧P) and select "Toggle Excluded Files" to show/hide the files listed in `.vscode/settings.json`
+:::
 
 ## Project Setup
 

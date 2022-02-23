@@ -1,211 +1,23 @@
 {
 	"version": 2,
 	"projects": {
-		"backend": {
-			"root": "apps/backend",
-			"sourceRoot": "apps/backend/src",
-			"projectType": "application",
-			"targets": {
-				"build": {
-					"executor": "@nrwl/node:build",
-					"outputs": ["{options.outputPath}"],
-					"options": {
-						"outputPath": "dist/apps/backend",
-						"main": "apps/backend/src/main.ts",
-						"tsConfig": "apps/backend/tsconfig.app.json",
-						"assets": ["apps/backend/src/static"],
-						"webpackConfig": "apps/backend/webpack.config.js",
-						"additionalEntryPoints": [
-							{
-								"entryName": "migrate",
-								"entryPath": "apps/backend/src/migrate.ts"
-							},
-							{
-								"entryName": "seed",
-								"entryPath": "apps/backend/src/seed.ts"
-							}
-						]
-					},
-					"configurations": {
-						"production": {
-							"optimization": true,
-							"extractLicenses": true,
-							"inspect": false,
-							"fileReplacements": [
-								{
-									"replace": "apps/backend/environments/environment.ts",
-									"with": "apps/backend/environments/environment.prod.ts"
-								}
-							]
-						}
-					}
-				},
-				"serve": {
-					"executor": "@nrwl/node:execute",
-					"options": {
-						"buildTarget": "backend:build"
-					}
-				},
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["apps/backend/**/*.ts"]
-					},
-					"outputs": ["{options.outputFile}"]
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/backend"],
-					"options": {
-						"jestConfig": "apps/backend/jest.config.js",
-						"passWithNoTests": true
-					}
-				},
-				"e2e": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/backend"],
-					"options": {
-						"jestConfig": "e2e/backend/jest.config.js",
-						"passWithNoTests": false
-					}
-				}
-			},
-			"tags": ["backend", "nest"]
-		},
-		"BaseModel": {
-			"root": "libs/nest/models/base-model",
-			"sourceRoot": "libs/nest/models/base-model/src",
+		"AppConfigModule": {
+			"root": "libs/nest/config/app",
+			"sourceRoot": "libs/nest/config/app/src",
 			"projectType": "library",
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"outputs": ["{options.outputFile}"],
 					"options": {
-						"lintFilePatterns": [
-							"libs/nest/models/base-model/**/*.ts"
-						]
+						"lintFilePatterns": ["libs/nest/config/app/**/*.ts"]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/models/base-model"],
+					"outputs": ["coverage/libs/nest/config/app"],
 					"options": {
-						"jestConfig": "libs/nest/models/base-model/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			},
-			"tags": ["backend", "nest"]
-		},
-		"DockerHandler": {
-			"root": "libs/docker-handler",
-			"sourceRoot": "libs/docker-handler/src",
-			"projectType": "library",
-			"targets": {
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
-					"options": {
-						"lintFilePatterns": ["libs/docker-handler/**/*.ts"]
-					}
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/docker-handler"],
-					"options": {
-						"jestConfig": "libs/docker-handler/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			},
-			"tags": ["backend", "nest"]
-		},
-		"frontend": {
-			"root": "apps/frontend",
-			"sourceRoot": "apps/frontend",
-			"projectType": "application",
-			"targets": {
-				"build": {
-					"executor": "@nx-plus/vue:browser",
-					"options": {
-						"dest": "dist/frontend",
-						"index": "apps/frontend/static/index.html",
-						"main": "apps/frontend/main.ts",
-						"tsConfig": "apps/frontend/tsconfig.app.json"
-					},
-					"configurations": {
-						"production": {
-							"mode": "production",
-							"filenameHashing": true,
-							"productionSourceMap": true,
-							"css": {
-								"extract": true,
-								"sourceMap": false
-							}
-						}
-					}
-				},
-				"serve": {
-					"executor": "@nx-plus/vue:dev-server",
-					"options": {
-						"browserTarget": "frontend:build"
-					},
-					"configurations": {
-						"production": {
-							"browserTarget": "frontend:build:production"
-						}
-					}
-				},
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,vue}"]
-					},
-					"outputs": ["{options.outputFile}"]
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/frontend"],
-					"options": {
-						"jestConfig": "apps/frontend/jest.config.js",
-						"passWithNoTests": false
-					}
-				},
-				"e2e": {
-					"executor": "@nrwl/cypress:cypress",
-					"options": {
-						"cypressConfig": "e2e/frontend/cypress.json",
-						"tsConfig": "e2e/frontend/tsconfig.test.json",
-						"devServerTarget": "frontend:serve"
-					},
-					"configurations": {
-						"production": {
-							"devServerTarget": "frontend:serve:production"
-						}
-					}
-				}
-			},
-			"tags": ["frontend", "vue"]
-		},
-		"ModelIndex": {
-			"root": "libs/nest/models/model-index",
-			"sourceRoot": "libs/nest/models/model-index/src",
-			"projectType": "library",
-			"targets": {
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
-					"options": {
-						"lintFilePatterns": [
-							"libs/nest/models/model-index/**/*.ts"
-						]
-					}
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/model-index"],
-					"options": {
-						"jestConfig": "libs/nest/models/model-index/jest.config.js",
+						"jestConfig": "libs/nest/config/app/jest.config.js",
 						"passWithNoTests": true
 					}
 				}
@@ -235,69 +47,25 @@
 			},
 			"tags": ["backend", "nest"]
 		},
-		"AppConfigModule": {
-			"root": "libs/nest/config/app",
-			"sourceRoot": "libs/nest/config/app/src",
+		"BaseModel": {
+			"root": "libs/nest/models/base-model",
+			"sourceRoot": "libs/nest/models/base-model/src",
 			"projectType": "library",
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"outputs": ["{options.outputFile}"],
 					"options": {
-						"lintFilePatterns": ["libs/nest/config/app/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/models/base-model/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/app"],
+					"outputs": ["coverage/libs/nest/models/base-model"],
 					"options": {
-						"jestConfig": "libs/nest/config/app/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			},
-			"tags": ["backend", "nest"]
-		},
-		"DbConfigModule": {
-			"root": "libs/nest/config/db",
-			"sourceRoot": "libs/nest/config/db/src",
-			"projectType": "library",
-			"targets": {
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
-					"options": {
-						"lintFilePatterns": ["libs/nest/config/db/**/*.ts"]
-					}
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/db"],
-					"options": {
-						"jestConfig": "libs/nest/config/db/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			},
-			"tags": ["backend", "nest"]
-		},
-		"GqlConfigModule": {
-			"root": "libs/nest/config/graphql",
-			"sourceRoot": "libs/nest/config/graphql/src",
-			"projectType": "library",
-			"targets": {
-				"lint": {
-					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
-					"options": {
-						"lintFilePatterns": ["libs/nest/config/graphql/**/*.ts"]
-					}
-				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/graphql"],
-					"options": {
-						"jestConfig": "libs/nest/config/graphql/jest.config.js",
+						"jestConfig": "libs/nest/models/base-model/jest.config.js",
 						"passWithNoTests": true
 					}
 				}
@@ -352,6 +120,75 @@
 			},
 			"tags": ["backend", "nest"]
 		},
+		"DbConfigModule": {
+			"root": "libs/nest/config/db",
+			"sourceRoot": "libs/nest/config/db/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/config/db/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/config/db"],
+					"options": {
+						"jestConfig": "libs/nest/config/db/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"DockerHandler": {
+			"root": "libs/docker-handler",
+			"sourceRoot": "libs/docker-handler/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/docker-handler/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/docker-handler"],
+					"options": {
+						"jestConfig": "libs/docker-handler/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"GqlConfigModule": {
+			"root": "libs/nest/config/graphql",
+			"sourceRoot": "libs/nest/config/graphql/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": ["libs/nest/config/graphql/**/*.ts"]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/nest/config/graphql"],
+					"options": {
+						"jestConfig": "libs/nest/config/graphql/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
 		"GraphQLProvider": {
 			"root": "libs/nest/providers/graphql",
 			"sourceRoot": "libs/nest/providers/graphql/src",
@@ -396,6 +233,31 @@
 					"outputs": ["coverage/libs/nest/providers/migrator"],
 					"options": {
 						"jestConfig": "libs/nest/providers/migrator/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"ModelIndex": {
+			"root": "libs/nest/models/model-index",
+			"sourceRoot": "libs/nest/models/model-index/src",
+			"projectType": "library",
+			"targets": {
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"outputs": ["{options.outputFile}"],
+					"options": {
+						"lintFilePatterns": [
+							"libs/nest/models/model-index/**/*.ts"
+						]
+					}
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/model-index"],
+					"options": {
+						"jestConfig": "libs/nest/models/model-index/jest.config.js",
 						"passWithNoTests": true
 					}
 				}
@@ -472,6 +334,177 @@
 				}
 			},
 			"tags": ["backend", "nest"]
+		},
+		"backend": {
+			"root": "apps/backend",
+			"sourceRoot": "apps/backend/src",
+			"projectType": "application",
+			"targets": {
+				"build": {
+					"executor": "@nrwl/node:build",
+					"outputs": ["{options.outputPath}"],
+					"options": {
+						"outputPath": "dist/apps/backend",
+						"main": "apps/backend/src/main.ts",
+						"tsConfig": "apps/backend/tsconfig.app.json",
+						"assets": ["apps/backend/src/static"],
+						"webpackConfig": "apps/backend/webpack.config.js",
+						"additionalEntryPoints": [
+							{
+								"entryName": "migrate",
+								"entryPath": "apps/backend/src/migrate.ts"
+							},
+							{
+								"entryName": "seed",
+								"entryPath": "apps/backend/src/seed.ts"
+							}
+						]
+					},
+					"configurations": {
+						"production": {
+							"optimization": true,
+							"extractLicenses": true,
+							"inspect": false,
+							"fileReplacements": [
+								{
+									"replace": "apps/backend/environments/environment.ts",
+									"with": "apps/backend/environments/environment.prod.ts"
+								}
+							]
+						}
+					}
+				},
+				"serve": {
+					"executor": "@nrwl/node:execute",
+					"options": {
+						"buildTarget": "backend:build"
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/backend/**/*.ts"]
+					},
+					"outputs": ["{options.outputFile}"]
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["dist/coverage/backend"],
+					"options": {
+						"jestConfig": "apps/backend/jest.config.js",
+						"passWithNoTests": true
+					}
+				},
+				"e2e": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["dist/coverage/backend"],
+					"options": {
+						"jestConfig": "e2e/backend/jest.config.js",
+						"passWithNoTests": false
+					}
+				}
+			},
+			"tags": ["backend", "nest"]
+		},
+		"frontend": {
+			"root": "apps/frontend",
+			"sourceRoot": "apps/frontend",
+			"projectType": "application",
+			"targets": {
+				"build": {
+					"executor": "@nx-plus/vue:browser",
+					"options": {
+						"dest": "dist/apps/frontend",
+						"index": "apps/frontend/static/index.html",
+						"main": "apps/frontend/main.ts",
+						"tsConfig": "apps/frontend/tsconfig.app.json"
+					},
+					"configurations": {
+						"production": {
+							"mode": "production",
+							"filenameHashing": true,
+							"productionSourceMap": true,
+							"css": {
+								"extract": true,
+								"sourceMap": false
+							}
+						}
+					}
+				},
+				"serve": {
+					"executor": "@nx-plus/vue:dev-server",
+					"options": {
+						"browserTarget": "frontend:build"
+					},
+					"configurations": {
+						"production": {
+							"browserTarget": "frontend:build:production"
+						}
+					}
+				},
+				"lint": {
+					"executor": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,vue}"]
+					},
+					"outputs": ["{options.outputFile}"]
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": ["dist/coverage/frontend"],
+					"options": {
+						"jestConfig": "apps/frontend/jest.config.js",
+						"passWithNoTests": false
+					}
+				},
+				"e2e": {
+					"executor": "@nrwl/cypress:cypress",
+					"options": {
+						"cypressConfig": "e2e/frontend/cypress.json",
+						"tsConfig": "e2e/frontend/tsconfig.test.json",
+						"devServerTarget": "frontend:serve"
+					},
+					"configurations": {
+						"production": {
+							"devServerTarget": "frontend:serve:production"
+						}
+					}
+				}
+			},
+			"tags": ["frontend", "vue"]
+		},
+		"placeholder": {
+			"root": "apps/placeholder",
+			"projectType": "application",
+			"sourceRoot": "apps/placeholder/src",
+			"targets": {
+				"build": {
+					"executor": "@nxrs/cargo:build",
+					"options": {
+						"release": false,
+						"targetDir": "dist/apps/placeholder"
+					},
+					"configurations": {
+						"production": {
+							"release": true,
+							"targetDir": "dist/apps/placeholder"
+						}
+					}
+				},
+				"test": {
+					"executor": "@nxrs/cargo:test",
+					"options": {}
+				},
+				"lint": {
+					"executor": "@nxrs/cargo:clippy",
+					"options": {
+						"fix": false,
+						"failOnWarnings": true,
+						"noDeps": true
+					}
+				}
+			},
+			"tags": []
 		}
 	}
 }

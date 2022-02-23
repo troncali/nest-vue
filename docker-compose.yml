@@ -67,6 +67,7 @@ services:
             dockerfile: ./apps/docker/src/placeholder.Dockerfile
         image: vxnn/placeholder
         container_name: backend-green
+        restart: always
         networks:
             - frontend-network
 
