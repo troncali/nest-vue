@@ -28,6 +28,7 @@ Scripts run from the monorepo root and must be called with `yarn` to resolve dep
 -   `yarn deploy:staging` – deploy to current staging environment
 -   `yarn deploy:swap` – swap production and staging deployments (no downtime)
 -   `yarn deploy:production` – deploy to current production environment (with downtime)
+-   `yarn deploy:placeholder` – replace current backend in staging with lightweight placeholder
 
 ## Support
 

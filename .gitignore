@@ -21,6 +21,7 @@ docs/.vuepress/public/backend
 # Dependency directories
 /node_modules
 /jspm_packages
+.pnp.*
 .yarn/*
 # !.yarn/cache
 !.yarn/releases

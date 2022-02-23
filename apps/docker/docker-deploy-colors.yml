@@ -12,3 +12,15 @@ services:
             file: docker-compose.yml
             service: backend
         container_name: backend-green
+
+    placeholder-blue:
+        extends:
+            file: docker-compose.yml
+            service: placeholder
+        container_name: backend-blue
+
+    placeholder-green:
+        extends:
+            file: docker-compose.yml
+            service: placeholder
+        container_name: backend-green

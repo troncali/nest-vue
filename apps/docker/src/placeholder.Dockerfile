@@ -1,13 +1,22 @@
-FROM node:16.13.1-alpine3.14
+# Reduce image bloat with a prebuild to gather production files and dependencies
+FROM ekidd/rust-musl-builder:1.57.0 AS prebuild
+	# Cache dependencies
+	WORKDIR /home/rust/src/
+	RUN cargo new --bin apps/placeholder
+	COPY ./Cargo.lock ./Cargo.toml ./
+	RUN cargo build --release && rm ./apps/placeholder/src/*.rs
+	# Build code
+	ADD ./apps/placeholder ./apps/placeholder
+	RUN rm ./target/x86_64-unknown-linux-musl/release/deps/placeholder* \
+		&& cargo build --release
 
-RUN mkdir -p /app && chown -R node:node /app
-
-WORKDIR /app
-
-COPY --chown=node:node ./apps/docker/src/placeholder/app.js .
-
-USER node
-
-EXPOSE ${BACKEND_PORT}
-
-CMD ["node", "app.js"]
+# Build the production image
+FROM alpine:3.15.0 AS production
+	RUN addgroup -S placeholder && adduser -S -g placeholder placeholder \
+		&& mkdir -p /app && chown -R placeholder:placeholder /app
+	WORKDIR /app
+	COPY --from=prebuild --chown=placeholder:placeholder \
+		/home/rust/src/target/x86_64-unknown-linux-musl/release/placeholder .
+	USER placeholder
+	EXPOSE ${BACKEND_PORT}
+	CMD ["./placeholder"]

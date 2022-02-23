@@ -17,6 +17,8 @@
 		"composite": true,
 		"baseUrl": ".",
 		"paths": {
+			"@apps/*": ["apps/*"],
+			"@libs/*": ["libs/*"],
 			"@vxnn/docker-handler": ["libs/docker-handler/src/index.ts"],
 			"@vxnn/models/base-model": [
 				"libs/nest/models/base-model/src/index.ts"
@@ -44,9 +46,7 @@
 			],
 			"@vxnn/nest/providers/seeders": [
 				"libs/nest/providers/seeders/src/index.ts"
-			],
-			"@apps/*": ["apps/*"],
-			"@libs/*": ["libs/*"]
+			]
 		}
 	},
 	"exclude": ["node_modules", ".vscode", ".yarn", "dist", "public", "tmp"]
