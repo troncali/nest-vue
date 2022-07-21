@@ -1,5 +1,5 @@
 // Create object to store variables used across stages
-def vxnn = new VxnnEnvVars();
+def nestVue = new NestVueEnvVars();
 
 pipeline {
     agent any
@@ -22,38 +22,38 @@ pipeline {
 				// Set variables used across stages
 				withEnv(readFile('.env').replaceAll(/(#.+\n+)|(\s+#.+)/, '').split('\n') as List) {
 					script {
-						vxnn.dbHost = "${DB_HOST}"
-						vxnn.dbName = "${DB_DATABASE_NAME}"
-						vxnn.dbPort = "${DB_PORT}"
-						vxnn.dbUser = readFile("apps/docker/secrets/DB_USERNAME")
-						vxnn.deploymentApprovers = "${JENKINS_DEPLOYMENT_APPROVERS}"
-						vxnn.dockerContext = "${DOCKER_REMOTE_CONTEXT}"
-						vxnn.emailRecipients = "${JENKINS_EMAIL_RECIPIENTS}"
-						vxnn.projectName = "${DOCKER_PROJECT_NAME}"
-						vxnn.repoUrl = "${JENKINS_REPO_URL}"
-						vxnn.repoCredentialsId = "${JENKINS_REPO_CREDENTIALS_ID}"
-						vxnn.sshHostAlias = "${SSH_HOST_ALIAS}"
-						vxnn.stagingCredentialsId = "${JENKINS_STAGING_CREDENTIALS_ID}"
-						vxnn.stagingDomain = "${STAGING_DOMAIN}"
+						nestVue.dbHost = "${DB_HOST}"
+						nestVue.dbName = "${DB_DATABASE_NAME}"
+						nestVue.dbPort = "${DB_PORT}"
+						nestVue.dbUser = readFile("apps/docker/secrets/DB_USERNAME")
+						nestVue.deploymentApprovers = "${JENKINS_DEPLOYMENT_APPROVERS}"
+						nestVue.dockerContext = "${DOCKER_REMOTE_CONTEXT}"
+						nestVue.emailRecipients = "${JENKINS_EMAIL_RECIPIENTS}"
+						nestVue.projectName = "${DOCKER_PROJECT_NAME}"
+						nestVue.repoUrl = "${JENKINS_REPO_URL}"
+						nestVue.repoCredentialsId = "${JENKINS_REPO_CREDENTIALS_ID}"
+						nestVue.sshHostAlias = "${SSH_HOST_ALIAS}"
+						nestVue.stagingCredentialsId = "${JENKINS_STAGING_CREDENTIALS_ID}"
+						nestVue.stagingDomain = "${STAGING_DOMAIN}"
 					}
 				}
 
 				// Determine current staging target
 				withCredentials([
 					usernameColonPassword(
-						credentialsId: "${vxnn.stagingCredentialsId}",
+						credentialsId: "${nestVue.stagingCredentialsId}",
 						variable: 'credentials'
 					)
 				]) {
 					script {
-						vxnn.stagingColor = sh(
+						nestVue.stagingColor = sh(
 							script: 'curl -s -u $credentials ' +
-								"https://${vxnn.stagingDomain}/id",
+								"https://${nestVue.stagingDomain}/id",
 							returnStdout: true
 						).trim()
 					}
 				}
-				echo "deploymentId: ${vxnn.stagingColor}"
+				echo "deploymentId: ${nestVue.stagingColor}"
 
 				// Wipe workspace and start with a fresh, shallow clone
 				checkout([
@@ -64,8 +64,8 @@ pipeline {
 						[$class: 'CloneOption', noTags: false, shallow: true, depth: 2]
 					],
 					userRemoteConfigs: [ [
-				        credentialsId: "${vxnn.repoCredentialsId}",
-						url: "${vxnn.repoUrl}"
+				        credentialsId: "${nestVue.repoCredentialsId}",
+						url: "${nestVue.repoUrl}"
 					] ]
 				])
 
@@ -93,27 +93,27 @@ pipeline {
 			steps {
 				// Stop and remove local containers if they already exist
 				sh "docker context use default"
-				sh "docker compose -p ${vxnn.projectName} stop"
-				sh "docker compose -p ${vxnn.projectName} rm -f"
+				sh "docker compose -p ${nestVue.projectName} stop"
+				sh "docker compose -p ${nestVue.projectName} rm -f"
 
 				// Pull copy of db from production
-				sh "ssh ${vxnn.sshHostAlias} 'docker exec ${vxnn.dbHost} \
-					pg_dump -c -d ${vxnn.dbName} -U ${vxnn.dbUser}' | \
+				sh "ssh ${nestVue.sshHostAlias} 'docker exec ${nestVue.dbHost} \
+					pg_dump -c -d ${nestVue.dbName} -U ${nestVue.dbUser}' | \
 					xz -3 > db-backup.sql.xz"
 
 				// Start the local db container
-				sh "docker compose -p ${vxnn.projectName} \
+				sh "docker compose -p ${nestVue.projectName} \
 					-f docker-compose.yml \
-					-f ./apps/docker/docker-compose-dev.yml up -d ${vxnn.dbHost}"
+					-f ./apps/docker/docker-compose-dev.yml up -d ${nestVue.dbHost}"
 
 				// Test if db is ready for connections
 				timeout(5) {
 					waitUntil {
 						script {
 							def r = sh(
-								script: "docker exec -i ${vxnn.dbHost} \
-									pg_isready -h localhost -p ${vxnn.dbPort} \
-									-d ${vxnn.dbName} -U ${vxnn.dbUser}",
+								script: "docker exec -i ${nestVue.dbHost} \
+									pg_isready -h localhost -p ${nestVue.dbPort} \
+									-d ${nestVue.dbName} -U ${nestVue.dbUser}",
 								returnStatus: true
 							)
 							return (r == 0);
@@ -122,9 +122,9 @@ pipeline {
 				}
 
 				// Load production data into local db
-				sh "xz -dc db-backup.sql.xz | docker exec -i ${vxnn.dbHost} \
-					psql -h localhost -p ${vxnn.dbPort} -d ${vxnn.dbName} \
-					-U ${vxnn.dbUser} --set ON_ERROR_STOP=on \
+				sh "xz -dc db-backup.sql.xz | docker exec -i ${nestVue.dbHost} \
+					psql -h localhost -p ${nestVue.dbPort} -d ${nestVue.dbName} \
+					-U ${nestVue.dbUser} --set ON_ERROR_STOP=on \
 					--single-transaction"
 
 				// Run migrations and seed data
@@ -143,8 +143,8 @@ pipeline {
 				}
 				always {
 					// Stop all local containers
-					sh "docker compose -p ${vxnn.projectName} stop"
-					sh "docker compose -p ${vxnn.projectName} rm -f"
+					sh "docker compose -p ${nestVue.projectName} stop"
+					sh "docker compose -p ${nestVue.projectName} rm -f"
 				}
 			}
 		}
@@ -164,12 +164,12 @@ pipeline {
 		stage("Build Images: Core") {
 			when { branch 'core' }
 			steps {
-				sh "docker --context ${vxnn.dockerContext} compose \
-					-p ${vxnn.projectName} -f docker-compose.yml \
+				sh "docker --context ${nestVue.dockerContext} compose \
+					-p ${nestVue.projectName} -f docker-compose.yml \
 					-f ./apps/docker/docker-compose-prod.yml \
 					build nginx db placeholder certbot worker"
 				// send images to remote
-				// sh "docker save vxnn/nginx vxnn/db vxnn/placeholder vxnn/certbot vxnn/worker | ssh do 'docker load'"
+				// sh "docker save nest-vue/nginx nest-vue/db nest-vue/placeholder nest-vue/certbot nest-vue/worker | ssh do 'docker load'"
 				// send images to remote v2
 				// sh(returnStdout: true, script: """
 				// 	for img in $(docker-compose config | awk '{if ($1 == "image:") print $2;}'); do
@@ -184,8 +184,8 @@ pipeline {
 		stage("Build Images: Services") {
 			// when { not { branch 'core' } }
 			steps {
-				sh "docker --context ${vxnn.dockerContext} compose \
-					-p ${vxnn.projectName} -f docker-compose.yml \
+				sh "docker --context ${nestVue.dockerContext} compose \
+					-p ${nestVue.projectName} -f docker-compose.yml \
 					-f ./apps/docker/docker-compose-prod.yml \
 					build backend"
 			}
@@ -196,16 +196,16 @@ pipeline {
 			steps {
 				// Run migrations and seed data only if db is up
 				sh(returnStdout: true, script: """
-					docker --context ${vxnn.dockerContext} compose \
-						-p ${vxnn.projectName} stop migrator
-					docker --context ${vxnn.dockerContext} compose \
-						-p ${vxnn.projectName} rm -f migrator
+					docker --context ${nestVue.dockerContext} compose \
+						-p ${nestVue.projectName} stop migrator
+					docker --context ${nestVue.dockerContext} compose \
+						-p ${nestVue.projectName} rm -f migrator
 
-					if [ ! "\$(docker --context ${vxnn.dockerContext} ps -a | grep db)" ]; then
+					if [ ! "\$(docker --context ${nestVue.dockerContext} ps -a | grep db)" ]; then
 						echo "DB container not running.  Skipping migration."
 					else
-						docker --context ${vxnn.dockerContext} compose \
-							-p ${vxnn.projectName} -f docker-compose.yml \
+						docker --context ${nestVue.dockerContext} compose \
+							-p ${nestVue.projectName} -f docker-compose.yml \
 							-f ./apps/docker/docker-compose-prod.yml \
 							up -d --force-recreate migrator
 					fi
@@ -216,28 +216,28 @@ pipeline {
 		// TODO: handle core image deployment
 		stage("Deploy: Staging") {
 			steps {
-				sh "cross-env-shell DEPLOY_COLOR=${vxnn.stagingColor} \
-					SSH_HOST_ALIAS=${vxnn.sshHostAlias} \
-					DOCKER_PROJECT_NAME=${vxnn.projectName} \
-					DOCKER_REMOTE_CONTEXT=${vxnn.dockerContext} \
+				sh "cross-env-shell DEPLOY_COLOR=${nestVue.stagingColor} \
+					SSH_HOST_ALIAS=${nestVue.sshHostAlias} \
+					DOCKER_PROJECT_NAME=${nestVue.projectName} \
+					DOCKER_REMOTE_CONTEXT=${nestVue.dockerContext} \
 					yarn deploy:staging"
 
 				// Clear then copy frontend files
-				// sh "ssh ${vxnn.sshHostAlias} 'rm -rf /var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data/{..?*,.[!.]*,*}'"
-				// sh "scp -r ./dist/frontend/* ${vxnn.sshHostAlias}:/var/lib/docker/volumes/${vxnn.projectName}_frontend-${vxnn.stagingColor}/_data"
+				// sh "ssh ${nestVue.sshHostAlias} 'rm -rf /var/lib/docker/volumes/${nestVue.projectName}_frontend-${nestVue.stagingColor}/_data/{..?*,.[!.]*,*}'"
+				// sh "scp -r ./dist/frontend/* ${nestVue.sshHostAlias}:/var/lib/docker/volumes/${nestVue.projectName}_frontend-${nestVue.stagingColor}/_data"
 
 				// Stop current backend container if it's running
-				// sh "docker --context ${vxnn.dockerContext} stop \
-				// 		backend-${vxnn.stagingColor}; \
-				// 	docker --context ${vxnn.dockerContext} rm -f \
-				// 		backend-${vxnn.stagingColor}"
+				// sh "docker --context ${nestVue.dockerContext} stop \
+				// 		backend-${nestVue.stagingColor}; \
+				// 	docker --context ${nestVue.dockerContext} rm -f \
+				// 		backend-${nestVue.stagingColor}"
 
 				// Start backend container
-				// sh "docker --context ${vxnn.dockerContext} compose \
-				// 	-p ${vxnn.projectName} -f docker-compose.yml \
+				// sh "docker --context ${nestVue.dockerContext} compose \
+				// 	-p ${nestVue.projectName} -f docker-compose.yml \
 				// 	-f ./apps/docker/docker-compose-prod.yml \
 				// 	-f ./apps/docker/docker-deploy-colors.yml \
-				// 	up -d backend-${vxnn.stagingColor}"
+				// 	up -d backend-${nestVue.stagingColor}"
 			}
 		}
 
@@ -254,7 +254,7 @@ pipeline {
                 script {
                     def deploymentDelay = input id: 'Deploy',
 						message: 'Approve deployment to production?',
-						submitter: "${vxnn.deploymentApprovers}",
+						submitter: "${nestVue.deploymentApprovers}",
 						parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
 						description: 'Hours to delay deployment?',
 						name: 'deploymentDelay')]
@@ -266,21 +266,21 @@ pipeline {
 
         stage("Deploy: Production") {
             steps {
-				sh "cross-env-shell DEPLOY_COLOR=${vxnn.stagingColor} \
-					SSH_HOST_ALIAS=${vxnn.sshHostAlias} \
-					DOCKER_PROJECT_NAME=${vxnn.projectName} \
-					DOCKER_REMOTE_CONTEXT=${vxnn.dockerContext} \
+				sh "cross-env-shell DEPLOY_COLOR=${nestVue.stagingColor} \
+					SSH_HOST_ALIAS=${nestVue.sshHostAlias} \
+					DOCKER_PROJECT_NAME=${nestVue.projectName} \
+					DOCKER_REMOTE_CONTEXT=${nestVue.dockerContext} \
 					yarn deploy:swap"
 
 				// Update nginx upstreams based on deployment color
-				// sh "ssh ${vxnn.sshHostAlias} 'rm /var/lib/docker/volumes/${vxnn.projectName}_nginx-confs/_data/upstreams'"
-				// sh "docker --context ${vxnn.dockerContext} exec \
-				// 	nginx ln -s /etc/nginx/confs/${vxnn.stagingColor}.conf \
+				// sh "ssh ${nestVue.sshHostAlias} 'rm /var/lib/docker/volumes/${nestVue.projectName}_nginx-confs/_data/upstreams'"
+				// sh "docker --context ${nestVue.dockerContext} exec \
+				// 	nginx ln -s /etc/nginx/confs/${nestVue.stagingColor}.conf \
 				// 	/tmp/confs/upstreams"
 
 				// Set flag to restart nginx; restart worker container to
 				// trigger now. (Worker checks flags every 6 hours by default.)
-				// sh "ssh ${vxnn.sshHostAlias} 'touch /var/lib/docker/volumes/${vxnn.projectName}_worker-flags/_data/restart_nginx; \
+				// sh "ssh ${nestVue.sshHostAlias} 'touch /var/lib/docker/volumes/${nestVue.projectName}_worker-flags/_data/restart_nginx; \
 				// 	docker restart worker'"
             }
         }
@@ -297,7 +297,7 @@ pipeline {
     }
 }
 
-class VxnnEnvVars {
+class NestVueEnvVars {
 	// Variables set dynamically through pipeline script based on .env vars
 	def dbHost
 	def dbName

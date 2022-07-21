@@ -1,7 +1,7 @@
 {
 	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
-		"outDir": "../dist/out-tsc/tools",
+		"outDir": "../.yarn/cache/out-tsc/tools",
 		"rootDir": ".",
 		"module": "commonjs",
 		"target": "es5",
