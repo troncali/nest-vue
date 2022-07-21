@@ -11,12 +11,14 @@ apps/docker/src/nginx/dev-certs/*
 # Generated Files
 /apps/backend/schema.gql
 /dist
+/docs/.vitepress/.cache
+/docs/.vitepress/.temp
+/docs/.vitepress/public/backend/*
+/docs/.vitepress/public/frontend/*
+/libs/prisma/postgres/src/client
 /public
 /tmp
 /out-tsc
-/docs/.vuepress/.cache
-/docs/.vuepress/.temp
-docs/.vuepress/public/backend
 
 # Dependency directories
 /node_modules
@@ -128,8 +130,8 @@ dist
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
-# vuepress build output
-.vuepress/dist
+# Vitepress build output
+.vitepress/dist
 
 # Serverless directories
 .serverless/

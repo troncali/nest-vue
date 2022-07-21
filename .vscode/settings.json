@@ -5,7 +5,7 @@
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"js/ts.implicitProjectConfig.experimentalDecorators": true,
 	"[rust]": {
-		"editor.defaultFormatter": "matklad.rust-analyzer", // Makes the magic
+		"editor.defaultFormatter": "rust-lang.rust-analyzer", // Makes the magic
 		"editor.formatOnSave": true
 	},
 	"eslint.workingDirectories": [
@@ -39,16 +39,18 @@
 		"**/.yarn": false,
 		"**/.yarnrc.yml": false,
 		"**/Cargo.lock": false,
-		"**/docs/.vuepress/.cache": false,
-		"**/docs/.vuepress/.temp": false,
-		"**/jest.config.js": false,
+		"**/docs/.vitepress/.cache": false,
+		"**/docs/.vitepress/.temp": false,
+		"**/jest.config.ts": false,
 		"**/jest.preset.js": false,
 		"**/LICENSE": false,
 		"**/nest-cli.json": false,
 		"**/node_modules": false,
 		"**/nx.json": false,
+		"**/postcss.config.js": false,
 		"rust-toolchain.toml": false,
 		"**/rustfmt.toml": false,
+		"**/tailwind.config.js": false,
 		"**/tsconfig.json": false,
 		"**/tsconfig.*.json": false,
 		"**/webpack.config.js": false,

@@ -1,5 +1,5 @@
 {
-	"npmScope": "vxnn",
+	"npmScope": "nest-vue",
 	"affected": {
 		"defaultBase": "main"
 	},
@@ -19,19 +19,16 @@
 	},
 	"tasksRunnerOptions": {
 		"default": {
-			"runner": "@nrwl/workspace/tasks-runners/default",
+			"runner": "nx/tasks-runners/default",
 			"options": {
-				"cacheableOperations": ["build", "lint", "test", "e2e"],
+				"cacheableOperations": [
+					"build",
+					"lint",
+					"merge",
+					"test",
+					"e2e"
+				],
 				"cacheDirectory": ".yarn/cache/nx"
-			}
-		},
-		"remote": {
-			"runner": "@nrwl/nx-cloud",
-			"options": {
-				"cacheableOperations": ["build", "lint", "test", "e2e"],
-				"cacheDirectory": ".yarn/cache/nx",
-				"accessToken": "MDIxYzFkN2MtYzQwOC00NTE0LWJlNGYtOTg1Y2NkNzdkMjJhfHJlYWQtd3JpdGU=",
-				"parallel": 1
 			}
 		}
 	},
@@ -47,5 +44,7 @@
 		"defaultCollection": "@nrwl/nest"
 	},
 	"defaultProject": "backend",
-	"plugins": ["@nxrs/cargo"]
+	"plugins": [
+		"@nxrs/cargo"
+	]
 }

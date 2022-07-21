@@ -1,4 +1,4 @@
 /.yarn
 /node_modules
 /dist
-docs/.vuepress/public/backend
+docs/.vitepress/public/backend

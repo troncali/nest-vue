@@ -8,21 +8,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/config/app/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/config/app/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/app"],
+					"outputs": [
+						"coverage/libs/nest/config/app"
+					],
 					"options": {
-						"jestConfig": "libs/nest/config/app/jest.config.js",
+						"jestConfig": "libs/nest/config/app/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"AuthModule": {
 			"root": "libs/nest/auth",
@@ -31,21 +40,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/auth/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/auth/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/auth"],
+					"outputs": [
+						"coverage/libs/nest/auth"
+					],
 					"options": {
-						"jestConfig": "libs/nest/auth/jest.config.js",
+						"jestConfig": "libs/nest/auth/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"BaseModel": {
 			"root": "libs/nest/models/base-model",
@@ -54,7 +72,9 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
 							"libs/nest/models/base-model/**/*.ts"
@@ -63,14 +83,19 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/models/base-model"],
+					"outputs": [
+						"coverage/libs/nest/models/base-model"
+					],
 					"options": {
-						"jestConfig": "libs/nest/models/base-model/jest.config.js",
+						"jestConfig": "libs/nest/models/base-model/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"CipherProvider": {
 			"root": "libs/nest/providers/cipher",
@@ -79,7 +104,9 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
 							"libs/nest/providers/cipher/**/*.ts"
@@ -88,14 +115,19 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/providers/cipher"],
+					"outputs": [
+						"coverage/libs/nest/providers/cipher"
+					],
 					"options": {
-						"jestConfig": "libs/nest/providers/cipher/jest.config.js",
+						"jestConfig": "libs/nest/providers/cipher/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"DatabaseProvider": {
 			"root": "libs/nest/providers/db",
@@ -104,21 +136,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/providers/db/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/providers/db/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/providers/db"],
+					"outputs": [
+						"coverage/libs/nest/providers/db"
+					],
 					"options": {
-						"jestConfig": "libs/nest/providers/db/jest.config.js",
+						"jestConfig": "libs/nest/providers/db/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"DbConfigModule": {
 			"root": "libs/nest/config/db",
@@ -127,21 +168,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/config/db/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/config/db/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/db"],
+					"outputs": [
+						"coverage/libs/nest/config/db"
+					],
 					"options": {
-						"jestConfig": "libs/nest/config/db/jest.config.js",
+						"jestConfig": "libs/nest/config/db/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"DockerHandler": {
 			"root": "libs/docker-handler",
@@ -150,21 +200,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/docker-handler/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/docker-handler/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/docker-handler"],
+					"outputs": [
+						"coverage/libs/docker-handler"
+					],
 					"options": {
-						"jestConfig": "libs/docker-handler/jest.config.js",
+						"jestConfig": "libs/docker-handler/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"GqlConfigModule": {
 			"root": "libs/nest/config/graphql",
@@ -173,21 +232,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/config/graphql/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/config/graphql/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/config/graphql"],
+					"outputs": [
+						"coverage/libs/nest/config/graphql"
+					],
 					"options": {
-						"jestConfig": "libs/nest/config/graphql/jest.config.js",
+						"jestConfig": "libs/nest/config/graphql/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"GraphQLProvider": {
 			"root": "libs/nest/providers/graphql",
@@ -196,7 +264,9 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
 							"libs/nest/providers/graphql/**/*.ts"
@@ -205,14 +275,19 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/providers/graphql"],
+					"outputs": [
+						"coverage/libs/nest/providers/graphql"
+					],
 					"options": {
-						"jestConfig": "libs/nest/providers/graphql/jest.config.js",
+						"jestConfig": "libs/nest/providers/graphql/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"MigrationProvider": {
 			"root": "libs/nest/providers/migrator",
@@ -221,7 +296,9 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
 							"libs/nest/providers/migrator/**/*.ts"
@@ -230,39 +307,165 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/providers/migrator"],
+					"outputs": [
+						"coverage/libs/nest/providers/migrator"
+					],
 					"options": {
-						"jestConfig": "libs/nest/providers/migrator/jest.config.js",
+						"jestConfig": "libs/nest/providers/migrator/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
-		"ModelIndex": {
-			"root": "libs/nest/models/model-index",
-			"sourceRoot": "libs/nest/models/model-index/src",
+		"PrismaPostgres": {
+			"root": "libs/prisma/postgres",
+			"sourceRoot": "libs/prisma/postgres/src",
+			"projectType": "library",
+			"targets": {
+				"build": {
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						"libs/prisma/postgres/src/client",
+						"dist/apps/backend/schema.prisma"
+					],
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma:pnp generate --schema={args.schema}",
+						"outputPath": "libs/prisma/postgres/src/client"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				},
+				"lint": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma format --schema={args.schema}",
+						"outputPath": "libs/prisma/postgres/src/schema.prisma"
+					},
+					"dependsOn": [
+						{
+							"target": "merge",
+							"projects": "self"
+						}
+					]
+				},
+				"merge": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"extension": ".pg.prisma",
+						"cwd": "libs/prisma/postgres/src",
+						"commands": [
+							"echo '// Generated file. Changes will be lost. Edit `lib/base.prisma` or `*{args.extension}` files. ' | cat - lib/base.prisma > schema.prisma",
+							"find ../../../../ -type f -regex \".*\\{args.extension}\" | while read f; do cat $f >> schema.prisma; echo \"\" >> schema.prisma; done"
+						],
+						"outputPath": "libs/prisma/postgres/src/schema.prisma",
+						"parallel": false
+					}
+				},
+				"migrate": {
+					"executor": "./tools/nx/executors/workspace:interactive-command",
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma migrate dev --skip-generate --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "build",
+							"projects": "self"
+						}
+					]
+				},
+				"pull": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma db pull --print --schema={args.schema} > introspection.prisma",
+						"cwd": "libs/prisma/postgres/src"
+					}
+				},
+				"serve": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma studio --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": [
+						"coverage/libs/prisma/postgres"
+					],
+					"options": {
+						"jestConfig": "libs/prisma/postgres/jest.config.ts",
+						"passWithNoTests": true
+					}
+				},
+				"validate": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/postgres/src/schema.prisma",
+						"command": "yarn prisma validate --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				}
+			},
+			"tags": [
+				"backend",
+				"nest",
+				"prisma"
+			]
+		},
+		"PrismaWrapper": {
+			"root": "libs/prisma/wrapper",
+			"sourceRoot": "libs/prisma/wrapper/src",
 			"projectType": "library",
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
-							"libs/nest/models/model-index/**/*.ts"
+							"libs/prisma/wrapper/**/*.ts"
 						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/model-index"],
+					"outputs": [
+						"coverage/libs/prisma/wrapper"
+					],
 					"options": {
-						"jestConfig": "libs/nest/models/model-index/jest.config.js",
+						"jestConfig": "libs/prisma/wrapper/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"prisma"
+			]
 		},
 		"SeedProvider": {
 			"root": "libs/nest/providers/seeders",
@@ -271,7 +474,9 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
 						"lintFilePatterns": [
 							"libs/nest/providers/seeders/**/*.ts"
@@ -280,14 +485,19 @@
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/providers/seeders"],
+					"outputs": [
+						"coverage/libs/nest/providers/seeders"
+					],
 					"options": {
-						"jestConfig": "libs/nest/providers/seeders/jest.config.js",
+						"jestConfig": "libs/nest/providers/seeders/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"Session": {
 			"root": "libs/nest/models/session",
@@ -296,21 +506,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/models/session/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/models/session/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/models/session"],
+					"outputs": [
+						"coverage/libs/nest/models/session"
+					],
 					"options": {
-						"jestConfig": "libs/nest/models/session/jest.config.js",
+						"jestConfig": "libs/nest/models/session/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"User": {
 			"root": "libs/nest/models/user",
@@ -319,21 +538,30 @@
 			"targets": {
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"lintFilePatterns": ["libs/nest/models/user/**/*.ts"]
+						"lintFilePatterns": [
+							"libs/nest/models/user/**/*.ts"
+						]
 					}
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/nest/models/user"],
+					"outputs": [
+						"coverage/libs/nest/models/user"
+					],
 					"options": {
-						"jestConfig": "libs/nest/models/user/jest.config.js",
+						"jestConfig": "libs/nest/models/user/jest.config.ts",
 						"passWithNoTests": true
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
 		},
 		"backend": {
 			"root": "apps/backend",
@@ -341,13 +569,18 @@
 			"projectType": "application",
 			"targets": {
 				"build": {
-					"executor": "@nrwl/node:build",
-					"outputs": ["{options.outputPath}"],
+					"executor": "@nrwl/node:webpack",
+					"outputs": [
+						"{options.outputPath}",
+						"dist/apps/backend/schema.prisma"
+					],
 					"options": {
 						"outputPath": "dist/apps/backend",
 						"main": "apps/backend/src/main.ts",
 						"tsConfig": "apps/backend/tsconfig.app.json",
-						"assets": ["apps/backend/src/static"],
+						"assets": [
+							"apps/backend/src/static"
+						],
 						"webpackConfig": "apps/backend/webpack.config.js",
 						"additionalEntryPoints": [
 							{
@@ -357,6 +590,12 @@
 							{
 								"entryName": "seed",
 								"entryPath": "apps/backend/src/seed.ts"
+							}
+						],
+						"dependsOn": [
+							{
+								"target": "build",
+								"projects": "PrismaPostgres"
 							}
 						]
 					},
@@ -374,8 +613,24 @@
 						}
 					}
 				},
+				"prod": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"prismaSchema": "libs/prisma/postgres/src/schema.prisma",
+						"backendDist": "dist/apps/backend",
+						"commands": [
+							"cp {args.prismaSchema} {args.backendDist}"
+						]
+					},
+					"dependsOn": [
+						{
+							"target": "build",
+							"projects": "self"
+						}
+					]
+				},
 				"serve": {
-					"executor": "@nrwl/node:execute",
+					"executor": "@nrwl/node:node",
 					"options": {
 						"buildTarget": "backend:build"
 					}
@@ -383,95 +638,168 @@
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"options": {
-						"lintFilePatterns": ["apps/backend/**/*.ts"]
+						"lintFilePatterns": [
+							"apps/backend/**/*.ts"
+						]
 					},
-					"outputs": ["{options.outputFile}"]
+					"outputs": [
+						"{options.outputFile}"
+					]
 				},
 				"test": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/backend"],
+					"outputs": [
+						"dist/coverage/backend"
+					],
 					"options": {
-						"jestConfig": "apps/backend/jest.config.js",
+						"jestConfig": "apps/backend/jest.config.ts",
 						"passWithNoTests": true
 					}
 				},
 				"e2e": {
 					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/backend"],
+					"outputs": [
+						"dist/coverage/backend"
+					],
 					"options": {
-						"jestConfig": "e2e/backend/jest.config.js",
+						"jestConfig": "e2e/backend/jest.config.ts",
 						"passWithNoTests": false
 					}
 				}
 			},
-			"tags": ["backend", "nest"]
+			"tags": [
+				"backend",
+				"nest"
+			]
+		},
+		"deployment": {
+			"root": "libs/deployment",
+			"sourceRoot": "libs/deployment/src",
+			"projectType": "library",
+			"targets": {
+				"build": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"command": "nx build backend; nx build frontend"
+					}
+				},
+				"init": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"command": "dotenv -- cross-env-shell DEPLOY_COLOR=blue ./libs/deploy-scripts/init.sh"
+					},
+					"dependsOn": [
+						{
+							"target": "build",
+							"projects": "self"
+						}
+					]
+				},
+				"swap": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"command": "dotenv -- cross-env-shell ./libs/deploy-scripts/swap.sh"
+					}
+				}
+			},
+			"tags": [
+				"deployment"
+			]
 		},
 		"frontend": {
 			"root": "apps/frontend",
-			"sourceRoot": "apps/frontend",
+			"sourceRoot": "apps/frontend/src",
 			"projectType": "application",
 			"targets": {
 				"build": {
-					"executor": "@nx-plus/vue:browser",
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						"dist/apps/frontend"
+					],
 					"options": {
-						"dest": "dist/apps/frontend",
-						"index": "apps/frontend/static/index.html",
-						"main": "apps/frontend/main.ts",
-						"tsConfig": "apps/frontend/tsconfig.app.json"
-					},
-					"configurations": {
-						"production": {
-							"mode": "production",
-							"filenameHashing": true,
-							"productionSourceMap": true,
-							"css": {
-								"extract": true,
-								"sourceMap": false
-							}
-						}
+						"viteRoot": "apps/frontend",
+						"command": "yarn vite build {args.viteRoot}",
+						"outputPath": "dist/apps/frontend"
 					}
 				},
-				"serve": {
-					"executor": "@nx-plus/vue:dev-server",
+				"e2e": {
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						"{options.outputFile}"
+					],
 					"options": {
-						"browserTarget": "frontend:build"
-					},
-					"configurations": {
-						"production": {
-							"browserTarget": "frontend:build:production"
-						}
+						"command": "start-server-and-test 'yarn nx preview frontend' http://127.0.0.1:4173/ 'yarn cypress run --e2e --project ./e2e/frontend'"
+					}
+				},
+				"e2e:explore": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"command": "start-server-and-test 'yarn nx preview frontend' http://127.0.0.1:4173/ 'yarn cypress open --e2e --project ./e2e/frontend'"
 					}
 				},
 				"lint": {
 					"executor": "@nrwl/linter:eslint",
 					"options": {
-						"lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,vue}"]
+						"lintFilePatterns": [
+							"apps/frontend/**/*.{ts,tsx,vue}"
+						]
 					},
-					"outputs": ["{options.outputFile}"]
+					"outputs": [
+						"{options.outputFile}"
+					]
 				},
-				"test": {
-					"executor": "@nrwl/jest:jest",
-					"outputs": ["dist/coverage/frontend"],
+				"preview": {
+					"executor": "@nrwl/workspace:run-commands",
 					"options": {
-						"jestConfig": "apps/frontend/jest.config.js",
-						"passWithNoTests": false
+						"viteRoot": "apps/frontend",
+						"command": "yarn vite preview {args.viteRoot}"
+					},
+					"dependsOn": [
+						{
+							"target": "build",
+							"projects": "self"
+						}
+					]
+				},
+				"serve": {
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						".yarn/cache/vite"
+					],
+					"options": {
+						"viteRoot": "apps/frontend",
+						"command": "yarn vite {args.viteRoot}",
+						"outputPath": ".yarn/cache/vite"
 					}
 				},
-				"e2e": {
-					"executor": "@nrwl/cypress:cypress",
+				"test": {
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						"dist/tests/junit-vitest-frontend-unit.xml",
+						"dist/tests/vitest-frontend-unit.json"
+					],
 					"options": {
-						"cypressConfig": "e2e/frontend/cypress.json",
-						"tsConfig": "e2e/frontend/tsconfig.test.json",
-						"devServerTarget": "frontend:serve"
-					},
-					"configurations": {
-						"production": {
-							"devServerTarget": "frontend:serve:production"
-						}
+						"viteRoot": "apps/frontend",
+						"command": "yarn vitest -r {args.viteRoot}",
+						"outputPath": [
+							"dist/tests/junit-vitest-frontend-unit.xml",
+							"dist/tests/vitest-frontend-unit.json"
+						]
+					}
+				},
+				"type-check": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"viteRoot": "apps/frontend",
+						"command": "yarn vue-tsc --noEmit -p {args.viteRoot}/tsconfig.vitest.json --composite false"
 					}
 				}
 			},
-			"tags": ["frontend", "vue"]
+			"tags": [
+				"frontend",
+				"vite",
+				"vue"
+			]
 		},
 		"placeholder": {
 			"root": "apps/placeholder",
@@ -493,7 +821,9 @@
 				},
 				"test": {
 					"executor": "@nxrs/cargo:test",
-					"options": {}
+					"options": {
+						"targerDir": "dist/apps/placeholder"
+					}
 				},
 				"lint": {
 					"executor": "@nxrs/cargo:clippy",
@@ -504,7 +834,10 @@
 					}
 				}
 			},
-			"tags": []
+			"tags": [
+				"backend",
+				"rust"
+			]
 		}
 	}
 }
