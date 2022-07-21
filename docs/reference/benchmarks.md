@@ -29,7 +29,3 @@ Below is a summary of the geometric means reflecting the performance of some fro
 | Duration in ms        |    1.02    | 1.06  | 1.25 |  1.86   | 1.95  |
 | Startup Metrics       |    1.07    | 1.06  | 1.26 |  1.78   | 1.66  |
 | Memory in MB          |    1.06    | 1.47  | 2.10 |  2.89   | 2.80  |
-
-## This Monorepo
-
-In progress.
