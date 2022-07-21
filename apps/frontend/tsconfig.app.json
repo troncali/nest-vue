@@ -1,14 +1,18 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../../dist/out-tsc",
-		"types": ["webpack-env", "node"]
+		"outDir": "../../.yarn/cache/out-tsc",
+		"types": ["node"],
+		"composite": true,
+		"paths": {
+			"@/*": ["apps/frontend/src/*"]
+		}
 	},
 	"exclude": [
-		"**/*.spec.ts",
-		"**/*.test.ts",
-		"**/*.spec.tsx",
-		"**/*.test.tsx"
+		"src/**/*.spec.ts",
+		"src/**/*.test.ts",
+		"src/**/*.spec.tsx",
+		"src/**/*.test.tsx"
 	],
-	"include": ["**/*.ts", "**/*.tsx", "**/*.vue"]
+	"include": ["env.d.ts", "src/**/*", "src/**/*.vue"]
 }
