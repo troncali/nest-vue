@@ -1,6 +1,7 @@
-module.exports = {
-	displayName: "docker-handler",
-	preset: "../../jest.preset.js",
+/* eslint-disable */
+export default {
+	displayName: "PrismaPostgres",
+	preset: "../../../jest.preset.js",
 	globals: {
 		"ts-jest": {
 			tsconfig: "<rootDir>/tsconfig.spec.json"
@@ -11,5 +12,5 @@ module.exports = {
 		"^.+\\.[tj]sx?$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-	coverageDirectory: "../../coverage/libs/docker-handler"
+	coverageDirectory: "../../../coverage/libs/prisma/postgres"
 };

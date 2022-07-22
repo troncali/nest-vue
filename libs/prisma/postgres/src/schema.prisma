@@ -1,0 +1,53 @@
+// Generated file. Changes will be lost. Edit `lib/base.prisma` or `*.pg.prisma` files.
+generator client {
+  provider      = "prisma-client-js"
+  output        = "client"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+// TODO: update split schema file handling when Prisma implements it - https://www.notion.so/Support-splitting-the-Prisma-Schema-into-Multiple-Files-83867e7f70ce40038cdfa9eb32ed4449
+/// Complete data structure of the User entity for the database and GraphQL.
+/// A User represents an account holder.
+model User {
+  /// User's internal (non-public) identifier for the database
+  dbId      BigInt    @id(map: "user_dbid_pkey") @default(autoincrement()) @db.BigInt
+  /// User's unique identifier
+  id        String    @unique(map: "user_id_key") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  /// User's email address
+  email     String    @unique(map: "user_email_key")
+  /// User's password
+  password  String
+  /// Date of User's creation in the database
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+  /// Date of last update to User's record
+  updatedAt DateTime  @updatedAt @db.Timestamp(6)
+  /// Date of User's deletion from the database
+  deletedAt DateTime? @db.Timestamp(6)
+  /// User's sessions
+  sessions  Session[]
+  // TODO: Exclude password field by default when Prisma implements this functionality: https://www.notion.so/Exclude-Fields-by-Default-ccb00ca22090437eb3b1726a722d0ae6
+
+  @@map("user")
+}
+
+/// Complete data structure of the Session entity for the database and GraphQL.
+/// A session represents a User's interaction with the API.
+model Session {
+  /// Session's internal (non-public) identifier for the database
+  dbId      BigInt   @id(map: "session_dbid_pkey") @default(autoincrement()) @db.BigInt
+  /// Session's unique identifier
+  id        String   @unique(map: "session_id_key") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  /// Date of Session's creation in the database
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  /// Session's associated User entity
+  user      User     @relation(fields: [userDbId], references: [dbId], onDelete: Cascade, onUpdate: NoAction, map: "user_dbid_fkey")
+  /// The database identifier of the User associated with this Session
+  userDbId  BigInt   @db.BigInt
+
+  @@map("session")
+}

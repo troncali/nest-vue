@@ -44,7 +44,5 @@
 		"defaultCollection": "@nrwl/nest"
 	},
 	"defaultProject": "backend",
-	"plugins": [
-		"@nxrs/cargo"
-	]
+	"plugins": ["@nxrs/cargo"]
 }

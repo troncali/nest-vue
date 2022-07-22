@@ -1,11 +1,13 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../../.yarn/cache/out-tsc",
+		"outDir": "../../../.yarn/cache/out-tsc",
 		"module": "commonjs",
 		"types": ["jest", "node"]
 	},
 	"include": [
+		"**/*.ts",
+		"../../nest/**/*.ts",
 		"**/*.test.ts",
 		"**/*.spec.ts",
 		"**/*.test.tsx",

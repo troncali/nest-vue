@@ -321,6 +321,120 @@
 				"nest"
 			]
 		},
+		"PrismaMongo": {
+			"root": "libs/prisma/mongo",
+			"sourceRoot": "libs/prisma/mongo/src",
+			"projectType": "library",
+			"targets": {
+				"build": {
+					"executor": "@nrwl/workspace:run-commands",
+					"outputs": [
+						"libs/prisma/mongo/src/client",
+						"dist/apps/backend/schema.prisma"
+					],
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma:pnp generate --schema={args.schema}",
+						"outputPath": "libs/prisma/mongo/src/client"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				},
+				"lint": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma format --schema={args.schema}",
+						"outputPath": "libs/prisma/mongo/src/schema.prisma"
+					},
+					"dependsOn": [
+						{
+							"target": "merge",
+							"projects": "self"
+						}
+					]
+				},
+				"merge": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"extension": ".mdb.prisma",
+						"cwd": "libs/prisma/mongo/src",
+						"commands": [
+							"echo '// Generated file. Changes will be lost. Edit `lib/base.prisma` or `*{args.extension}` files. ' | cat - lib/base.prisma > schema.prisma",
+							"find ../../../../ -type f -regex \".*\\{args.extension}\" | while read f; do cat $f >> schema.prisma; echo \"\" >> schema.prisma; done"
+						],
+						"outputPath": "libs/prisma/mongo/src/schema.prisma",
+						"parallel": false
+					}
+				},
+				"migrate": {
+					"executor": "./tools/nx/executors/workspace:interactive-command",
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma migrate dev --skip-generate --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "build",
+							"projects": "self"
+						}
+					]
+				},
+				"pull": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma db pull --print --schema={args.schema} > introspection.prisma",
+						"cwd": "libs/prisma/mongo/src"
+					}
+				},
+				"serve": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma studio --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				},
+				"test": {
+					"executor": "@nrwl/jest:jest",
+					"outputs": [
+						"coverage/libs/mongo/postgres"
+					],
+					"options": {
+						"jestConfig": "libs/prisma/mongo/jest.config.ts",
+						"passWithNoTests": true
+					}
+				},
+				"validate": {
+					"executor": "@nrwl/workspace:run-commands",
+					"options": {
+						"schema": "libs/prisma/mongo/src/schema.prisma",
+						"command": "yarn prisma validate --schema={args.schema}"
+					},
+					"dependsOn": [
+						{
+							"target": "lint",
+							"projects": "self"
+						}
+					]
+				}
+			},
+			"tags": [
+				"backend",
+				"nest",
+				"prisma"
+			]
+		},
 		"PrismaPostgres": {
 			"root": "libs/prisma/postgres",
 			"sourceRoot": "libs/prisma/postgres/src",

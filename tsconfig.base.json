@@ -49,6 +49,7 @@
 			"@nest-vue/nest/providers/seeders": [
 				"libs/nest/providers/seeders/src/index.ts"
 			],
+			"@nest-vue/prisma/mongo": ["libs/prisma/mongo/src/index.ts"],
 			"@nest-vue/prisma/postgres": ["libs/prisma/postgres/src/index.ts"],
 			"@nest-vue/prisma/wrapper": ["libs/prisma/wrapper/src/index.ts"]
 		}
