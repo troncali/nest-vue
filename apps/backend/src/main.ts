@@ -1,12 +1,15 @@
-import { NestFactory } from "@nestjs/core";
+import AltairPlugin from "altair-fastify-plugin";
+import FastifySecureSession from "@fastify/secure-session";
 import { VersioningType } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
 import {
 	FastifyAdapter,
 	NestFastifyApplication
 } from "@nestjs/platform-fastify";
 
-import { AppConfigService } from "@vxnn/nest/config/app";
-import { DockerHandler } from "@vxnn/docker-handler";
+import { AppConfigService } from "@nest-vue/nest/config/app";
+import { DockerHandler } from "@nest-vue/docker-handler";
+
 import { AppModule } from "./app/app.module";
 
 /** Start NestJS server. */
@@ -29,7 +32,7 @@ async function bootstrap() {
 	 * A session secret and salt can be used in place of a key.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	await app.register(require("fastify-secure-session"), {
+	await app.register(FastifySecureSession, {
 		key: [
 			DockerHandler.getSecretSync("BACKEND_SESSION_KEY_1", {
 				returnType: "buffer"
@@ -42,6 +45,12 @@ async function bootstrap() {
 			sameSite: true,
 			secure: true
 		}
+	});
+
+	await app.register(AltairPlugin, {
+		path: "/api/altair",
+		baseURL: "/api/altair/",
+		endpointURL: "/api/graphql"
 	});
 
 	app.setGlobalPrefix(`${appConfig.baseRoute}`);

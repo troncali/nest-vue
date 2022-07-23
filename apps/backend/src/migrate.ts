@@ -1,8 +1,7 @@
-import { NestFactory } from "@nestjs/core";
 import { Logger } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
 
-import { Migrator } from "@vxnn/nest/providers/migrator";
-import { MigrationProvider } from "@vxnn/nest/providers/migrator";
+import { Migrator, MigrationProvider } from "@nest-vue/nest/providers/migrator";
 
 /**
  * Start NestJS instance for migrations.
