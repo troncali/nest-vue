@@ -1,6 +1,6 @@
-module.exports = {
+/* eslint-disable */
+export default {
 	displayName: "backend-e2e",
-	testMatch: ["<rootDir>/**/*.e2e.[jt]s?(x)"],
 	preset: "../../jest.preset.js",
 	globals: {
 		"ts-jest": {
@@ -12,6 +12,7 @@ module.exports = {
 	},
 	moduleFileExtensions: ["ts", "js", "html", "json"],
 	coverageDirectory: "../../dist/tests/coverage/backend",
+	testEnvironment: "node",
 	reporters: [
 		"default",
 		[
@@ -22,5 +23,6 @@ module.exports = {
 				outputName: "junit-backend-e2e.xml"
 			}
 		]
-	]
+	],
+	testMatch: ["<rootDir>/**/*.e2e.[jt]s?(x)"]
 };

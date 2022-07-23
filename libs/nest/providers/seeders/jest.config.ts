@@ -1,5 +1,6 @@
-module.exports = {
-	displayName: "nest-config-app",
+/* eslint-disable */
+export default {
+	displayName: "nest-providers-seeders",
 	preset: "../../../../jest.preset.js",
 	globals: {
 		"ts-jest": {
@@ -11,5 +12,5 @@ module.exports = {
 		"^.+\\.[tj]sx?$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-	coverageDirectory: "../../../../coverage/libs/nest/config/app"
+	coverageDirectory: "../../../../coverage/libs/nest/providers/seeders"
 };

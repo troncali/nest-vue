@@ -1,13 +1,19 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../../dist/out-tsc",
+		"outDir": "../../.yarn/cache/out-tsc",
 		"module": "commonjs",
 		"types": ["node"],
 		"emitDecoratorMetadata": true,
 		"target": "es2017",
 		"allowSyntheticDefaultImports": true
 	},
-	"exclude": ["**/*.spec.ts", "**/*.test.ts"],
+	"exclude": [
+		"**/*.spec.ts",
+		"**/*.test.ts",
+		"../../libs/**/*.spec.ts",
+		"../../libs/**/*.test.ts",
+		"jest.config.ts"
+	],
 	"include": ["**/*.ts", "../../libs/**/*.ts", "webpack.config.js"]
 }

@@ -1,6 +1,7 @@
-module.exports = {
-	displayName: "nest-auth",
-	preset: "../../../jest.preset.js",
+/* eslint-disable */
+export default {
+	displayName: "nest-providers-migrator",
+	preset: "../../../../jest.preset.js",
 	globals: {
 		"ts-jest": {
 			tsconfig: "<rootDir>/tsconfig.spec.json"
@@ -11,5 +12,5 @@ module.exports = {
 		"^.+\\.[tj]sx?$": "ts-jest"
 	},
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-	coverageDirectory: "../../../coverage/libs/nest/auth"
+	coverageDirectory: "../../../../coverage/libs/nest/providers/migrator"
 };

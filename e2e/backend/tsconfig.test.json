@@ -1,13 +1,14 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../../dist/out-tsc",
+		"outDir": "../../.yarn/cache/out-tsc",
 		"module": "commonjs",
 		"types": ["jest", "node"]
 	},
 	"include": [
 		"**/*.e2e.[jt]s",
 		"@apps/backend/**/*.[jt]s",
-		"@libs/**/*.[jt]s"
+		"@libs/**/*.[jt]s",
+		"jest.config.ts"
 	]
 }
