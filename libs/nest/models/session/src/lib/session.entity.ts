@@ -1,14 +1,16 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Expose } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	Generated,
 	ManyToOne,
 	PrimaryGeneratedColumn
 } from "typeorm";
-import { UserDto } from "@vxnn/models/user";
-import { User } from "@vxnn/models/user";
+
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { User, UserDto } from "@nest-vue/models/user";
 
 /**
  * Complete data structure of the Session entity for the database and GraphQL.
@@ -16,10 +18,18 @@ import { User } from "@vxnn/models/user";
 @ObjectType()
 @Entity()
 export class Session {
+	/** Session's internal (non-public) identfier for the database. */
+	@Field()
+	@Exclude()
+	@Column("bigint")
+	@PrimaryGeneratedColumn("identity")
+	dbId!: number;
+
 	/** Session's UUID. */
 	@Expose()
 	@Field()
-	@PrimaryGeneratedColumn("uuid")
+	@Generated("uuid")
+	@Column({ name: "id" })
 	id!: string;
 
 	/** Session's associated User entity. */
@@ -28,11 +38,11 @@ export class Session {
 	@ManyToOne(() => User, (user) => user.sessions)
 	user?: UserDto;
 
-	/** User's UUID. */
+	/** The database identifier of the User associated with this Session. */
 	@Expose()
 	@Field()
-	@Column()
-	userId!: string;
+	@Column("bigint")
+	userDbId!: number;
 
 	/** Date of Session's creation in the database. */
 	@Expose()

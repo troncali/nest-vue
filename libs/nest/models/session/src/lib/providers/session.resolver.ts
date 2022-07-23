@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { forwardRef, Inject } from "@nestjs/common";
 import {
 	Args,
 	Info,
@@ -8,13 +9,13 @@ import {
 	Resolver
 } from "@nestjs/graphql";
 import { GraphQLResolveInfo } from "graphql";
-import { UserService } from "@vxnn/models/user";
-import { UserDto } from "@vxnn/models/user";
+
 import { SessionDto } from "../session.dto";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { UserDto, UserService } from "@nest-vue/models/user";
 
 import { Session } from "../session.entity";
 import { SessionService } from "./session.service";
-import { forwardRef, Inject } from "@nestjs/common";
 
 /**
  * GraphQL resolver for `Session` entity.
@@ -43,7 +44,12 @@ export class SessionResolver {
 	@Query((returns) => SessionDto)
 	async session(@Info() info: GraphQLResolveInfo, @Args("id") id: string) {
 		const fields = this.sessionService.getFieldNames(info);
-		return await this.sessionService.query(id, ["id", "userId", ...fields]);
+		return await this.sessionService.query(id, [
+			"dbId",
+			"id",
+			"userDbId",
+			...fields
+		]);
 	}
 
 	/**
@@ -60,8 +66,9 @@ export class SessionResolver {
 	) {
 		const fields = this.sessionService.getFieldNames(info);
 		return (await this.sessionService.query(ids, [
+			"dbId",
 			"id",
-			"userId",
+			"userDbId",
 			...fields
 		])) as SessionDto[];
 	}
@@ -75,6 +82,7 @@ export class SessionResolver {
 	@ResolveField(() => UserDto)
 	async user(@Parent() session: Session, @Info() info: GraphQLResolveInfo) {
 		const fields = this.userService.getFieldNames(info);
-		return await this.userService.query(session.userId, fields);
+		// return await this.userService.query(session.userDbId, fields);
+		return await this.userService.queryDbId([session.userDbId]);
 	}
 }

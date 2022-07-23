@@ -1,43 +1,51 @@
-import { Repository } from "typeorm";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Logger } from "@nestjs/common";
+import { Repository } from "typeorm";
 
 /**
  * Establish methods for all Seeder services.
  *
  * @class
  */
-export abstract class BaseSeederService<U, T extends Repository<U>> {
+export abstract class BaseSeederService<T> {
 	/**
 	 * Initialize seeder dependencies.
 	 * @param repository The injected repository instance.
 	 */
-	constructor(public readonly repository: T) {}
+	constructor(
+		public readonly repository: Repository<T>,
+		public readonly prisma: any
+	) {}
 
 	/**
 	 * Build and return an array of entities and/or DTOs containing data to
 	 * seed.
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	abstract buildSeed(): Promise<any[]>;
 
 	/**
 	 * Saves seed data returned by `buildSeed` method.
 	 * @param seederName Name of the seeder.
 	 */
-	async hydrate(seederName: string) {
+	async hydrate(seederName: string, orm: "Prisma" | "TypeORM") {
 		const seed = await this.buildSeed();
 
-		await this.repository.delete({});
-		await this.repository
-			.save(seed)
-			.then(() => Logger.log(`√ ${seederName}`))
-			.catch((e) => {
-				Logger.error(
-					`${seederName} failed: ${
-						e.detail ? e.message + " - " + e.detail : e.message
-					}`
-				);
-			});
+		try {
+			if (orm == "TypeORM") {
+				await this.repository.delete({});
+				await this.repository.save(seed);
+			} else {
+				await this.prisma.deleteMany();
+				await this.prisma.createMany({ data: seed });
+			}
+			Logger.log(`√ ${seederName}`);
+		} catch (e: any) {
+			Logger.error(
+				`${seederName} failed: ${
+					e.detail ? e.message + " - " + e.detail : e.message
+				}`
+			);
+		}
 	}
 
 	/**

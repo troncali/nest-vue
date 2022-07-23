@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserRepository } from "@vxnn/models/user";
 
-import { SessionRepository } from "../providers/session.repository";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PrismaService } from "@libs/nest/providers/db/src/lib/prisma/default.service";
+import { Session } from "../session.entity";
 import { SessionSeederService } from "./session.seeder.service";
 
 /**
@@ -11,8 +12,8 @@ import { SessionSeederService } from "./session.seeder.service";
  * @module
  */
 @Module({
-	imports: [TypeOrmModule.forFeature([SessionRepository, UserRepository])],
-	providers: [SessionSeederService],
+	imports: [TypeOrmModule.forFeature([Session])],
+	providers: [SessionSeederService, PrismaService],
 	exports: [SessionSeederService, TypeOrmModule]
 })
 export class SessionSeeder {}

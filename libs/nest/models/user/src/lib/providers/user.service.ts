@@ -1,10 +1,17 @@
 import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import {
+	FindManyOptions,
+	FindOptionsWhereProperty,
+	In,
+	Repository
+} from "typeorm";
 
-import { UserRepository } from "./user.repository";
+import { BaseModelService } from "@nest-vue/models/base-model";
+import { CipherProvider } from "@nest-vue/nest/providers/cipher";
+
 import { BasicUserDto, UserDto } from "../user.dto";
 import { User } from "../user.entity";
-import { BaseModelService } from "@vxnn/models/base-model";
-import { CipherProvider } from "@vxnn/nest/providers/cipher";
 
 /**
  * Model service for `User` entity.
@@ -15,11 +22,12 @@ import { CipherProvider } from "@vxnn/nest/providers/cipher";
 export class UserService extends BaseModelService<User> {
 	/**
 	 * Initialize service dependencies.
-	 * @param userRepo The injected `UserRepository` instance.
+	 * @param userRepo The injected `User` repository instance.
 	 * @param cipherProvider The injected `CipherProvider` instance.
 	 */
 	constructor(
-		private readonly userRepo: UserRepository,
+		@InjectRepository(User)
+		private readonly userRepo: Repository<User>,
 		private readonly cipherProvider: CipherProvider
 	) {
 		super();
@@ -40,6 +48,16 @@ export class UserService extends BaseModelService<User> {
 		return await this.getFieldsForIds(this.userRepo, ids, fields, UserDto);
 	}
 
+	async queryDbId(
+		ids: FindOptionsWhereProperty<NonNullable<User["dbId"]>>[]
+	): Promise<Partial<User> | Partial<User>[] | undefined> {
+		const users = await this.userRepo.find({
+			where: { dbId: In(ids) }
+		} as FindManyOptions);
+
+		return users.length == 1 ? users[0] : users;
+	}
+
 	/**
 	 * Get a basic `User` record.
 	 * @param ids One or more UUIDs to find.
@@ -49,9 +67,11 @@ export class UserService extends BaseModelService<User> {
 	async getByIds(
 		ids: string | string[]
 	): Promise<BasicUserDto | BasicUserDto[]> {
-		const users = await this.getOneOrMoreIds(this.userRepo, ids);
+		const users = await this.getOneOrMoreIds(this.userRepo, ids, {
+			relations: ["sessions"]
+		});
 		if (!users) throw new Error("No user found.");
-		return await this.userRepo.transform(BasicUserDto, users);
+		return await this.transform(BasicUserDto, users);
 	}
 
 	/**
@@ -60,10 +80,10 @@ export class UserService extends BaseModelService<User> {
 	 * @param email The `User`'s email.
 	 * @returns A single `User` record.
 	 */
-	async getUserForAuth(email: string): Promise<User | undefined> {
+	async getUserForAuth(email: string) {
 		return await this.userRepo.findOne({
 			where: { email },
-			select: this.userRepo.allColumns()
+			select: this.allColumns(this.userRepo)
 		});
 	}
 

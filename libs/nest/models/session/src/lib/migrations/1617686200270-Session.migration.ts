@@ -3,7 +3,8 @@ import {
 	MigrationInterface,
 	QueryRunner,
 	Table,
-	TableForeignKey
+	TableForeignKey,
+	TableUnique
 } from "typeorm";
 
 /**
@@ -29,14 +30,20 @@ export class Session1617686200270 implements MigrationInterface {
 				name: "session",
 				columns: [
 					{
+						name: "dbId",
+						type: "bigint",
+						isGenerated: true,
+						generationStrategy: "identity",
+						isPrimary: true,
+						primaryKeyConstraintName: "session_dbId_pkey"
+					},
+					{
 						name: "id",
 						type: "uuid",
 						isGenerated: true,
-						generationStrategy: "uuid",
-						isPrimary: true,
-						isUnique: true
+						generationStrategy: "uuid"
 					},
-					{ name: "userId", type: "uuid" },
+					{ name: "userDbId", type: "bigint" },
 					{
 						name: "createdAt",
 						type: "timestamp without time zone",
@@ -46,11 +53,15 @@ export class Session1617686200270 implements MigrationInterface {
 			}),
 			true
 		);
+		await queryRunner.createUniqueConstraints("session", [
+			new TableUnique({ name: "session_id_key", columnNames: ["id"] })
+		]);
 		await queryRunner.createForeignKey(
 			"session",
 			new TableForeignKey({
-				columnNames: ["userId"],
-				referencedColumnNames: ["id"],
+				name: "user_id_fkey",
+				columnNames: ["userDbId"],
+				referencedColumnNames: ["dbId"],
 				referencedTableName: "user",
 				onDelete: "CASCADE"
 			})

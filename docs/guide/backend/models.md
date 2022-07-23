@@ -21,4 +21,9 @@ Model-specific details, including related data-transfer objects, are [available 
 
 ## Primary Keys
 
-UUIDs are popular as primary keys, but they are [not necessarily the best for storage size and performance](https://www.percona.com/blog/2019/11/22/uuids-are-popular-but-bad-for-performance-lets-discuss/).
+UUIDs are popular as primary keys, but they are [not necessarily the best for storage size and performance](https://www.percona.com/blog/2019/11/22/uuids-are-popular-but-bad-for-performance-lets-discuss/). For this reason, models are configured to have two IDs:
+
+-   `dbId` - the primary key (sequential integer) used within the database (e.g., foreign keys) and excluded from responses.
+-   `id` - an alternate property (UUID) for external identification that is included in responses.
+
+This permits client-side queries using `id` but provides better storage efficiency and internal queries based on `dbId`.

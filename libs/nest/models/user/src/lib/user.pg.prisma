@@ -1,0 +1,23 @@
+/// Complete data structure of the User entity for the database and GraphQL.
+/// A User represents an account holder.
+model User {
+    /// User's internal (non-public) identifier for the database
+    dbId      BigInt    @id(map: "user_dbid_pkey") @default(autoincrement()) @db.BigInt
+    /// User's unique identifier
+    id        String    @unique(map: "user_id_key") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+    /// User's email address
+    email     String    @unique(map: "user_email_key")
+    /// User's password
+    password  String
+    /// Date of User's creation in the database
+    createdAt DateTime  @default(now()) @db.Timestamp(6)
+    /// Date of last update to User's record
+    updatedAt DateTime  @updatedAt @db.Timestamp(6)
+    /// Date of User's deletion from the database
+    deletedAt DateTime? @db.Timestamp(6)
+    /// User's sessions
+    sessions  Session[]
+    // TODO: Exclude password field by default when Prisma implements this functionality: https://www.notion.so/Exclude-Fields-by-Default-ccb00ca22090437eb3b1726a722d0ae6
+
+    @@map("user")
+}

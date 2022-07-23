@@ -1,0 +1,16 @@
+/// Complete data structure of the Session entity for the database and GraphQL.
+/// A session represents a User's interaction with the API.
+model Session {
+    /// Session's internal (non-public) identifier for the database
+    dbId      BigInt   @id(map: "session_dbid_pkey") @default(autoincrement()) @db.BigInt
+    /// Session's unique identifier
+    id        String   @unique(map: "session_id_key") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+    /// Date of Session's creation in the database
+    createdAt DateTime @default(now()) @db.Timestamp(6)
+    /// Session's associated User entity
+    user      User     @relation(fields: [userDbId], references: [dbId], onDelete: Cascade, onUpdate: NoAction, map: "user_dbid_fkey")
+    /// The database identifier of the User associated with this Session
+    userDbId  BigInt   @db.BigInt
+
+    @@map("session")
+}
