@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
 
-import { DatabaseProvider } from "@vxnn/nest/providers/db";
+import { DatabaseProvider } from "@nest-vue/nest/providers/db";
+import { SessionSeeder } from "@nest-vue/models/session";
+import { UserSeeder } from "@nest-vue/models/user";
+
 import { SeedProvider } from "./seed.provider";
-import { UserSeeder } from "@vxnn/models/user";
-import { SessionSeeder } from "@vxnn/models/session";
 
 /**
  * Import and provide seed-related classes.
