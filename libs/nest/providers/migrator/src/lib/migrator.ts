@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 
-import { DatabaseProvider } from "@vxnn/nest/providers/db";
+import { DatabaseProvider } from "@nest-vue/nest/providers/db";
 import { MigrationProvider } from "./migration.provider";
 
 /**
