@@ -4,10 +4,10 @@ Here's what this [monorepo](https://nx.dev/guides/why-monorepos) helps to more e
 
 ## Apps
 
--   [**Nest 9 Backend**](https://nestjs.com) – progressive [Node.js](https://nodejs.org/en/) framework for building efficient, reliable, and scalable server-side applications.
--   [**Vue 3 Frontend**](https://vuejs.org) – JavaScript framework with a declarative and component-based programming model that helps efficiently develop user interfaces. With [Vite](https://vitejs.dev) and [TailwindCSS 3](https://tailwindcss.com).
+-   [**Nest 9 Backend**](https://nestjs.com) – progressive [Node.js](https://nodejs.org/en/) framework for building efficient, reliable, and scalable server-side applications. Configured with [Fastify](https://www.fastify.io) for [better performance than Express](../reference/benchmarks.md#nest).
+-   [**Vue 3 Frontend**](https://vuejs.org) – JavaScript framework with a declarative and component-based programming model that helps efficiently develop user interfaces. With [Vite](https://vitejs.dev), [Vitest](https://vitest.dev), and [TailwindCSS 3](https://tailwindcss.com).
 -   [**NGINX**](https://www.nginx.com/resources/wiki/) – high-performance HTTP server and reverse proxy with simple configuration and low resource consumption.
--   **Database of Choice** – agnostic data access through [Prisma 4](https://prisma.io), [TypeORM 0.3](https://typeorm.io/#/) and [GraphQL](https://graphql.org). [PostgreSQL](https://www.postgresql.org) and [MongoDB](https://www.mongodb.com) setups included, but configure and use any supported database.
+-   **Database of Choice** – agnostic data access through [Prisma 4](https://prisma.io), [TypeORM 0.3](https://typeorm.io), and [GraphQL](https://graphql.org) via [Mercurius](https://mercurius.dev) for [better performance than Apollo](../reference/benchmarks.md#mercurius-graphql). [PostgreSQL](https://www.postgresql.org) and [MongoDB](https://www.mongodb.com) setups included, but configure and use any supported database.
 
 ## Tools
 

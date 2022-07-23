@@ -34,11 +34,7 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 			database: this.database,
 			schema: this.schema,
 			autoLoadEntities: this.autoLoadEntities,
-			// entities: this.entities,
 			migrations: this.migrations
-			// logging: this.logging,
-			// ssl: this.ssl,
-			// synchronize: this.synchronize
 		};
 	}
 
@@ -94,28 +90,10 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 		return this.configService.get("db.autoLoadEntities");
 	}
 
-	/**
-	 * Entities to load for this connection. Accepts both entity classes
-	 * and directories from which entities will be loaded. Glob patterns
-	 * are supported, but they cannot be used with webpack.
-	 */
-	// get entities(): PostgresDbOptions["entities"] {
-	// 	return this.configService.get("db.entities");
-	// }
-
 	/** Migrations to load for `MigrationProvider`. */
 	get migrations(): PostgresDbOptions["migrations"] {
 		return this.configService.get("db.migrations");
 	}
-
-	// get logging(): PostgresDbOptions["logging"] {
-	// 	return this.configService.get("db.logging");
-	// }
-
-	/** Object with SSL parameters.  */
-	// get ssl(): PostgresDbOptions["ssl"] {
-	// 	return this.configService.get("db.ssl");
-	// }
 
 	/**
 	 * Whether the database schema should be created on every application

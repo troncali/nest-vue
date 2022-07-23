@@ -1,21 +1,26 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { Session1617686200270 } from "@vxnn/models/session";
-import { User1616910769703 } from "@vxnn/models/user";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {
+	DbConfigModule,
+	DefaultDbConfigService
+} from "@nest-vue/nest/config/db";
+import { PrismaService } from "./prisma/default.service";
 
-import { DbConfigModule } from "@vxnn/nest/config/db";
-import { DefaultDbConfigService } from "@vxnn/nest/config/db";
-
+/**
+ * Import and provide database-related classes.
+ *
+ * @module
+ */
 @Module({
 	imports: [
 		TypeOrmModule.forRootAsync({
 			imports: [DbConfigModule],
 			useExisting: DefaultDbConfigService
-		}),
-		// TODO: (remove) temporary fix for circular dependency for migrations until Prisma
-		User1616910769703,
-		Session1617686200270
-	]
+		})
+	],
+	providers: [PrismaService],
+	exports: [PrismaService]
 })
 export class DatabaseProvider {}
