@@ -1,13 +1,13 @@
 import { Module } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
 
-import { AppConfigModule } from "@vxnn/nest/config/app";
-import { SessionModule } from "@vxnn/models/session";
-import { UserModule } from "@vxnn/models/user";
+import { AppConfigModule } from "@nest-vue/nest/config/app";
+import { CipherProvider } from "@nest-vue/nest/providers/cipher";
+import { SessionModule } from "@nest-vue/models/session";
+import { UserModule } from "@nest-vue/models/user";
 
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./providers/auth.service";
-import { CipherProvider } from "@vxnn/nest/providers/cipher";
 
 import { EmailStrategy } from "./strategies/email.strategy";
 import { SessionStrategy } from "./strategies/session.strategy";

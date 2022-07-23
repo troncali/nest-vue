@@ -1,5 +1,5 @@
 import { FastifyRequest } from "fastify";
-import { UserSession } from "@vxnn/models/session";
+import { UserSession } from "@nest-vue/models/session";
 
 export interface AuthRequest extends FastifyRequest {
 	/** Session of the authenticated user making the request. */

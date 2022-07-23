@@ -11,10 +11,10 @@ import {
 	VERSION_NEUTRAL
 } from "@nestjs/common";
 import { FastifyReply } from "fastify";
-import * as secureSession from "fastify-secure-session";
+import { Session as SecureSession } from "@fastify/secure-session";
 
-import { AppConfigService } from "@vxnn/nest/config/app";
-import { SessionService } from "@vxnn/models/session";
+import { AppConfigService } from "@nest-vue/nest/config/app";
+import { SessionService, UserSessionDto } from "@nest-vue/models/session";
 
 import { EmailAuthGuard } from "./guards/email.auth.guard";
 import { SessionGuard } from "./guards/session.guard";
@@ -48,7 +48,7 @@ export class AuthController {
 	async login(
 		@Res({ passthrough: true }) reply: FastifyReply,
 		@Req() request: AuthRequest,
-		@Session() session: secureSession.Session
+		@Session() session: SecureSession
 	) {
 		session.set(this.appConfig.sessionUserProperty, request.user);
 		reply.setCookie("abilities", "placeholder", {
@@ -56,7 +56,10 @@ export class AuthController {
 			sameSite: true,
 			secure: true
 		});
-		return request.user;
+		return await this.sessionService.transform(
+			UserSessionDto,
+			session.user
+		);
 	}
 
 	/**
@@ -78,11 +81,11 @@ export class AuthController {
 	@Get("logout")
 	async logout(
 		@Res({ passthrough: true }) reply: FastifyReply,
-		@Session() session: secureSession.Session
+		@Session() session: SecureSession
 	) {
 		const user = session.get(this.appConfig.sessionUserProperty);
 		if (user) {
-			await this.sessionService.delete(user.sessionId);
+			await this.sessionService.delete(user.sessionDbId);
 			session.delete();
 		}
 

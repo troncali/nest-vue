@@ -1,9 +1,10 @@
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 
-import { CipherProvider } from "@vxnn/nest/providers/cipher";
-import { SessionService } from "@vxnn/models/session";
-import { UserService } from "@vxnn/models/user";
-import { UserSession } from "@vxnn/models/session";
+import { CipherProvider } from "@nest-vue/nest/providers/cipher";
+import { SessionService } from "@nest-vue/models/session";
+import { UserService } from "@nest-vue/models/user";
+import { UserSession } from "@nest-vue/models/session";
+
 import { AuthCredentials } from "../auth.interface";
 
 /**
