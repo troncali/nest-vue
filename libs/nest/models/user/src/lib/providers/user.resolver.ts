@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { forwardRef, Inject } from "@nestjs/common";
 import {
 	Args,
 	Info,
@@ -9,12 +9,12 @@ import {
 } from "@nestjs/graphql";
 import { GraphQLResolveInfo } from "graphql";
 
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { SessionDto, SessionService } from "@nest-vue/models/session";
+
 import { User } from "../user.entity";
 import { UserDto } from "../user.dto";
 import { UserService } from "./user.service";
-import { SessionDto } from "@vxnn/models/session";
-import { SessionService } from "@vxnn/models/session";
-import { forwardRef, Inject } from "@nestjs/common";
 
 /**
  * GraphQL resolver for `User` entity.
@@ -40,7 +40,7 @@ export class UserResolver {
 	 * @param id The UUID to find.
 	 * @returns A `User` record, constrained to exposed `UserDTO` fields.
 	 */
-	@Query((returns) => UserDto)
+	@Query(() => UserDto)
 	async user(@Info() info: GraphQLResolveInfo, @Args("id") id: string) {
 		const fields = this.userService.getFieldNames(info);
 		return await this.userService.query(id, fields);
@@ -53,7 +53,7 @@ export class UserResolver {
 	 * @returns An array of `User` records, constrained to exposed `UserDTO`
 	 * fields.
 	 */
-	@Query((returns) => [UserDto])
+	@Query(() => [UserDto])
 	async users(
 		@Info() info: GraphQLResolveInfo,
 		@Args("ids", { type: () => [String] }) ids: string[]
@@ -69,11 +69,11 @@ export class UserResolver {
 	 * @returns A `Session` record, constrained to exposed `SessionDTO` fields.
 	 */
 	@ResolveField(() => [SessionDto])
-	async sessions(@Parent() user: UserDto, @Info() info: GraphQLResolveInfo) {
+	async sessions(@Parent() user: User, @Info() info: GraphQLResolveInfo) {
 		const fields = this.sessionService.getFieldNames(info);
 		return await this.sessionService.find({
-			where: { userId: user.id },
-			select: ["id", "userId", ...fields]
+			where: { userDbId: user.dbId },
+			select: ["dbId", "id", "userDbId", ...fields]
 		});
 	}
 }

@@ -1,13 +1,20 @@
 {
-	"extends": "./tsconfig.json",
+	"extends": "@vue/tsconfig/tsconfig.web.json",
 	"compilerOptions": {
 		"sourceMap": false,
-		"outDir": "../../dist/out-tsc",
+		"composite": true,
+		"isolatedModules": false,
+		"target": "es5",
+		"outDir": "../../.yarn/cache/out-tsc",
 		"allowJs": true,
-		"types": ["cypress", "node"]
+		"lib": ["es5", "dom"],
+		"types": ["cypress"]
 	},
 	"include": [
-		"**/*.e2e.[jt]s",
+		"./**/*.ts",
+		"./cypress.config.ts",
+		"./src/**/*",
+		"./cypress/support/**/*",
 		"../../apps/frontend/**/*.[jt]s",
 		"../../apps/frontend/**/*.vue",
 		"../../libs/**/*.[jt]s"

@@ -33,10 +33,7 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 			password: this.password,
 			database: this.database,
 			autoLoadEntities: this.autoLoadEntities,
-			// entities: this.entities,
 			migrations: this.migrations
-			// logging: this.logging,
-			// synchronize: this.synchronize
 		};
 	}
 
@@ -84,23 +81,10 @@ export class DefaultDbConfigService implements TypeOrmOptionsFactory {
 		return this.configService.get("db.autoLoadEntities");
 	}
 
-	/**
-	 * Entities to load for this connection. Accepts both entity classes
-	 * and directories from which entities will be loaded. Glob patterns
-	 * are supported, but they cannot be used with webpack.
-	 */
-	// get entities(): MongoDbOptions["entities"] {
-	// 	return this.configService.get("db.entities");
-	// }
-
 	/** Migrations to load for the `MigrationProvider`. */
 	get migrations(): MongoDbOptions["migrations"] {
 		return this.configService.get("db.migrations");
 	}
-
-	// get logging(): MongoDbOptions["logging"] {
-	// 	return this.configService.get("db.logging");
-	// }
 
 	/**
 	 * Whether the database schema should be created on every application

@@ -1,11 +1,12 @@
-import { forwardRef, Inject, Injectable } from "@nestjs/common";
-import { FindManyOptions } from "typeorm";
+import { Injectable } from "@nestjs/common";
+import { FindManyOptions, Repository } from "typeorm";
+import { InjectRepository } from "@nestjs/typeorm";
 
-import { BaseModelService } from "@vxnn/models/base-model";
-import { User } from "@vxnn/models/user";
+import { BaseModelService } from "@nest-vue/models/base-model";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { User } from "@nest-vue/models/user";
 import { UserSession } from "../session.dto";
 import { Session } from "../session.entity";
-import { SessionRepository } from "./session.repository";
 
 /**
  * Model service for `Session` entity.
@@ -16,9 +17,12 @@ import { SessionRepository } from "./session.repository";
 export class SessionService extends BaseModelService<Session> {
 	/**
 	 * Initialize service dependencies.
-	 * @param sessionRepo The injected `SessionRepository` instance.
+	 * @param sessionRepo The injected `Session` repository instance.
 	 */
-	constructor(private readonly sessionRepo: SessionRepository) {
+	constructor(
+		@InjectRepository(Session)
+		private readonly sessionRepo: Repository<Session>
+	) {
 		super();
 	}
 
@@ -50,15 +54,15 @@ export class SessionService extends BaseModelService<Session> {
 	async create(user: User): Promise<UserSession> {
 		const session = await this.sessionRepo.save({ user });
 		delete user.password;
-		return { ...user, sessionId: session.id };
+		return { ...user, sessionId: session.id, sessionDbId: session.dbId };
 	}
 
 	/**
 	 * Delete the active `Session`.
-	 * @param id UUID of the `Session` to be delete.
+	 * @param id UUID of the `Session` to be deleted.
 	 */
-	async delete(id: string) {
-		return await this.sessionRepo.delete({ id });
+	async delete(id: number) {
+		return await this.sessionRepo.delete({ dbId: id });
 	}
 
 	/**
@@ -67,7 +71,9 @@ export class SessionService extends BaseModelService<Session> {
 	 * @returns A single `Session` record, or an array of `Session` records.
 	 */
 	async getByIds(ids: string | string[]): Promise<Session | Session[]> {
-		const sessions = await this.getOneOrMoreIds(this.sessionRepo, ids);
+		const sessions = await this.getOneOrMoreIds(this.sessionRepo, ids, {
+			relations: ["user"]
+		});
 		if (!sessions) throw new Error("No session found.");
 		return sessions;
 	}

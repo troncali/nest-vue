@@ -1,0 +1,14 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		"vite.config.*",
+		"vitest.config.*",
+		"cypress.config.*",
+		"tailwind.config.*",
+		"postcss.config.*"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"types": ["node"]
+	}
+}

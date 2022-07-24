@@ -1,5 +1,5 @@
 import { registerAs } from "@nestjs/config";
-import { GqlModuleOptions } from "@nestjs/graphql";
+import { MercuriusDriverConfig } from "@nestjs/mercurius";
 import { join } from "path";
 
 /**
@@ -9,9 +9,12 @@ import { join } from "path";
  */
 export default registerAs(
 	"gql",
-	(): GqlModuleOptions => ({
+	(): MercuriusDriverConfig => ({
 		autoSchemaFile: join(process.cwd(), "apps/backend/schema.gql"),
 		sortSchema: true,
-		path: `${process.env.BACKEND_BASE_ROUTE}/${process.env.GRAPHQL_PATH}`
+		path: `${process.env.BACKEND_BASE_ROUTE}/${process.env.GRAPHQL_PATH}`,
+		graphiql: false,
+		ide: false,
+		jit: 1
 	})
 );

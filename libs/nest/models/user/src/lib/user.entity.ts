@@ -5,13 +5,15 @@ import {
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	Generated,
 	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from "typeorm";
-import { BaseModelEntity } from "@vxnn/models/base-model";
-import { SessionDto } from "@vxnn/models/session";
-import { Session } from "@vxnn/models/session";
+
+import { BaseModelEntity } from "@nest-vue/models/base-model";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { Session, SessionDto } from "@nest-vue/models/session";
 
 // TODO: field-level GraphQL authentication with directives? See https://github.com/LawJolla/prisma-auth0-example/issues/12
 // TODO: mutations
@@ -23,9 +25,17 @@ import { Session } from "@vxnn/models/session";
 @ObjectType()
 @Entity()
 export class User extends BaseModelEntity {
-	/** User's UUID. */
+	/** User's internal (non-public) identfier for the database. */
 	@Field()
-	@PrimaryGeneratedColumn("uuid")
+	@Exclude()
+	@Column("bigint")
+	@PrimaryGeneratedColumn("identity")
+	dbId!: number;
+
+	/** User's unique identfier. */
+	@Field()
+	@Generated("uuid")
+	@Column({ name: "id" })
 	id!: string;
 
 	/** User's email. */

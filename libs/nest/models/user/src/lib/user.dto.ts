@@ -1,6 +1,8 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Expose } from "class-transformer";
-import { SessionDto } from "@vxnn/models/session";
+
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { SessionDto } from "@nest-vue/models/session";
 
 // TODO: Implement data validation (removed class-validator, which wasn't hooked up and has an unresolved vulnerability)
 

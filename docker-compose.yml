@@ -5,7 +5,7 @@ services:
             context: .
             dockerfile: ./apps/docker/src/db-postgres.Dockerfile
             # dockerfile: ./apps/docker/src/db-mongo.Dockerfile
-        image: vxnn/db
+        image: nest-vue/db
         container_name: db
         deploy:
             mode: global
@@ -35,7 +35,7 @@ services:
         build:
             context: .
             dockerfile: ./apps/docker/src/backend.Dockerfile
-        image: vxnn/backend
+        image: nest-vue/backend
         container_name: backend-blue
         deploy:
             mode: replicated
@@ -50,7 +50,6 @@ services:
             - DOCKER_ENV=true
             - BACKEND_PORT=${BACKEND_PORT}
             - BACKEND_BASE_ROUTE=${BACKEND_BASE_ROUTE}
-            - DB_AUTO_LOAD_ENTITIES=${DB_AUTO_LOAD_ENTITIES}
             - DB_DATABASE_NAME=${DB_DATABASE_NAME}
             - DB_HOST=${DB_HOST}
             - DB_PORT=${DB_PORT}
@@ -65,7 +64,7 @@ services:
         build:
             context: .
             dockerfile: ./apps/docker/src/placeholder.Dockerfile
-        image: vxnn/placeholder
+        image: nest-vue/placeholder
         container_name: backend-green
         restart: always
         networks:
@@ -79,7 +78,7 @@ services:
                 - NGINX_DH_BITS=${NGINX_DH_BITS} # Used in Dockerfile for build
                 - NGINX_GID=${NGINX_GID}
                 - NGINX_UID=${NGINX_UID}
-        image: vxnn/nginx
+        image: nest-vue/nginx
         container_name: nginx
         deploy:
             mode: global
@@ -121,7 +120,7 @@ services:
         build:
             context: .
             dockerfile: ./apps/docker/src/certbot.Dockerfile
-        image: vxnn/certbot
+        image: nest-vue/certbot
         container_name: certbot
         deploy:
             mode: global
@@ -169,7 +168,7 @@ services:
         build:
             context: .
             dockerfile: ./apps/docker/src/worker.Dockerfile
-        image: vxnn/worker
+        image: nest-vue/worker
         container_name: worker
         restart: always
         deploy:

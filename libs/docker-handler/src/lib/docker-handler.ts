@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { readFile } from "fs/promises";
 import { readFileSync } from "fs";
 import * as path from "path";
@@ -7,9 +8,17 @@ import * as path from "path";
  * application is running.
  */
 export class DockerHandler {
+	/** Operative name of the environment variable that, when set to true,
+	 * indicates the application is running in a Docker container. */
 	static _envFlag = "DOCKER_ENV";
+	/** Operative path (full) of the folder in which Docker secrets are located
+	 * in the container. */
 	static _secretsDir = "/run/secrets";
+	/** Operative path of the local folder in which Docker secrets
+	 * are located for development, from project root. */
 	static _localDir = "./apps/docker/secrets";
+	/** Operative name of the method on the target app instance that will close
+	 * it gracefully (e.g., stop the server). */
 	static _appCloseMethod = "close";
 
 	/**
@@ -58,7 +67,7 @@ export class DockerHandler {
 			return options?.returnType === "buffer"
 				? await readFile(`${secretPath}/${secretName}`)
 				: await readFile(`${secretPath}/${secretName}`, "utf8");
-		} catch (e) {
+		} catch (e: any) {
 			this.printReadError(e, secretName, secretPath);
 			throw e;
 		}
@@ -94,7 +103,7 @@ export class DockerHandler {
 			return options?.returnType === "buffer"
 				? readFileSync(`${secretPath}/${secretName}`)
 				: readFileSync(`${secretPath}/${secretName}`, "utf8");
-		} catch (e) {
+		} catch (e: any) {
 			this.printReadError(e, secretName, secretPath);
 			throw e;
 		}
@@ -143,7 +152,7 @@ export class DockerHandler {
 					try {
 						app[this._appCloseMethod]();
 						console.log(`Application closed`);
-					} catch (e) {
+					} catch (e: any) {
 						throw new Error(e);
 					}
 					process.exit(128 + (<any>DockerSignals)[signal]);
@@ -224,6 +233,7 @@ export interface DockerGetSecretOptions {
 export interface RunningAppInstance {
 	/** Default name of the method used to close the application instance
 	 *  (e.g., stop the server). */
+	// eslint-disable-next-line @typescript-eslint/ban-types
 	close?: Function;
 	[key: string]: any;
 }

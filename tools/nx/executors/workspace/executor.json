@@ -1,0 +1,9 @@
+{
+	"executors": {
+		"interactive-command": {
+			"implementation": "./interactive-command/impl",
+			"schema": "./interactive-command/schema.json",
+			"description": "Runs a command interactively"
+		}
+	}
+}

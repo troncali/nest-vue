@@ -11,7 +11,7 @@ FROM ekidd/rust-musl-builder:1.57.0 AS prebuild
 		&& cargo build --release
 
 # Build the production image
-FROM alpine:3.15.0 AS production
+FROM alpine:3.16.1 AS production
 	RUN addgroup -S placeholder && adduser -S -g placeholder placeholder \
 		&& mkdir -p /app && chown -R placeholder:placeholder /app
 	WORKDIR /app

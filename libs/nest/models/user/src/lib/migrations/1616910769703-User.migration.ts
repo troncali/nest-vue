@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableUnique } from "typeorm";
 import { Logger } from "@nestjs/common";
 
 /**
@@ -24,14 +24,20 @@ export class User1616910769703 implements MigrationInterface {
 				name: "user",
 				columns: [
 					{
+						name: "dbId",
+						type: "bigint",
+						isGenerated: true,
+						generationStrategy: "identity",
+						isPrimary: true,
+						primaryKeyConstraintName: "user_dbId_pkey"
+					},
+					{
 						name: "id",
 						type: "uuid",
 						isGenerated: true,
-						generationStrategy: "uuid",
-						isPrimary: true,
-						isUnique: true
+						generationStrategy: "uuid"
 					},
-					{ name: "email", type: "text", isUnique: true },
+					{ name: "email", type: "text" },
 					{ name: "password", type: "text" },
 					{
 						name: "createdAt",
@@ -52,6 +58,10 @@ export class User1616910769703 implements MigrationInterface {
 			}),
 			true
 		);
+		await queryRunner.createUniqueConstraints("user", [
+			new TableUnique({ name: "user_id_key", columnNames: ["id"] }),
+			new TableUnique({ name: "user_email_key", columnNames: ["email"] })
+		]);
 		Logger.log(`√ ${this.name}: created \`user\` table`);
 	}
 

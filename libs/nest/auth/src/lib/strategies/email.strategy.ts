@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
-
 import { Strategy } from "passport-local";
+
+import { UserSession } from "@nest-vue/models/session";
 
 import { AuthRequest } from "../auth.interface";
 import { AuthService } from "../providers/auth.service";
-import { UserSession } from "@vxnn/models/session";
 
 /**
  * Passport strategy for local authentication via email and password.

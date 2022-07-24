@@ -30,6 +30,16 @@ Below is a summary of the geometric means reflecting the performance of some fro
 | Startup Metrics       |    1.07    | 1.06  | 1.26 |  1.78   | 1.66  |
 | Memory in MB          |    1.06    | 1.47  | 2.10 |  2.89   | 2.80  |
 
-## This Monorepo
+## Mercurius (GraphQL)
 
-In progress.
+Below is a summary of the performance of some GraphQL servers from [benawad/node-graphql-benchmarks](https://github.com/benawad/node-graphql-benchmarks).
+
+| Server                        | Requests/s | Latency | Throughput/Mb |
+| :---------------------------- | :--------: | :-----: | :-----------: |
+| core-graphql-jit-str          |   9383.2   |  0.04   |     58.33     |
+| mercurius+graphql-jit         |   8790.0   |  0.04   |     55.03     |
+| mercurius                     |   5249.2   |  0.30   |     32.87     |
+| fastify-express-graphql-jit   |   4658.8   |  0.36   |     1.28      |
+| express-graphql+graphql-jit   |   4038.0   |  0.48   |     25.54     |
+| apollo-server-express         |   2486.2   |  1.48   |     15.80     |
+| apollo-server-express-tracing |   1505.6   |  2.87   |     47.90     |

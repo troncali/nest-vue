@@ -1,0 +1,13 @@
+generator client {
+    provider      = "prisma-client-js"
+    output        = "client"
+    binaryTargets = ["native", "linux-musl", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+// TODO: update split schema file handling when Prisma implements it - https://www.notion.so/Support-splitting-the-Prisma-Schema-into-Multiple-Files-83867e7f70ce40038cdfa9eb32ed4449
+// TODO: remove linux-arm64-openssl-1.1.x target after Prisma #8478 is resolved - https://github.com/prisma/prisma/issues/8478

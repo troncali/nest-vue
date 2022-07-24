@@ -19,34 +19,39 @@
 		"paths": {
 			"@apps/*": ["apps/*"],
 			"@libs/*": ["libs/*"],
-			"@vxnn/docker-handler": ["libs/docker-handler/src/index.ts"],
-			"@vxnn/models/base-model": [
+			"@nest-vue/deployment": ["libs/deployment/src/index.ts"],
+			"@nest-vue/docker-handler": ["libs/docker-handler/src/index.ts"],
+			"@nest-vue/models/base-model": [
 				"libs/nest/models/base-model/src/index.ts"
 			],
-			"@vxnn/models/model-index": [
-				"libs/nest/models/model-index/src/index.ts"
+			"@nest-vue/models/session": [
+				"libs/nest/models/session/src/index.ts"
 			],
-			"@vxnn/models/session": ["libs/nest/models/session/src/index.ts"],
-			"@vxnn/models/user": ["libs/nest/models/user/src/index.ts"],
-			"@vxnn/nest/auth": ["libs/nest/auth/src/index.ts"],
-			"@vxnn/nest/config/app": ["libs/nest/config/app/src/index.ts"],
-			"@vxnn/nest/config/db": ["libs/nest/config/db/src/index.ts"],
-			"@vxnn/nest/config/graphql": [
+			"@nest-vue/models/user": ["libs/nest/models/user/src/index.ts"],
+			"@nest-vue/nest/auth": ["libs/nest/auth/src/index.ts"],
+			"@nest-vue/nest/config/app": ["libs/nest/config/app/src/index.ts"],
+			"@nest-vue/nest/config/db": ["libs/nest/config/db/src/index.ts"],
+			"@nest-vue/nest/config/graphql": [
 				"libs/nest/config/graphql/src/index.ts"
 			],
-			"@vxnn/nest/providers/cipher": [
+			"@nest-vue/nest/providers/cipher": [
 				"libs/nest/providers/cipher/src/index.ts"
 			],
-			"@vxnn/nest/providers/db": ["libs/nest/providers/db/src/index.ts"],
-			"@vxnn/nest/providers/graphql": [
+			"@nest-vue/nest/providers/db": [
+				"libs/nest/providers/db/src/index.ts"
+			],
+			"@nest-vue/nest/providers/graphql": [
 				"libs/nest/providers/graphql/src/index.ts"
 			],
-			"@vxnn/nest/providers/migrator": [
+			"@nest-vue/nest/providers/migrator": [
 				"libs/nest/providers/migrator/src/index.ts"
 			],
-			"@vxnn/nest/providers/seeders": [
+			"@nest-vue/nest/providers/seeders": [
 				"libs/nest/providers/seeders/src/index.ts"
-			]
+			],
+			"@nest-vue/prisma/mongo": ["libs/prisma/mongo/src/index.ts"],
+			"@nest-vue/prisma/postgres": ["libs/prisma/postgres/src/index.ts"],
+			"@nest-vue/prisma/wrapper": ["libs/prisma/wrapper/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", ".vscode", ".yarn", "dist", "public", "tmp"]

@@ -14,10 +14,10 @@ For SSL certficates to generate correctly, the first deployment cannot occur beh
 
 ## Sample Code
 
-:::: code-group
-::: code-group-item proxy.Dockerfile
+<CodeGroup>
+<CodeGroupItem title="proxy.Dockerfile">
 
-```dockerfile
+```docker
 FROM nginx:alpine
 
 # Add timezone for alpine
@@ -33,8 +33,8 @@ RUN { \
     } > /etc/nginx/conf.d/my_proxy.conf
 ```
 
-:::
-::: code-group-item docker-compose.yml
+</CodeGroupItem>
+<CodeGroupItem title="docker-compose.yml">
 
 ```yaml
 version: "3.8"
@@ -103,8 +103,8 @@ networks:
         driver: bridge
 ```
 
-:::
-::: code-group-item apps/docker/docker-compose-prod.yml
+</CodeGroupItem>
+<CodeGroupItem title="apps/docker/docker-compose-prod.yml">
 
 ```yaml
 version: "3.8"
@@ -138,5 +138,16 @@ networks:
         external: true
 ```
 
-:::
-::::
+</CodeGroupItem>
+
+</CodeGroup>
+
+## After Initial Deployment
+
+With `VIRTAL_PROTO=http` and `VIRTUAL_PORT=80` set for the `nginx` container in `docker-compose-prod.yml` on the first deployment, NGINX will be able to properly route initial Let's Encrypt requests necessary to automatically generate SSL certificates.  After they are generated, these settings should be reverted to `https` and `443` before the `nginx` container is re-deployed with the updated values.
+
+```bash
+docker --context $DOCKER_REMOTE_CONTEXT compose -p $DOCKER_PROJECT_NAME stop nginx
+
+yarn deploy:init
+```

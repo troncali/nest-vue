@@ -1,7 +1,7 @@
 import type { FastifyRequest } from "fastify";
+import { UserSession } from "@nest-vue/models/session";
 
 import { BaseStrategy } from "./base";
-import { UserSession } from "@vxnn/models/session";
 
 /**
  * Authenticates requests based on the existence of a valid, encrypted

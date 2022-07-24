@@ -2,10 +2,12 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
-import { SessionRepository } from "./providers/session.repository";
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { UserModule } from "@nest-vue/models/user";
+
+import { Session } from "./session.entity";
 import { SessionResolver } from "./providers/session.resolver";
 import { SessionService } from "./providers/session.service";
-import { UserModule } from "@vxnn/models/user";
 
 /**
  * Import and provide session-related classes.
@@ -14,7 +16,7 @@ import { UserModule } from "@vxnn/models/user";
  */
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([SessionRepository]),
+		TypeOrmModule.forFeature([Session]),
 		forwardRef(() => UserModule)
 	],
 	providers: [SessionService, SessionResolver],

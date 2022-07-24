@@ -6,7 +6,7 @@ These steps contemplate a DigitalOcean droplet, but subsitute any machine runnin
 
 1. Create an SSH key for this host. The following saves a private key to `~/.ssh/new-key` and public key to `~/.ssh/new-key.pub`:
 
-```bash:no-line-numbers
+```bash
 ssh-keygen -t ed25519 -C "Comment" -f new-key
 ```
 
@@ -20,7 +20,7 @@ ssh-keygen -t ed25519 -C "Comment" -f new-key
 -   [Set up a UFW firewall](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04).
 -   [Install crowdsec](https://docs.crowdsec.net/docs/getting_started/install_crowdsec):
 
-```bash:no-line-numbers
+```bash
 curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash
 apt install crowdsec
 apt install crowdsec-firewall-bouncer-iptables
@@ -29,11 +29,19 @@ cscli collections install crowdsecurity/base-http-scenarios
 cscli collections install crowdsecurity/nginx # etc
 ```
 
-Remember to also bind any relevant docker logs to a host folder where `crowdsec` expects to find it. For example, bind `nginx` logs by adding this to the `volumes` block of its configuration in `apps/docker/docker-compose-prod.yml`: `- /var/log/nginx:/var/log/nginx`
+Remember to also bind any relevant docker logs to a host folder where `crowdsec` expects to find it. For example, bind `nginx` logs by adding this to the `volumes` block of its configuration in `apps/docker/docker-compose-prod.yml`:
+
+```yaml{5}
+nginx:
+	# ...
+	volumes:
+		- certbot-etc:/etc/letsencrypt:ro
+		- /var/log/nginx:/var/log/nginx`
+```
 
 ## Optional: Multi-Project Proxy
 
-To deploy multiple instances of this monorepo on one host—or other HTTP/HTTPS projects that must be publicly exposed on standard ports—[set up a proxy](../reference/proxy.md) to route traffic from ports 80 and 443 of the host to the appropriate Docker container.  Additionally, since all traffic will route through the proxy, for crowdsec protection you can bind the proxy's nginx logs in the same manner described in the [recommended steps](#recommended-steps).
+To deploy multiple instances of this monorepo on one host—or other HTTP/HTTPS projects that must be publicly exposed on standard ports—[set up a proxy](../reference/proxy.md) to route traffic from ports 80 and 443 of the host to the appropriate Docker container. Additionally, since all traffic will route through the proxy, for crowdsec protection you can bind the proxy's nginx logs in the same manner described in the [recommended steps](#recommended-steps).
 
 ## Deploy
 

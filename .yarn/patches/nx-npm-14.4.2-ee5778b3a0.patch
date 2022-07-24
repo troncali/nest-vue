@@ -1,0 +1,13 @@
+diff --git a/src/project-graph/build-dependencies/typescript-import-locator.js b/src/project-graph/build-dependencies/typescript-import-locator.js
+index 9f9745331b361154c54857ba77e2c8917e283330..2bdf67aa4426bc06f5e0064031ac8de9a5f69057 100644
+--- a/src/project-graph/build-dependencies/typescript-import-locator.js
++++ b/src/project-graph/build-dependencies/typescript-import-locator.js
+@@ -15,6 +15,8 @@ class TypeScriptImportLocator {
+         const extension = path.extname(filePath);
+         if (extension !== '.ts' &&
+             extension !== '.tsx' &&
++            // Patch dep-graph builder function to support Vue files: https://github.com/nrwl/nx/issues/2960
++            extension !== '.vue' &&
+             extension !== '.js' &&
+             extension !== '.jsx') {
+             return;

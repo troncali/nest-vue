@@ -10,7 +10,7 @@ export type MongoDbOptions = {
 	type: "mongodb";
 } & TypeOrmModuleOptions;
 
-/** Base database configuration properties for intellisense. */
+/** Base database configuration properties. */
 export interface BaseDbOptionTypes {
 	/** Database type. */
 	"db.type": string;
@@ -32,27 +32,23 @@ export interface BaseDbOptionTypes {
 	"db.autoLoadEntities": boolean;
 	/** Migrations to load for the `MigrationProvider`. */
 	"db.migrations": [];
-	// "db.entities": [];
-	// "db.logging": boolean;
-	// "db.synchronize": boolean;
 }
 
-/** PostgreSQL's configuration properties for intellisense. */
+/** PostgreSQL's configuration properties. */
 export interface PostgresOptionTypes extends BaseDbOptionTypes {
 	/** Database password. */
 	"db.password": string | (() => string) | (() => Promise<string>);
 	/** Database schema that will be the target of operations.  */
 	"db.schema": string;
-	// "db.ssl": boolean | TlsOptions;
 }
 
-/** MongoDB's configuration properties for intellisense. */
+/** MongoDB's configuration properties. */
 export interface MongoOptionTypes extends BaseDbOptionTypes {
 	/** Database password. */
 	"db.password": string;
 }
 
-/** TypeORM's compatible database types */
+/** TypeORM's compatible database types. */
 export enum TypeOrmDatabaseTypes {
 	BetterSQLite3 = "better-sqlite3",
 	CockroachDB = "cockroachdb",
@@ -67,4 +63,26 @@ export enum TypeOrmDatabaseTypes {
 	ReactNative = "react-native",
 	SQLite = "sqlite",
 	SQLjs = "sqljs"
+}
+
+/** Database connection properties. */
+export interface DbConnectionTypes {
+	/** Database host. */
+	host?: string;
+	/** Database port. */
+	port?: number;
+	/** Database username. */
+	username?: string;
+	/** Database password. */
+	password?: string;
+	/** Database name that will be the target of operations.  */
+	database?: string;
+}
+
+/** Database connection URL details. */
+export interface DbEnvUrl {
+	/** Environment variable assigned the connection URL. */
+	envVar: string;
+	/** Full connection URL. */
+	url: string;
 }

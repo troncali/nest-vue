@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 
-import { BaseSeederService } from "@vxnn/models/base-model";
-import { UserSeederService } from "@vxnn/models/user";
-import { SessionSeederService } from "@vxnn/models/session";
+import { BaseSeederService } from "@nest-vue/models/base-model";
+import { SessionSeederService } from "@nest-vue/models/session";
+import { UserSeederService } from "@nest-vue/models/user";
 
 /**
  * Seed service that dispatches database actions.
@@ -21,12 +21,13 @@ export class SeedProvider {
 	/**
 	 * Runs `hydrate` method for every `SeederService` in `SeedProvider`'s
 	 * constructor.
+	 * @param orm The ORM to use for seeding data. Either Prisma or TypeORM.
 	 */
-	async seed() {
+	async seed(orm: "Prisma" | "TypeORM") {
 		await Promise.all(
 			Object.entries(this).map(async ([key, value]) => {
 				if (value instanceof BaseSeederService)
-					await value.hydrate(key);
+					await value.hydrate(key, orm);
 			})
 		);
 	}

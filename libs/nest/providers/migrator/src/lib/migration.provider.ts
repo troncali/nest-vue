@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { Connection } from "typeorm";
+import { DataSource } from "typeorm";
 
 /**
  * Migration service that dispatches database actions.
@@ -10,16 +10,16 @@ import { Connection } from "typeorm";
 export class MigrationProvider {
 	/**
 	 * Initialize migration dependencies.
-	 * @param connection The TypeORM Connection instance.
+	 * @param dataSource The TypeORM Connection instance.
 	 */
-	constructor(private readonly connection: Connection) {}
+	constructor(private readonly dataSource: DataSource) {}
 
 	/**
 	 * Runs all migrations created since the last run.
 	 */
 	async run() {
-		(await this.connection.showMigrations())
-			? await this.connection.runMigrations()
+		(await this.dataSource.showMigrations())
+			? await this.dataSource.runMigrations()
 			: Logger.error("No new migrations");
 	}
 
@@ -28,6 +28,6 @@ export class MigrationProvider {
 	 * back additional files, one by one.
 	 */
 	async undo() {
-		await this.connection.undoLastMigration();
+		await this.dataSource.undoLastMigration();
 	}
 }

@@ -1,15 +1,14 @@
 import { Injectable } from "@nestjs/common";
+import { FastifyRequest } from "fastify";
 import { PassportStrategy } from "@nestjs/passport";
 
-import { FastifyRequest } from "fastify";
-
-import { AppConfigService } from "@vxnn/nest/config/app";
+import { AppConfigService } from "@nest-vue/nest/config/app";
+import { UserSession } from "@nest-vue/models/session";
 
 import {
 	FastifySessionStrategy,
 	SessionValidatorCallback
 } from "./nest-fastify-session";
-import { UserSession } from "@vxnn/models/session";
 
 /**
  * Passport strategy for authentication via session cookie.
