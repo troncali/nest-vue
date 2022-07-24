@@ -1,5 +1,6 @@
+# TODO: temporarily do not use alpine until M1 fix for Prisma #8478: https://github.com/prisma/prisma/issues/8478
 # Reduce image bloat with a prebuild to gather production files and dependencies
-FROM node:16.13.1-alpine3.14 AS prebuild
+FROM node:18.6.0 AS prebuild
 	WORKDIR /tmp
 	COPY [".pnp.cjs", ".yarnrc.yml", "package.json", "yarn.lock", "./"]
 	COPY ./.yarn ./.yarn
@@ -9,14 +10,14 @@ FROM node:16.13.1-alpine3.14 AS prebuild
 	# 3. Use yarn plugin to remove dev dependencies and rebuild executables
 	# 4. Delete build tools because they are not needed in production image
 	RUN rm -rf ./.yarn/unplugged \
-		&& apk add --no-cache --virtual build-deps python3 alpine-sdk autoconf \
-		   libtool automake \
-		&& yarn prune-prod \
-		&& apk del build-deps
+		# && apk add --no-cache --virtual build-deps python3 alpine-sdk autoconf \
+		#    libtool automake \
+		&& yarn prune-prod
+		# && apk del build-deps
 		# More notes below about the yarn plugin and alternative approaches
 
 # Build the production image
-FROM node:16.13.1-alpine3.14 AS production
+FROM node:18.6.0 AS production
 	RUN mkdir -p /home/node/app/dist && chown -R node:node /home/node/app
 	WORKDIR /home/node/app
 	USER node

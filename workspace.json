@@ -730,10 +730,11 @@
 				"prod": {
 					"executor": "@nrwl/workspace:run-commands",
 					"options": {
-						"prismaSchema": "libs/prisma/postgres/src/schema.prisma",
+						"prismaSrc": "libs/prisma/postgres/src",
 						"backendDist": "dist/apps/backend",
 						"commands": [
-							"cp {args.prismaSchema} {args.backendDist}"
+							"cp {args.prismaSrc}/schema.prisma {args.backendDist}",
+							"cp {args.prismaSrc}/client/libquery_*.node {args.backendDist}"
 						]
 					},
 					"dependsOn": [
