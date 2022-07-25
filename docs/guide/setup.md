@@ -77,7 +77,7 @@ echo "password" > ./apps/docker/secrets/DB_PASSWORD
 <CodeGroupItem title="BACKEND_SESSION_KEY_1">
 
 ```bash
-yarn dlx --quiet @fastify/secure-session > ./apps/docker/secrets/BACKEND_SESSION_KEY_1
+yarn exec secure-session > ./apps/docker/secrets/BACKEND_SESSION_KEY_1
 ```
 
 </CodeGroupItem>

@@ -7,7 +7,7 @@
 	"author": "<7217131+troncali@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
-		"build": "run build:prod",
+		"build": "nx build",
 		"build:prod": "nx run backend:prod; nx build frontend",
 		"dep-graph": "nx dep-graph",
 		"deploy:init": "run build:prod; dotenv -- cross-env-shell DEPLOY_COLOR=blue ./libs/deploy-scripts/init.sh",
