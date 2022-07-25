@@ -1,0 +1,10 @@
+{
+	"mongo-client": {
+		"inputs": [
+			"libs/prisma/mongo/src/lib/base.prisma",
+			"libs/nest/models/**/*.mdb.prisma"
+		],
+		"fragments": {},
+		"output": "libs/prisma/mongo/src/schema.prisma"
+	}
+}

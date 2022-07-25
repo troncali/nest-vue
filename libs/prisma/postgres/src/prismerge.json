@@ -1,0 +1,10 @@
+{
+	"postgres-client": {
+		"inputs": [
+			"libs/prisma/postgres/src/lib/base.prisma",
+			"libs/nest/models/**/*.pg.prisma"
+		],
+		"fragments": {},
+		"output": "libs/prisma/postgres/src/schema.prisma"
+	}
+}
