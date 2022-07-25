@@ -29,9 +29,9 @@ export default defineConfig({
 			pattern: "https://github.com/troncali/nest-vue/edit/main/docs/:path"
 		},
 		footer: {
-			message: 'MIT Licensed.',
-			copyright: 'Copyright © 2020-present Matt Troncali'
-		  }
+			message: "MIT Licensed.",
+			copyright: "Copyright © 2020-present Matt Troncali"
+		}
 	},
 	vite: {
 		publicDir: "./.vitepress/public",

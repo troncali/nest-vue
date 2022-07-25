@@ -361,14 +361,8 @@
 				"merge": {
 					"executor": "@nrwl/workspace:run-commands",
 					"options": {
-						"extension": ".mdb.prisma",
-						"cwd": "libs/prisma/mongo/src",
-						"commands": [
-							"echo '// Generated file. Changes will be lost. Edit `lib/base.prisma` or `*{args.extension}` files. ' | cat - lib/base.prisma > schema.prisma",
-							"find ../../../../ -type f -regex \".*\\{args.extension}\" | while read f; do cat $f >> schema.prisma; echo \"\" >> schema.prisma; done"
-						],
-						"outputPath": "libs/prisma/mongo/src/schema.prisma",
-						"parallel": false
+						"command": "prismerge -nF -i libs/prisma/mongo/src/prismerge.json",
+						"outputPath": "libs/prisma/mongo/src/schema.prisma"
 					}
 				},
 				"migrate": {
@@ -475,14 +469,8 @@
 				"merge": {
 					"executor": "@nrwl/workspace:run-commands",
 					"options": {
-						"extension": ".pg.prisma",
-						"cwd": "libs/prisma/postgres/src",
-						"commands": [
-							"echo '// Generated file. Changes will be lost. Edit `lib/base.prisma` or `*{args.extension}` files. ' | cat - lib/base.prisma > schema.prisma",
-							"find ../../../../ -type f -regex \".*\\{args.extension}\" | while read f; do cat $f >> schema.prisma; echo \"\" >> schema.prisma; done"
-						],
-						"outputPath": "libs/prisma/postgres/src/schema.prisma",
-						"parallel": false
+						"command": "prismerge -nF -i libs/prisma/postgres/src/prismerge.json",
+						"outputPath": "libs/prisma/postgres/src/schema.prisma"
 					}
 				},
 				"migrate": {

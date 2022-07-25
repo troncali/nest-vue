@@ -3327,6 +3327,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma-utils/prismerge@npm:1.6.2":
+  version: 1.6.2
+  resolution: "@prisma-utils/prismerge@npm:1.6.2"
+  dependencies:
+    commander: "npm:^9.2.0"
+    glob: "npm:8.0.3"
+    lodash: "npm:^4.17.21"
+    pluralize: "npm:8.0.0"
+  bin:
+    prismerge: src/bin/prismerge.js
+  checksum: b1737bd98ec570347fb504ef2b737cb3882cf42557f6af36623c74d7d585485acca6429a30d548b43075a18cbd1a486344be09218dc602410f37bfd0655d5d67
+  languageName: node
+  linkType: hard
+
 "@prisma/client@npm:4.0.0":
   version: 4.0.0
   resolution: "@prisma/client@npm:4.0.0"
@@ -7338,7 +7352,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.0.0":
+"commander@npm:^9.0.0, commander@npm:^9.2.0":
   version: 9.4.0
   resolution: "commander@npm:9.4.0"
   checksum: b1a41144b2e6875163df93dee54c446f2c086d7c8176febaca87ee2b4b177398de3e7b5297e0e70fb2d7ad835398b05c90bc218683daeeece5cef65f9a3a1202
@@ -9961,6 +9975,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"glob@npm:8.0.3, glob@npm:^8.0.1":
+  version: 8.0.3
+  resolution: "glob@npm:8.0.3"
+  dependencies:
+    fs.realpath: "npm:^1.0.0"
+    inflight: "npm:^1.0.4"
+    inherits: "npm:2"
+    minimatch: "npm:^5.0.1"
+    once: "npm:^1.3.0"
+  checksum: e629823aabf11611bfe7b3a2f4582a5e0898daaecba3263081d5d4a8fcc595d07aefb85c178e816f7bf1c07a09fd164dc80558b83e9e825555796929164404b1
+  languageName: node
+  linkType: hard
+
 "glob@npm:^7.0.0, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6, glob@npm:^7.2.0":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
@@ -9972,19 +9999,6 @@ __metadata:
     once: "npm:^1.3.0"
     path-is-absolute: "npm:^1.0.0"
   checksum: c55966a5db7ed2f30976a1490f3165f9d4e20ac7cabf01b55da4cc4f8f53a4c506e6f427e469c2fbf68636200871f3acf07e159ba6d9b65e7386216b98474a34
-  languageName: node
-  linkType: hard
-
-"glob@npm:^8.0.1":
-  version: 8.0.3
-  resolution: "glob@npm:8.0.3"
-  dependencies:
-    fs.realpath: "npm:^1.0.0"
-    inflight: "npm:^1.0.4"
-    inherits: "npm:2"
-    minimatch: "npm:^5.0.1"
-    once: "npm:^1.3.0"
-  checksum: e629823aabf11611bfe7b3a2f4582a5e0898daaecba3263081d5d4a8fcc595d07aefb85c178e816f7bf1c07a09fd164dc80558b83e9e825555796929164404b1
   languageName: node
   linkType: hard
 
@@ -12985,6 +12999,7 @@ __metadata:
     "@nrwl/nx-cloud": "npm:14.2.0"
     "@nrwl/workspace": "npm:14.4.2"
     "@nxrs/cargo": "npm:0.3.3"
+    "@prisma-utils/prismerge": "npm:1.6.2"
     "@prisma/client": "npm:4.0.0"
     "@rushstack/eslint-patch": "npm:1.1.4"
     "@types/jest": "npm:28.1.4"

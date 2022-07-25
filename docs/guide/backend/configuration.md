@@ -111,7 +111,7 @@ export class FeatureController {
 </CodeGroupItem>
 </CodeGroup>
 
-Additional configuration modules can be added by using `nx` to [generate a Nest library](nx.md) that implements this structure. The default configuration modules are described below.
+Additional configuration modules can be added by using `nx` to [generate a Nest library](./commands.md#generators) that implements this structure. The default configuration modules are described below.
 
 ## Application
 
