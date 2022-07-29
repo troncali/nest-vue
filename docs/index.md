@@ -2,12 +2,12 @@
 layout: home
 
 title: nest-vue
-titleTemplate: Full-stack monorepo template
+titleTemplate: Full-stack monorepo starter
 
 hero:
     name: nest-vue
     title: home
-    text: monorepo template
+    text: monorepo starter
     tagline: NGINX, Nest 9, and Vue 3. Container deployments. Replaceable frameworks.
     image: /images/hero.png
     actions:
@@ -27,7 +27,7 @@ features:
       details: Default frameworks include boilerplate plumbing but can be replaced or supplemented with Angular, Express, React, Rust, and more.
     - title: Data Agnostic
       details: Access data through Prisma, TypeORM, and GraphQL, with Postgres and Mongo setups included and others supported.
-    - title: Docker-ized
+    - title: Dockerized
       details: Apps, the database, and NGINX build into deployable containers for local development and production, with no-fuss SSL.
     - title: CI/CD Ready
       details: Blue-green deployment strategy for zero downtime, with yarn scripts for deployment consistency and base Jenkins pipeline.

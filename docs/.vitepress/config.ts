@@ -11,7 +11,7 @@ export default defineConfig({
 	// site config
 	lang: "en-US",
 	title: "nest-vue",
-	description: "Full-stack monorepo template.",
+	description: "Full-stack monorepo starter",
 
 	// theme and its config
 	themeConfig: {

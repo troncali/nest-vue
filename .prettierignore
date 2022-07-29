@@ -2,3 +2,5 @@
 /node_modules
 /dist
 docs/.vitepress/public/backend
+docs/.vitepress/public/frontend
+docs/index.md
